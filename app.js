@@ -1,14 +1,21 @@
+const TODAY = new Date();
+
 function createDayElement(dayNumber, date) {
     const day = document.createElement('div');
     day.className = 'day';
+    if (date.setHours(0,0,0,0) === TODAY.setHours(0,0,0,0)) {
+        day.classList.add('today');
+    }
 
     // Tooltip
     day.title = date.toDateString();
 
-    // Optional short label (e.g. 13 May)
     const label = document.createElement('div');
     label.className = 'day-label';
-    label.textContent = `${date.getDate()} ${date.toLocaleString('default', { month: 'short' })}`;
+    label.textContent = `${date.getDate()} ${date.toLocaleString('ru-RU', {
+        month: 'short',
+        year: 'numeric'
+    })}`;
     day.appendChild(label);
 
     return day;
@@ -22,8 +29,14 @@ function createGroup(label, className, children) {
     toggle.className = 'toggle-button';
     toggle.textContent = `▼ ${label}`;
     toggle.onclick = () => {
-        content.style.display = content.style.display === 'none' ? 'block' : 'none';
-        toggle.textContent = (content.style.display === 'none' ? '▶' : '▼') + ` ${label}`;
+        if (content.style.display === 'none') {
+            // When showing content, use the appropriate display type based on class
+            content.style.display = className === 'decada' ? 'grid' : 'block';
+            toggle.textContent = '▼ ' + label;
+        } else {
+            content.style.display = 'none';
+            toggle.textContent = '▶ ' + label;
+        }
     };
 
     const content = document.createElement('div');
@@ -42,7 +55,7 @@ function createGroup(label, className, children) {
 
 function generateCalendar(rootEl) {
     let dayCount = 1;
-    let currentDate = new Date('1996-03-01'); // or use a fixed date like new Date('2025-01-01')
+    let currentDate = new Date('2025-05-01');
 
     const hiliada = [];
 
@@ -61,7 +74,7 @@ function generateCalendar(rootEl) {
                     currentDate.setDate(currentDate.getDate() + 1);
                 }
 
-                decadas.push(createGroup(`Decada ${d + 1 + g * 10}`, 'decada', days));
+                decadas.push(createGroup(`Decada ${d + 1}`, 'decada', days));
             }
 
             gekatontadas.push(createGroup(`Gekatontada ${g + 1}`, 'gekatontada', decadas));
@@ -85,7 +98,7 @@ function initThemeSwitch() {
     }
 
     // Listen for toggle switch change
-    toggleSwitch.addEventListener('change', function() {
+    toggleSwitch.addEventListener('change', function () {
         if (this.checked) {
             document.documentElement.classList.add('dark-theme');
             localStorage.setItem('theme', 'dark');

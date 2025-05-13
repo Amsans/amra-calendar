@@ -2,6 +2,7 @@
     /* Light theme (default) */
     --bg-main: #f8f9fa;
     --bg-container: #ffffff;
+    --bg2-container: #d3d3d3;
     --bg-day: #f1f3f5;
     --bg-day-hover: #e9ecef;
 
@@ -25,6 +26,7 @@
     /* Dark theme */
     --bg-main: #1a1a2e;
     --bg-container: #16213e;
+    --bg2-container: #483d8b;
     --bg-day: #0f3460;
     --bg-day-hover: #1a4b8c;
 
@@ -177,6 +179,10 @@ input:checked + .slider:before {
     display: flex;
     align-items: center;
     justify-content: center;
+
+    &.today {
+        border: 2px solid darkred;
+    }
 }
 
 .day:hover {
@@ -198,7 +204,7 @@ input:checked + .slider:before {
     border: none;
     padding: 15px;
     margin: 15px 0;
-    background: var(--bg-container);
+    background: var(--bg2-container);
     border-radius: 10px;
     box-shadow: 0 3px 6px var(--shadow-md);
     transition: all var(--transition-speed) ease;
