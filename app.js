@@ -5,6 +5,12 @@ function createDayElement(dayNumber, date) {
     day.className = 'day';
     if (date.setHours(0,0,0,0) === TODAY.setHours(0,0,0,0)) {
         day.classList.add('today');
+
+        // Add today indicator (for screen readers)
+        const todayIndicator = document.createElement('span');
+        todayIndicator.className = 'sr-only';
+        todayIndicator.textContent = getTranslation('today');
+        day.appendChild(todayIndicator);
     }
 
     // Tooltip
@@ -12,7 +18,10 @@ function createDayElement(dayNumber, date) {
 
     const label = document.createElement('div');
     label.className = 'day-label';
-    label.textContent = `${date.getDate()} ${date.toLocaleString('ru-RU', {
+
+    // Use the current language locale for date formatting
+    const currentLocale = getTranslation('locale');
+    label.textContent = `${date.getDate()} ${date.toLocaleString(currentLocale, {
         month: 'short',
         year: 'numeric'
     })}`;
@@ -74,16 +83,37 @@ function generateCalendar(rootEl) {
                     currentDate.setDate(currentDate.getDate() + 1);
                 }
 
-                decadas.push(createGroup(`Decada ${d + 1}`, 'decada', days));
+                const decadaLabel = `${getTranslation('decada')} ${d + 1}`;
+                decadas.push(createGroup(decadaLabel, 'decada', days));
             }
 
-            gekatontadas.push(createGroup(`Gekatontada ${g + 1}`, 'gekatontada', decadas));
+            const gekatontadaLabel = `${getTranslation('gekatontada')} ${g + 1}`;
+            gekatontadas.push(createGroup(gekatontadaLabel, 'gekatontada', decadas));
         }
 
-        hiliada.push(createGroup(`Hiliada ${h + 1}`, 'hiliada', gekatontadas));
+        const hiliadaLabel = `${getTranslation('hiliada')} ${h + 1}`;
+        hiliada.push(createGroup(hiliadaLabel, 'hiliada', gekatontadas));
     }
 
     hiliada.forEach(h => rootEl.appendChild(h));
+}
+
+// Language selector functionality
+function initLanguageSelector() {
+    const languageSelect = document.querySelector('#language-select');
+    const currentLang = getCurrentLanguage();
+
+    // Set initial language
+    languageSelect.value = currentLang;
+    document.documentElement.setAttribute('lang', currentLang);
+
+    // Update page translations
+    updatePageTranslations();
+
+    // Listen for language changes
+    languageSelect.addEventListener('change', function() {
+        setLanguage(this.value);
+    });
 }
 
 // Theme switcher functionality
@@ -121,6 +151,9 @@ function initThemeSwitch() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Initialize language selector before generating calendar
+    initLanguageSelector();
+
     const root = document.getElementById('calendar-root');
     generateCalendar(root);
     initThemeSwitch();
