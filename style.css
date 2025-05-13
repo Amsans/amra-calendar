@@ -1,0 +1,271 @@
+:root {
+    /* Light theme (default) */
+    --bg-main: #f8f9fa;
+    --bg-container: #ffffff;
+    --bg-day: #f1f3f5;
+    --bg-day-hover: #e9ecef;
+
+    --text-main: #343a40;
+    --text-heading: #495057;
+    --text-toggle: #495057;
+    --text-toggle-hover: #228be6;
+
+    --shadow-sm: rgba(0, 0, 0, 0.05);
+    --shadow-md: rgba(0, 0, 0, 0.08);
+    --shadow-lg: rgba(0, 0, 0, 0.1);
+
+    --scrollbar-track: #f1f3f5;
+    --scrollbar-thumb: #dee2e6;
+    --scrollbar-thumb-hover: #adb5bd;
+
+    --transition-speed: 0.3s;
+}
+
+.dark-theme {
+    /* Dark theme */
+    --bg-main: #1a1a2e;
+    --bg-container: #16213e;
+    --bg-day: #0f3460;
+    --bg-day-hover: #1a4b8c;
+
+    --text-main: #e6e6e6;
+    --text-heading: #ffffff;
+    --text-toggle: #e6e6e6;
+    --text-toggle-hover: #4dabf7;
+
+    --shadow-sm: rgba(0, 0, 0, 0.2);
+    --shadow-md: rgba(0, 0, 0, 0.25);
+    --shadow-lg: rgba(0, 0, 0, 0.3);
+
+    --scrollbar-track: #16213e;
+    --scrollbar-thumb: #0f3460;
+    --scrollbar-thumb-hover: #1a4b8c;
+}
+
+body {
+    font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, 'Open Sans', sans-serif;
+    background: var(--bg-main);
+    padding: 20px;
+    color: var(--text-main);
+    line-height: 1.6;
+    max-width: 1200px;
+    margin: 0 auto;
+    transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+h1 {
+    color: var(--text-heading);
+    font-weight: 300;
+    font-size: 2.5rem;
+    transition: color var(--transition-speed) ease;
+    margin: 0;
+    flex: 1;
+    text-align: center;
+}
+
+/* Theme switch styles */
+.theme-switch-wrapper {
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
+}
+
+.theme-switch {
+    display: inline-block;
+    height: 34px;
+    position: relative;
+    width: 60px;
+}
+
+.theme-switch input {
+    display: none;
+}
+
+.slider {
+    background-color: var(--bg-day);
+    bottom: 0;
+    cursor: pointer;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transition: .4s;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 5px;
+}
+
+.slider:before {
+    background-color: var(--bg-container);
+    bottom: 4px;
+    content: "";
+    height: 26px;
+    left: 4px;
+    position: absolute;
+    transition: .4s;
+    width: 26px;
+    z-index: 1;
+}
+
+input:checked + .slider {
+    background-color: var(--bg-day-hover);
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+.sun, .moon {
+    font-size: 16px;
+    z-index: 0;
+}
+
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+    }
+
+    .theme-switch-wrapper {
+        margin: 15px 0 0 0;
+    }
+}
+
+.decada {
+    border: none;
+    padding: 10px;
+    margin: 8px 0;
+    background: var(--bg-container);
+    box-sizing: border-box;
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px var(--shadow-sm);
+    transition: all var(--transition-speed) ease;
+}
+
+.decada-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(0, 1fr)); /* 10 equal columns */
+    gap: 8px;
+    width: 100%;
+    padding: 5px 0;
+}
+
+.day {
+    aspect-ratio: 1 / 1; /* keeps square shape */
+    background-color: var(--bg-day);
+    border-radius: 6px;
+    width: 100%;
+    box-shadow: 0 1px 3px var(--shadow-lg);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color var(--transition-speed) ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.day:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px var(--shadow-lg);
+    background-color: var(--bg-day-hover);
+}
+
+.day-label {
+    font-size: 11px;
+    text-align: center;
+    color: var(--text-heading);
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    transition: color var(--transition-speed) ease;
+}
+
+.gekatontada {
+    border: none;
+    padding: 15px;
+    margin: 15px 0;
+    background: var(--bg-container);
+    border-radius: 10px;
+    box-shadow: 0 3px 6px var(--shadow-md);
+    transition: all var(--transition-speed) ease;
+}
+
+.hiliada {
+    border: none;
+    padding: 20px;
+    margin: 20px 0;
+    background: var(--bg-container);
+    border-radius: 12px;
+    box-shadow: 0 5px 15px var(--shadow-sm);
+    transition: all var(--transition-speed) ease;
+}
+
+.toggle-button {
+    cursor: pointer;
+    font-weight: 500;
+    margin-bottom: 10px;
+    display: block;
+    color: var(--text-toggle);
+    padding: 5px 0;
+    transition: color var(--transition-speed) ease;
+}
+
+.toggle-button:hover {
+    color: var(--text-toggle-hover);
+}
+
+/* Additional responsive styles */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
+    .hiliada {
+        padding: 15px;
+        margin: 15px 0;
+    }
+
+    .gekatontada {
+        padding: 12px;
+        margin: 12px 0;
+    }
+
+    .decada {
+        padding: 8px;
+        margin: 6px 0;
+    }
+}
+
+/* Modern scrollbar styling */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--scrollbar-track);
+    transition: background-color var(--transition-speed) ease;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb);
+    border-radius: 4px;
+    transition: background-color var(--transition-speed) ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--scrollbar-thumb-hover);
+}
