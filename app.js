@@ -3,10 +3,15 @@ const TODAY = new Date();
 function createDayElement(dayNumber, date) {
     const day = document.createElement('div');
     day.className = 'day';
-    if (date.setHours(0,0,0,0) === TODAY.setHours(0,0,0,0)) {
+
+    // Normalize dates for comparison without modifying the original dates
+    const dateNormalised = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+    const todayNormalised = new Date(TODAY.getFullYear(), TODAY.getMonth(), TODAY.getDate());
+
+    if (dateNormalised.getTime() === todayNormalised.getTime()) {
         day.classList.add('today');
 
-        // Add today indicator (for screen readers)
+        // Add the 'today' indicator (for screen readers)
         const todayIndicator = document.createElement('span');
         todayIndicator.className = 'sr-only';
         todayIndicator.textContent = getTranslation('today');
@@ -30,13 +35,31 @@ function createDayElement(dayNumber, date) {
     return day;
 }
 
-function createGroup(label, className, children) {
+function createGroup(label, className, children, containsToday = false) {
     const container = document.createElement('div');
     container.className = className;
 
     const toggle = document.createElement('span');
     toggle.className = 'toggle-button';
-    toggle.textContent = `▼ ${label}`;
+
+    const content = document.createElement('div');
+
+    // For decada, apply special grid layout
+    if (className === 'decada') {
+        content.className = 'decada-content';
+    }
+
+    // Set default state: collapsed (unless it contains today)
+    if (containsToday) {
+        content.style.display = className === 'decada' ? 'grid' : 'block';
+        toggle.textContent = `▼ ${label}`;
+        // Mark this container as containing today for parent reference
+        container.dataset.containsToday = 'true';
+    } else {
+        content.style.display = 'none';
+        toggle.textContent = `▶ ${label}`;
+    }
+
     toggle.onclick = () => {
         if (content.style.display === 'none') {
             // When showing content, use the appropriate display type based on class
@@ -48,13 +71,6 @@ function createGroup(label, className, children) {
         }
     };
 
-    const content = document.createElement('div');
-
-    // For decada, apply special grid layout
-    if (className === 'decada') {
-        content.className = 'decada-content';
-    }
-
     children.forEach(child => content.appendChild(child));
 
     container.appendChild(toggle);
@@ -64,9 +80,19 @@ function createGroup(label, className, children) {
 
 function generateCalendar(rootEl) {
     let dayCount = 1;
-    let currentDate = new Date('2025-05-01');
+    let currentDate = new Date();
+    // Start from the date 1.5 hiliada ago
+    currentDate.setDate(currentDate.getDate() - 1500)
 
     const hiliada = [];
+    const todayDate = new Date();
+    // Set hours, minutes, seconds, and milliseconds to 0 for date comparison
+    const todayDateNormalized = new Date(todayDate.getFullYear(), todayDate.getMonth(), todayDate.getDate());
+
+    // Track which containers contain today
+    let todayHiliadaIndex = -1;
+    let todayGekatontadaIndex = -1;
+    let todayDecadaIndex = -1;
 
     for (let h = 0; h < 3; h++) {
         const gekatontadas = [];
@@ -76,23 +102,36 @@ function generateCalendar(rootEl) {
 
             for (let d = 0; d < 10; d++) {
                 const days = [];
+                let decadaContainsToday = false;
 
                 for (let i = 0; i < 10; i++) {
                     const dateCopy = new Date(currentDate); // avoid mutation
+
+                    // Check if this day is today
+                    const dateNormalized = new Date(dateCopy.getFullYear(), dateCopy.getMonth(), dateCopy.getDate());
+                    if (dateNormalized.getTime() === todayDateNormalized.getTime()) {
+                        decadaContainsToday = true;
+                        todayHiliadaIndex = h;
+                        todayGekatontadaIndex = g;
+                        todayDecadaIndex = d;
+                    }
+
                     days.push(createDayElement(dayCount++, dateCopy));
                     currentDate.setDate(currentDate.getDate() + 1);
                 }
 
                 const decadaLabel = `${getTranslation('decada')} ${d + 1}`;
-                decadas.push(createGroup(decadaLabel, 'decada', days));
+                decadas.push(createGroup(decadaLabel, 'decada', days, decadaContainsToday));
             }
 
             const gekatontadaLabel = `${getTranslation('gekatontada')} ${g + 1}`;
-            gekatontadas.push(createGroup(gekatontadaLabel, 'gekatontada', decadas));
+            const gekatontadaContainsToday = (h === todayHiliadaIndex && g === todayGekatontadaIndex);
+            gekatontadas.push(createGroup(gekatontadaLabel, 'gekatontada', decadas, gekatontadaContainsToday));
         }
 
         const hiliadaLabel = `${getTranslation('hiliada')} ${h + 1}`;
-        hiliada.push(createGroup(hiliadaLabel, 'hiliada', gekatontadas));
+        const hiliadaContainsToday = (h === todayHiliadaIndex);
+        hiliada.push(createGroup(hiliadaLabel, 'hiliada', gekatontadas, hiliadaContainsToday));
     }
 
     hiliada.forEach(h => rootEl.appendChild(h));
