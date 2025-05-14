@@ -21,16 +21,31 @@ function createDayElement(dayNumber, date) {
     // Tooltip
     day.title = date.toDateString();
 
-    const label = document.createElement('div');
-    label.className = 'day-label';
+    const tutLabel = document.createElement('div');
+    tutLabel.className = 'day-label';
 
+    tutLabel.textContent = convertToTUT(date);
     // Use the current language locale for date formatting
     const currentLocale = getTranslation('locale');
-    label.textContent = `${date.getDate()} ${date.toLocaleString(currentLocale, {
-        month: 'short',
-        year: 'numeric'
+    let weekday = date.toLocaleString(currentLocale, { weekday: 'long' });
+    let dateString = `${date.toLocaleString(currentLocale, {
+        day: '2-digit',
+        month: '2-digit',
+        year: '2-digit'
     })}`;
-    day.appendChild(label);
+    if (dateString.endsWith(' г.')) {
+        dateString = dateString.slice(0, -3);
+    }
+    const weekdayLabel = document.createElement('div');
+
+    weekdayLabel.textContent = weekday;
+    tutLabel.appendChild(weekdayLabel);
+
+    const dateLabel = document.createElement('div');
+    dateLabel.textContent = dateString;
+    tutLabel.appendChild(dateLabel);
+
+    day.appendChild(tutLabel);
 
     return day;
 }
