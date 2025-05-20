@@ -94,62 +94,305 @@ function createGroup(label, className, children, containsToday = false) {
 }
 
 function generateCalendar(rootEl) {
-    let dayCount = 1;
-    let currentDate = new Date();
-    // Start from the date 1.5 hiliada ago
-    currentDate.setDate(currentDate.getDate() - 1500)
+    // Clear the root element
+    rootEl.innerHTML = '';
 
-    const hiliada = [];
-    const todayDate = new Date();
-    // Set hours, minutes, seconds, and milliseconds to 0 for date comparison
-    const todayDateNormalized = new Date(todayDate.getFullYear(), todayDate.getMonth(), todayDate.getDate());
+    // Create the calendar container
+    const calendarContainer = document.createElement('div');
+    calendarContainer.className = 'calendar-container';
 
-    // Track which containers contain today
-    let todayHiliadaIndex = -1;
-    let todayGekatontadaIndex = -1;
-    let todayDecadaIndex = -1;
+    // Create navigation controls
+    const navigationControls = document.createElement('div');
+    navigationControls.className = 'calendar-navigation';
 
-    for (let h = 0; h < 3; h++) {
-        const gekatontadas = [];
+    // Add hiliada selector
+    const hiliadaSelector = createSelector('hiliada-selector', getTranslation('hiliada'));
 
-        for (let g = 0; g < 10; g++) {
-            const decadas = [];
+    // Add gekatontada selector
+    const gekatontadaSelector = createSelector('gekatontada-selector', getTranslation('gekatontada'));
 
-            for (let d = 0; d < 10; d++) {
-                const days = [];
-                let decadaContainsToday = false;
+    // Add the selectors to navigation controls
+    navigationControls.appendChild(hiliadaSelector);
+    navigationControls.appendChild(gekatontadaSelector);
 
-                for (let i = 0; i < 10; i++) {
-                    const dateCopy = new Date(currentDate); // avoid mutation
+    // Add navigation controls to the calendar container
+    calendarContainer.appendChild(navigationControls);
 
-                    // Check if this day is today
-                    const dateNormalized = new Date(dateCopy.getFullYear(), dateCopy.getMonth(), dateCopy.getDate());
-                    if (dateNormalized.getTime() === todayDateNormalized.getTime()) {
-                        decadaContainsToday = true;
-                        todayHiliadaIndex = h;
-                        todayGekatontadaIndex = g;
-                        todayDecadaIndex = d;
-                    }
+    // Create decadas grid
+    const decadasGrid = document.createElement('div');
+    decadasGrid.className = 'decadas-grid';
+    calendarContainer.appendChild(decadasGrid);
 
-                    days.push(createDayElement(dayCount++, dateCopy));
-                    currentDate.setDate(currentDate.getDate() + 1);
-                }
+    // Add the calendar container to the root element
+    rootEl.appendChild(calendarContainer);
 
-                const decadaLabel = `${getTranslation('decada')} ${d + 1}`;
-                decadas.push(createGroup(decadaLabel, 'decada', days, decadaContainsToday));
-            }
+    // Initialize the calendar with the TUT foundation date
+    initializeCalendar();
+}
 
-            const gekatontadaLabel = `${getTranslation('gekatontada')} ${g + 1}`;
-            const gekatontadaContainsToday = (h === todayHiliadaIndex && g === todayGekatontadaIndex);
-            gekatontadas.push(createGroup(gekatontadaLabel, 'gekatontada', decadas, gekatontadaContainsToday));
+// Helper function to create a selector
+function createSelector(id, labelText) {
+    const selectorContainer = document.createElement('div');
+    selectorContainer.className = 'selector-container';
+
+    const label = document.createElement('label');
+    label.textContent = labelText;
+    label.htmlFor = id;
+
+    const select = document.createElement('select');
+    select.id = id;
+    select.setAttribute('aria-label', labelText);
+
+    selectorContainer.appendChild(label);
+    selectorContainer.appendChild(select);
+
+    return selectorContainer;
+}
+
+// Initialize the calendar with the TUT foundation date
+function initializeCalendar() {
+    // Start from TUT foundation date (March 1, 1996)
+    const startDate = new Date(TUT_FOUNDATION_DATE);
+
+    // Calculate current hiliada, gekatontada, and decada
+    const today = new Date();
+    const daysSinceStart = Math.floor((today - startDate) / ONE_DAY);
+
+    // Calculate hiliada, gekatontada, decada based on days since start
+    // Each decada has 10 days
+    // Each gekatontada has 10 decadas (100 days)
+    // Each hiliada has 10 gekatontadas (1000 days)
+    const currentHiliada = Math.floor(daysSinceStart / 1000) + 1;
+    const currentGekatontada = Math.floor((daysSinceStart % 1000) / 100) + 1;
+    const currentDecada = Math.floor((daysSinceStart % 100) / 10) + 1;
+
+    // Populate hiliada selector (show a reasonable range, e.g., 20 hiliadas)
+    populateSelector('hiliada-selector', 1, 20, currentHiliada);
+
+    // Populate gekatontada selector (1-10)
+    populateSelector('gekatontada-selector', 1, 10, currentGekatontada);
+
+    // Display decadas for the current gekatontada
+    displayDecadas(currentHiliada, currentGekatontada, currentDecada);
+
+    // Add event listeners to selectors
+    document.getElementById('hiliada-selector').addEventListener('change', handleSelectorChange);
+    document.getElementById('gekatontada-selector').addEventListener('change', handleSelectorChange);
+
+    // Display today's date information
+    const currentDecadaDate = calculateDecadaDate(currentHiliada, currentGekatontada, currentDecada);
+    displaySelectedDate(currentDecadaDate);
+
+    // Add a title to the calendar
+    addCalendarTitle();
+}
+
+// Populate a selector with options
+function populateSelector(selectorId, start, end, selected) {
+    const selector = document.getElementById(selectorId);
+    selector.innerHTML = '';
+
+    for (let i = start; i <= end; i++) {
+        const option = document.createElement('option');
+        option.value = i;
+        option.textContent = i;
+        if (i === selected) {
+            option.selected = true;
+        }
+        selector.appendChild(option);
+    }
+}
+
+// Display decadas for the selected hiliada and gekatontada
+function displayDecadas(hiliada, gekatontada, selectedDecada) {
+    const decadasGrid = document.querySelector('.decadas-grid');
+    decadasGrid.innerHTML = '';
+
+    // Create 10 decadas (1-10)
+    for (let d = 1; d <= 10; d++) {
+        const decada = document.createElement('div');
+        decada.className = 'decada-item';
+        if (d === selectedDecada) {
+            decada.classList.add('selected');
         }
 
-        const hiliadaLabel = `${getTranslation('hiliada')} ${h + 1}`;
-        const hiliadaContainsToday = (h === todayHiliadaIndex);
-        hiliada.push(createGroup(hiliadaLabel, 'hiliada', gekatontadas, hiliadaContainsToday));
+        // Create decada header
+        const decadaHeader = document.createElement('div');
+        decadaHeader.className = 'decada-header';
+
+        // Calculate the date for this decada
+        const decadaDate = calculateDecadaDate(hiliada, gekatontada, d);
+
+        // Create decada label (only showing the decada number)
+        const decadaLabel = document.createElement('div');
+        decadaLabel.className = 'decada-label';
+        decadaLabel.textContent = d;
+
+        // Add header elements
+        decadaHeader.appendChild(decadaLabel);
+        decada.appendChild(decadaHeader);
+
+        // Create days grid for this decada
+        const daysGrid = document.createElement('div');
+        daysGrid.className = 'days-grid';
+
+        // Create 10 days for this decada
+        for (let day = 1; day <= 10; day++) {
+            // Calculate the date for this specific day
+            const dayDate = calculateDayDate(hiliada, gekatontada, d, day);
+
+            // Create day element
+            const dayElement = document.createElement('div');
+            dayElement.className = 'day-block';
+
+            // Check if this day is today
+            const today = new Date();
+            const todayNormalized = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+            const dayNormalized = new Date(dayDate.getFullYear(), dayDate.getMonth(), dayDate.getDate());
+
+            if (dayNormalized.getTime() === todayNormalized.getTime()) {
+                dayElement.classList.add('today');
+            }
+
+            // Add date display
+            const dateDisplay = document.createElement('div');
+            dateDisplay.className = 'day-date';
+            // Format date as DD/MM
+            dateDisplay.textContent = dayDate.toLocaleDateString(getTranslation('locale'), {
+                day: '2-digit',
+                month: '2-digit',
+                year: '2-digit'
+            });
+            dayElement.appendChild(dateDisplay);
+
+            // Add TUT date display
+            const tutDateDisplay = document.createElement('div');
+            tutDateDisplay.className = 'day-tut-date';
+            tutDateDisplay.textContent = convertToTUT(dayDate);
+            dayElement.appendChild(tutDateDisplay);
+
+            // Keep tooltip for accessibility
+            dayElement.title = `${dayDate.toLocaleDateString()} - ${convertToTUT(dayDate)}`;
+
+            // Add click event to select this day
+            dayElement.addEventListener('click', () => {
+                // Remove selected class from all days
+                document.querySelectorAll('.day-block').forEach(item => {
+                    item.classList.remove('selected');
+                });
+
+                // Add selected class to this day
+                dayElement.classList.add('selected');
+
+                // Display selected date information
+                displaySelectedDate(dayDate);
+            });
+
+            daysGrid.appendChild(dayElement);
+        }
+
+        decada.appendChild(daysGrid);
+
+        // Add click event to select this decada
+        decadaHeader.addEventListener('click', () => {
+            // Remove selected class from all decadas
+            document.querySelectorAll('.decada-item').forEach(item => {
+                item.classList.remove('selected');
+            });
+
+            // Add selected class to this decada
+            decada.classList.add('selected');
+
+            // Display selected date information
+            displaySelectedDate(decadaDate);
+        });
+
+        decadasGrid.appendChild(decada);
+    }
+}
+
+// Display selected date information
+function displaySelectedDate(date) {
+    // Check if the selected date info container exists, if not create it
+    let selectedDateInfo = document.querySelector('.selected-date-info');
+
+    if (!selectedDateInfo) {
+        selectedDateInfo = document.createElement('div');
+        selectedDateInfo.className = 'selected-date-info';
+        document.querySelector('.calendar-container').appendChild(selectedDateInfo);
     }
 
-    hiliada.forEach(h => rootEl.appendChild(h));
+    // Format the date in different formats
+    const commonFormat = date.toLocaleDateString(getTranslation('locale'), { 
+        weekday: 'long', 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric' 
+    });
+
+    const tutFormat = convertToTUT(date);
+
+    // Update the content
+    selectedDateInfo.innerHTML = `
+        <div class="selected-date-common">${commonFormat}</div>
+        <div class="selected-date-tut">${tutFormat}</div>
+    `;
+}
+
+// Calculate the date for a specific decada
+function calculateDecadaDate(hiliada, gekatontada, decada) {
+    // Calculate days since TUT foundation date
+    const daysSinceStart = (hiliada - 1) * 1000 + (gekatontada - 1) * 100 + (decada - 1) * 10;
+
+    // Create a new date by adding days to the foundation date
+    const decadaDate = new Date(TUT_FOUNDATION_DATE);
+    decadaDate.setDate(decadaDate.getDate() + daysSinceStart);
+
+    return decadaDate;
+}
+
+// Calculate the date for a specific day within a decada
+function calculateDayDate(hiliada, gekatontada, decada, day) {
+    // Calculate days since TUT foundation date
+    const daysSinceStart = (hiliada - 1) * 1000 + (gekatontada - 1) * 100 + (decada - 1) * 10 + (day - 1);
+
+    // Create a new date by adding days to the foundation date
+    const dayDate = new Date(TUT_FOUNDATION_DATE);
+    dayDate.setDate(dayDate.getDate() + daysSinceStart);
+
+    return dayDate;
+}
+
+// Format the decada date for display
+function formatDecadaDate(date) {
+    // Format as "Month Year" (e.g., "March 1996")
+    return date.toLocaleDateString(getTranslation('locale'), { month: 'long', year: 'numeric' });
+}
+
+// Handle selector change events
+function handleSelectorChange() {
+    const hiliada = parseInt(document.getElementById('hiliada-selector').value);
+    const gekatontada = parseInt(document.getElementById('gekatontada-selector').value);
+
+    // Default to decada 1 when changing hiliada or gekatontada
+    displayDecadas(hiliada, gekatontada, 1);
+
+    // Update the selected date information for the first decada
+    const decadaDate = calculateDecadaDate(hiliada, gekatontada, 1);
+    displaySelectedDate(decadaDate);
+}
+
+// Add a title to the calendar
+function addCalendarTitle() {
+    const calendarContainer = document.querySelector('.calendar-container');
+
+    // Create title element
+    const titleElement = document.createElement('div');
+    titleElement.className = 'calendar-title';
+    titleElement.textContent = getTranslation('title');
+
+    // Insert at the beginning of the container
+    calendarContainer.insertBefore(titleElement, calendarContainer.firstChild);
 }
 
 // Language selector functionality

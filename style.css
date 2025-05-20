@@ -269,6 +269,191 @@ input:checked + .slider:before {
     color: var(--text-toggle-hover);
 }
 
+/* Calendar UI styles */
+.calendar-container {
+    background-color: var(--bg-container);
+    border-radius: 8px;
+    box-shadow: 0 2px 10px var(--shadow-md);
+    max-width: 500px;
+    margin: 0 auto;
+    overflow: hidden;
+    transition: all var(--transition-speed) ease;
+}
+
+.calendar-title {
+    padding: 15px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--text-heading);
+    background-color: var(--bg-container);
+    border-bottom: 1px solid var(--shadow-sm);
+}
+
+.calendar-navigation {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px;
+    background-color: var(--bg2-container);
+    border-bottom: 1px solid var(--shadow-sm);
+}
+
+.selector-container {
+    display: flex;
+    flex-direction: column;
+    width: 48%;
+}
+
+.selector-container label {
+    font-size: 12px;
+    margin-bottom: 4px;
+    color: var(--text-heading);
+    font-weight: 500;
+}
+
+.selector-container select {
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid var(--bg-day);
+    background-color: var(--bg-container);
+    color: var(--text-main);
+    font-size: 14px;
+    cursor: pointer;
+    transition: all var(--transition-speed) ease;
+    width: 100%;
+}
+
+.selector-container select:hover {
+    border-color: var(--text-toggle-hover);
+}
+
+.selector-container select:focus {
+    outline: none;
+    border-color: var(--text-toggle-hover);
+    box-shadow: 0 0 0 2px rgba(34, 139, 230, 0.3);
+}
+
+.decadas-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 16px;
+    padding: 12px;
+}
+
+.decada-item {
+    background-color: var(--bg-day);
+    border-radius: 8px;
+    padding: 10px;
+    transition: all 0.2s ease;
+    text-align: center;
+    box-shadow: 0 2px 4px var(--shadow-sm);
+}
+
+.decada-item:hover {
+    box-shadow: 0 4px 8px var(--shadow-md);
+}
+
+.decada-item.selected {
+    border: 2px solid var(--text-toggle-hover);
+}
+
+.decada-header {
+    cursor: pointer;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--shadow-sm);
+    margin-bottom: 10px;
+}
+
+.decada-label {
+    font-weight: 700;
+    font-size: 24px;
+    color: var(--text-heading);
+    text-align: center;
+}
+
+.decada-date {
+    font-size: 12px;
+    opacity: 0.8;
+}
+
+.tut-date {
+    font-size: 11px;
+    color: var(--text-toggle-hover);
+    margin-top: 4px;
+    font-weight: 500;
+}
+
+.days-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+    padding: 5px 0;
+}
+
+.day-block {
+    background-color: var(--bg-container);
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 3px var(--shadow-sm);
+    padding: 6px 4px;
+}
+
+.day-block:hover {
+    background-color: var(--bg-day-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px var(--shadow-md);
+}
+
+.day-block.selected {
+    background-color: var(--text-toggle-hover);
+    color: white;
+}
+
+.day-block.today {
+    border: 2px solid darkred;
+}
+
+.day-date {
+    font-size: 12px;
+    font-weight: 500;
+    margin-bottom: 2px;
+}
+
+.day-tut-date {
+    font-size: 10px;
+    color: var(--text-toggle-hover);
+    font-weight: 400;
+}
+
+/* When day-block is selected, change the color of the TUT date */
+.day-block.selected .day-tut-date {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.selected-date-info {
+    background-color: var(--bg2-container);
+    padding: 12px;
+    text-align: center;
+    border-top: 1px solid var(--shadow-sm);
+}
+
+.selected-date-common {
+    font-size: 14px;
+    margin-bottom: 4px;
+    color: var(--text-heading);
+}
+
+.selected-date-tut {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--text-toggle-hover);
+}
+
 /* Additional responsive styles */
 @media (max-width: 768px) {
     body {
@@ -288,6 +473,63 @@ input:checked + .slider:before {
     .decada {
         padding: 8px;
         margin: 6px 0;
+    }
+
+    .calendar-container {
+        max-width: 100%;
+    }
+
+    .days-grid {
+        grid-template-columns: repeat(5, 1fr);
+        gap: 5px;
+    }
+
+    .decada-label {
+        font-size: 20px;
+    }
+
+    .day-date {
+        font-size: 11px;
+    }
+
+    .day-tut-date {
+        font-size: 9px;
+    }
+
+    .day-block {
+        padding: 4px 2px;
+    }
+}
+
+@media (max-width: 480px) {
+    .days-grid {
+        grid-template-columns: repeat(5, 1fr);
+        gap: 3px;
+    }
+
+    .day-block {
+        padding: 2px 1px;
+    }
+
+    .day-date {
+        font-size: 9px;
+    }
+
+    .day-tut-date {
+        font-size: 8px;
+    }
+
+    .decada-item {
+        padding: 8px 5px;
+    }
+
+    .decada-header {
+        padding-bottom: 5px;
+        margin-bottom: 5px;
+    }
+
+    .decada-label {
+        font-size: 18px;
     }
 }
 
