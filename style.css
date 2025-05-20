@@ -311,15 +311,17 @@ input:checked + .slider:before {
 
 .selector-container {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    align-items: center;
     width: 48%;
 }
 
 .selector-container label {
     font-size: 12px;
-    margin-bottom: 4px;
+    margin-right: 10px;
     color: var(--text-heading);
     font-weight: 500;
+    min-width: 80px;
 }
 
 .selector-container select {
@@ -331,7 +333,7 @@ input:checked + .slider:before {
     font-size: 14px;
     cursor: pointer;
     transition: all var(--transition-speed) ease;
-    width: 100%;
+    flex: 1;
 }
 
 .selector-container select:hover {
@@ -570,6 +572,21 @@ input:checked + .slider:before {
     .decada-label {
         width: 100%;
         justify-content: flex-start;
+    }
+
+    .selector-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .selector-container label {
+        margin-right: 0;
+        margin-bottom: 4px;
+        width: 100%;
+    }
+
+    .selector-container select {
+        width: 100%;
     }
 }
 
