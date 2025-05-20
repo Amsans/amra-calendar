@@ -59,7 +59,7 @@
 body {
     font-family: 'Inter', 'Segoe UI', Roboto, Oxygen, Ubuntu, 'Open Sans', sans-serif;
     background: var(--bg-main);
-    padding: 10px;
+    padding: 3px 5px 0 5px;
     color: var(--text-main);
     line-height: 1.6;
     max-width: 100%;
@@ -100,7 +100,6 @@ h1 {
 }
 
 .language-selector select {
-    padding: 8px 12px;
     border-radius: var(--border-radius-sm);
     border: 1px solid var(--border-color);
     background-color: var(--bg-container);
@@ -113,7 +112,7 @@ h1 {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%234a5568' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right 8px center;
-    padding-right: 32px;
+    padding: 8px 32px 8px 12px;
 }
 
 .language-selector select:hover {
@@ -327,7 +326,8 @@ input:not(:checked) + .slider .sun {
     border: 1px solid var(--border-color);
     display: flex;
     flex-direction: column;
-    height: 90vh; /* Set a fixed height for the container */
+    height: 99vh; /* Set a fixed height for the container */
+    position: relative; /* Add position relative for absolute positioning of children */
 }
 
 .calendar-title {
@@ -374,7 +374,6 @@ input:not(:checked) + .slider .sun {
 }
 
 .selector-container select {
-    padding: 10px 12px;
     border-radius: var(--border-radius-sm);
     border: 1px solid var(--border-color);
     background-color: var(--bg-container);
@@ -388,7 +387,7 @@ input:not(:checked) + .slider .sun {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%234a5568' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right 8px center;
-    padding-right: 32px;
+    padding: 10px 32px 10px 12px;
 }
 
 .selector-container select:hover {
@@ -406,7 +405,8 @@ input:not(:checked) + .slider .sun {
     display: grid;
     grid-template-columns: repeat(1, 1fr);
     gap: 4px;
-    padding: 12px;
+    /* Add extra padding at the bottom to account for selected-date-info */
+    padding: 12px 12px 100px;
     overflow-y: auto; /* Make this the only scrollable area */
     flex: 1; /* Take up remaining space */
 }
@@ -535,8 +535,13 @@ input:not(:checked) + .slider .sun {
     padding: 16px;
     text-align: center;
     border-top: 1px solid var(--border-color);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    flex-shrink: 0; /* Prevent shrinking */
+    box-shadow: 0 -2px 10px var(--shadow-md);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 10; /* Ensure it's above other elements */
+    width: 100%;
 }
 
 .selected-date-common {
