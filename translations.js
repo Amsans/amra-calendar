@@ -2,7 +2,7 @@
 const translations = {
     en: {
         // UI elements
-        title: 'Hiliada Calendar',
+        title: 'Calendar of the Teaching of the United Temple',
         darkMode: 'Toggle dark mode',
         // Calendar structure
         hiliada: 'Hiliada',
@@ -14,7 +14,7 @@ const translations = {
     },
     ru: {
         // UI elements
-        title: 'Календарь Хилиада',
+        title: 'Календарь Учения Единого Храма',
         darkMode: 'Переключить темный режим',
         // Calendar structure
         hiliada: 'Хилиада',

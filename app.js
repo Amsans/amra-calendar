@@ -1,98 +1,6 @@
-const TODAY = new Date();
-
-function createDayElement(dayNumber, date) {
-    const day = document.createElement('div');
-    day.className = 'day';
-
-    // Normalize dates for comparison without modifying the original dates
-    const dateNormalised = new Date(date.getFullYear(), date.getMonth(), date.getDate());
-    const todayNormalised = new Date(TODAY.getFullYear(), TODAY.getMonth(), TODAY.getDate());
-
-    if (dateNormalised.getTime() === todayNormalised.getTime()) {
-        day.classList.add('today');
-
-        // Add the 'today' indicator (for screen readers)
-        const todayIndicator = document.createElement('span');
-        todayIndicator.className = 'sr-only';
-        todayIndicator.textContent = getTranslation('today');
-        day.appendChild(todayIndicator);
-    }
-
-    // Tooltip
-    day.title = date.toDateString();
-
-    const tutLabel = document.createElement('div');
-    tutLabel.className = 'day-label';
-
-    tutLabel.textContent = convertToTUT(date);
-    // Use the current language locale for date formatting
-    const currentLocale = getTranslation('locale');
-    let weekday = date.toLocaleString(currentLocale, { weekday: 'long' });
-    let dateString = `${date.toLocaleString(currentLocale, {
-        day: '2-digit',
-        month: '2-digit',
-        year: '2-digit'
-    })}`;
-    if (dateString.endsWith(' г.')) {
-        dateString = dateString.slice(0, -3);
-    }
-    const weekdayLabel = document.createElement('div');
-
-    weekdayLabel.textContent = weekday;
-    tutLabel.appendChild(weekdayLabel);
-
-    const dateLabel = document.createElement('div');
-    dateLabel.textContent = dateString;
-    tutLabel.appendChild(dateLabel);
-
-    day.appendChild(tutLabel);
-
-    return day;
-}
-
-function createGroup(label, className, children, containsToday = false) {
-    const container = document.createElement('div');
-    container.className = className;
-
-    const toggle = document.createElement('span');
-    toggle.className = 'toggle-button';
-
-    const content = document.createElement('div');
-
-    // For decada, apply special grid layout
-    if (className === 'decada') {
-        content.className = 'decada-content';
-    }
-
-    // Set default state: collapsed (unless it contains today)
-    if (containsToday) {
-        content.style.display = className === 'decada' ? 'grid' : 'block';
-        toggle.textContent = `▼ ${label}`;
-        // Mark this container as containing today for parent reference
-        container.dataset.containsToday = 'true';
-    } else {
-        content.style.display = 'none';
-        toggle.textContent = `▶ ${label}`;
-    }
-
-    toggle.onclick = () => {
-        if (content.style.display === 'none') {
-            // When showing content, use the appropriate display type based on class
-            content.style.display = className === 'decada' ? 'grid' : 'block';
-            toggle.textContent = '▼ ' + label;
-        } else {
-            content.style.display = 'none';
-            toggle.textContent = '▶ ' + label;
-        }
-    };
-
-    children.forEach(child => content.appendChild(child));
-
-    container.appendChild(toggle);
-    container.appendChild(content);
-    return container;
-}
-
+/*
+    All the generating logic of the TUT calendar goes here
+*/
 function generateCalendar(rootEl) {
     // Clear the root element
     rootEl.innerHTML = '';
@@ -180,7 +88,6 @@ function initializeCalendar() {
     document.getElementById('gekatontada-selector').addEventListener('change', handleSelectorChange);
 
     // Display today's date information
-    const currentDecadaDate = calculateDecadaDate(currentHiliada, currentGekatontada, currentDecada);
     displaySelectedDate(today);
 
     // Add a title to the calendar
@@ -324,11 +231,11 @@ function displaySelectedDate(date) {
     }
 
     // Format the date in different formats
-    const commonFormat = date.toLocaleDateString(getTranslation('locale'), { 
-        weekday: 'long', 
-        year: 'numeric', 
+    const commonFormat = date.toLocaleDateString(getTranslation('locale'), {
+        weekday: 'long',
+        year: 'numeric',
         month: 'long',
-        day: 'numeric' 
+        day: 'numeric'
     });
 
     const tutFormat = convertToTUT(date);
@@ -362,12 +269,6 @@ function calculateDayDate(hiliada, gekatontada, decada, day) {
     dayDate.setDate(dayDate.getDate() + daysSinceStart);
 
     return dayDate;
-}
-
-// Format the decada date for display
-function formatDecadaDate(date) {
-    // Format as "Month Year" (e.g., "March 1996")
-    return date.toLocaleDateString(getTranslation('locale'), { month: 'long', year: 'numeric' });
 }
 
 // Handle selector change events
@@ -419,7 +320,7 @@ function initLanguageSelector() {
     updatePageTranslations();
 
     // Listen for language changes
-    languageSelect.addEventListener('change', function() {
+    languageSelect.addEventListener('change', function () {
         setLanguage(this.value);
     });
 }
