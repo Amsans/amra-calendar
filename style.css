@@ -356,7 +356,8 @@ input:checked + .slider:before {
     border-radius: 8px;
     padding: 6px;
     transition: all 0.2s ease;
-    text-align: center;
+    display: flex;
+    align-items: center;
     box-shadow: 0 2px 4px var(--shadow-sm);
 }
 
@@ -370,16 +371,20 @@ input:checked + .slider:before {
 
 .decada-header {
     cursor: pointer;
-    padding-bottom: 1px;
-    border-bottom: 1px solid var(--shadow-sm);
-    margin-bottom: 1px;
+    padding-right: 1px;
+    border-right: 1px solid var(--shadow-sm);
+    margin-right: 10px;
+    min-width: 40px;
 }
 
 .decada-label {
     font-weight: 700;
     font-size: 24px;
     color: var(--text-heading);
-    text-align: center;
+    text-align: right;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .decada-date {
@@ -399,6 +404,7 @@ input:checked + .slider:before {
     grid-template-columns: repeat(10, 1fr);
     gap: 8px;
     padding: 5px 0;
+    flex: 1;
 }
 
 .day-block {
@@ -535,12 +541,35 @@ input:checked + .slider:before {
     }
 
     .decada-header {
-        padding-bottom: 5px;
-        margin-bottom: 5px;
+        padding-right: 5px;
+        margin-right: 5px;
+        min-width: 30px;
     }
 
     .decada-label {
         font-size: 18px;
+    }
+}
+
+@media (max-width: 360px) {
+    .decada-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .decada-header {
+        padding-right: 0;
+        padding-bottom: 5px;
+        border-right: none;
+        border-bottom: 1px solid var(--shadow-sm);
+        margin-right: 0;
+        margin-bottom: 5px;
+        width: 100%;
+    }
+
+    .decada-label {
+        width: 100%;
+        justify-content: flex-start;
     }
 }
 
