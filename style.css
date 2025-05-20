@@ -50,7 +50,7 @@ body {
     padding: 20px;
     color: var(--text-main);
     line-height: 1.6;
-    max-width: 1200px;
+    max-width: 100%;
     margin: 0 auto;
     transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
 }
@@ -173,12 +173,16 @@ input:checked + .slider:before {
 }
 
 @media (max-width: 768px) {
-    header {
+    .calendar-title {
         flex-direction: column;
+        padding: 10px;
+    }
+
+    .calendar-title span {
+        margin-bottom: 15px;
     }
 
     .header-controls {
-        margin-top: 15px;
         width: 100%;
         justify-content: center;
     }
@@ -274,7 +278,7 @@ input:checked + .slider:before {
     background-color: var(--bg-container);
     border-radius: 8px;
     box-shadow: 0 2px 10px var(--shadow-md);
-    max-width: 500px;
+    max-width: 100%;
     margin: 0 auto;
     overflow: hidden;
     transition: all var(--transition-speed) ease;
@@ -282,12 +286,19 @@ input:checked + .slider:before {
 
 .calendar-title {
     padding: 15px;
-    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     font-size: 18px;
     font-weight: 500;
     color: var(--text-heading);
     background-color: var(--bg-container);
     border-bottom: 1px solid var(--shadow-sm);
+}
+
+.calendar-title span {
+    flex: 1;
+    text-align: center;
 }
 
 .calendar-navigation {
@@ -343,7 +354,7 @@ input:checked + .slider:before {
 .decada-item {
     background-color: var(--bg-day);
     border-radius: 8px;
-    padding: 10px;
+    padding: 6px;
     transition: all 0.2s ease;
     text-align: center;
     box-shadow: 0 2px 4px var(--shadow-sm);
@@ -359,9 +370,9 @@ input:checked + .slider:before {
 
 .decada-header {
     cursor: pointer;
-    padding-bottom: 8px;
+    padding-bottom: 1px;
     border-bottom: 1px solid var(--shadow-sm);
-    margin-bottom: 10px;
+    margin-bottom: 1px;
 }
 
 .decada-label {
@@ -385,7 +396,7 @@ input:checked + .slider:before {
 
 .days-grid {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(10, 1fr);
     gap: 8px;
     padding: 5px 0;
 }

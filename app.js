@@ -326,7 +326,7 @@ function displaySelectedDate(date) {
     const commonFormat = date.toLocaleDateString(getTranslation('locale'), { 
         weekday: 'long', 
         year: 'numeric', 
-        month: 'long', 
+        month: 'long',
         day: 'numeric' 
     });
 
@@ -389,7 +389,17 @@ function addCalendarTitle() {
     // Create title element
     const titleElement = document.createElement('div');
     titleElement.className = 'calendar-title';
-    titleElement.textContent = getTranslation('title');
+
+    // Create title text element
+    const titleTextElement = document.createElement('span');
+    titleTextElement.textContent = getTranslation('title');
+    titleElement.appendChild(titleTextElement);
+
+    // Move header controls to calendar title
+    const headerControls = document.querySelector('.header-controls');
+    if (headerControls) {
+        titleElement.appendChild(headerControls);
+    }
 
     // Insert at the beginning of the container
     calendarContainer.insertBefore(titleElement, calendarContainer.firstChild);

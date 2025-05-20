@@ -8,28 +8,25 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-<header>
-  <h1>Calendar</h1>
-  <div class="header-controls">
-    <div class="language-selector">
-      <select id="language-select" aria-label="Select language">
-        <option value="en">English</option>
-        <option value="ru">Русский</option>
-        <option value="es">Español</option>
-        <option value="fr">Français</option>
-      </select>
-    </div>
-    <div class="theme-switch-wrapper">
-      <label class="theme-switch" for="checkbox">
-        <input type="checkbox" id="checkbox" aria-label="Toggle dark mode" />
-        <span class="slider round">
-          <span class="moon" role="img" aria-label="Moon">🌙</span>
-          <span class="sun" role="img" aria-label="Sun">☀️</span>
-        </span>
-      </label>
-    </div>
+<div class="header-controls">
+  <div class="language-selector">
+    <select id="language-select" aria-label="Select language">
+      <option value="en">English</option>
+      <option value="ru">Русский</option>
+      <option value="es">Español</option>
+      <option value="fr">Français</option>
+    </select>
   </div>
-</header>
+  <div class="theme-switch-wrapper">
+    <label class="theme-switch" for="checkbox">
+      <input type="checkbox" id="checkbox" aria-label="Toggle dark mode" />
+      <span class="slider round">
+        <span class="moon" role="img" aria-label="Moon">🌙</span>
+        <span class="sun" role="img" aria-label="Sun">☀️</span>
+      </span>
+    </label>
+  </div>
+</div>
 <div id="calendar-root"></div>
 
 <script src="converter.js"></script>
