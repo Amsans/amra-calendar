@@ -181,7 +181,7 @@ function initializeCalendar() {
 
     // Display today's date information
     const currentDecadaDate = calculateDecadaDate(currentHiliada, currentGekatontada, currentDecada);
-    displaySelectedDate(currentDecadaDate);
+    displaySelectedDate(today);
 
     // Add a title to the calendar
     addCalendarTitle();
@@ -252,6 +252,7 @@ function displayDecadas(hiliada, gekatontada, selectedDecada) {
 
             if (dayNormalized.getTime() === todayNormalized.getTime()) {
                 dayElement.classList.add('today');
+                dayElement.classList.add('selected');
             }
 
             // Add date display
