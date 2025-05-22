@@ -298,11 +298,11 @@ function addCalendarTitle() {
     titleTextElement.textContent = getTranslation('title');
     titleElement.appendChild(titleTextElement);
 
-    // Move header controls to calendar title
-    const headerControls = document.querySelector('.header-controls');
-    if (headerControls) {
-        titleElement.appendChild(headerControls);
-    }
+    // // Move header controls to calendar title
+    // const headerControls = document.querySelector('.header-controls');
+    // if (headerControls) {
+    //     titleElement.appendChild(headerControls);
+    // }
 
     // Insert at the beginning of the container
     calendarContainer.insertBefore(titleElement, calendarContainer.firstChild);

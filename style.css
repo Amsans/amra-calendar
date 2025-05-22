@@ -89,9 +89,10 @@ h1 {
 /* Header controls styles */
 .header-controls {
     display: flex;
-    gap: 20px;
     position: absolute;
     right: 20px;
+    top: 10px;
+    z-index: 1;
 }
 
 /* Language selector styles */
@@ -216,9 +217,6 @@ input:not(:checked) + .slider .sun {
         width: 100%;
         justify-content: end;
         position: absolute;
-        right: 0;
-        left: 0;
-        bottom: 10px;
     }
 
     .theme-switch-wrapper {
@@ -569,11 +567,15 @@ input:not(:checked) + .slider .sun {
 /* Additional responsive styles */
 @media (max-width: 768px) {
     body {
-        padding: 10px;
+        /*padding: 10px;*/
+    }
+
+    .calendar-title {
+        padding-bottom: 5px;
     }
 
     .calendar-title-text {
-        padding-bottom: 30px;
+        margin-top: 20px;
     }
 
     .hiliada {
@@ -618,6 +620,10 @@ input:not(:checked) + .slider .sun {
 }
 
 @media (max-width: 480px) {
+    .calendar-title-text {
+        padding-bottom: 0;
+    }
+
     .days-grid {
         grid-template-columns: repeat(5, 1fr);
         gap: 3px;
