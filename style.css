@@ -568,7 +568,11 @@ input:not(:checked) + .slider .sun {
 .day-date {
     font-size: 12px;
     font-weight: 500;
-    margin-bottom: 2px;
+    margin-bottom: 4px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--border-color);
+    width: 80%;
+    text-align: center;
 }
 
 .day-tut-date {
@@ -654,6 +658,9 @@ input:not(:checked) + .slider .sun {
 
     .day-date {
         font-size: 11px;
+        padding-bottom: 3px;
+        margin-bottom: 3px;
+        width: 90%;
     }
 
     .day-tut-date {
@@ -681,6 +688,9 @@ input:not(:checked) + .slider .sun {
 
     .day-date {
         font-size: 9px;
+        padding-bottom: 2px;
+        margin-bottom: 2px;
+        width: 95%;
     }
 
     .day-tut-date {
