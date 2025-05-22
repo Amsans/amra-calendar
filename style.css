@@ -6,6 +6,20 @@
     --bg-day: #f7fafc;
     --bg-day-hover: #e2e8f0;
 
+    /* Month-specific background colors - Light theme */
+    --bg-day-month-1: #fef2f2;  /* January */
+    --bg-day-month-2: #fdf4ff;  /* February */
+    --bg-day-month-3: #fff7ed;  /* March */
+    --bg-day-month-4: #fef2f2;  /* April */
+    --bg-day-month-5: #fdf4ff;  /* May */
+    --bg-day-month-6: #fff7ed;  /* June */
+    --bg-day-month-7: #fef2f2;  /* July */
+    --bg-day-month-8: #fdf4ff;  /* August */
+    --bg-day-month-9: #fff7ed;  /* September */
+    --bg-day-month-10: #fef2f2; /* October */
+    --bg-day-month-11: #fdf4ff; /* November */
+    --bg-day-month-12: #fff7ed; /* December */
+
     --text-main: #2d3748;
     --text-heading: #1a202c;
     --text-toggle: #4a5568;
@@ -35,6 +49,20 @@
     --bg2-container: #2d3748;
     --bg-day: #2d3748;
     --bg-day-hover: #4a5568;
+
+    /* Month-specific background colors - Dark theme */
+    --bg-day-month-1: #2d3c2e;  /* January */
+    --bg-day-month-2: #1e3a5f;  /* February */
+    --bg-day-month-3: #1e3a3c;  /* March */
+    --bg-day-month-4: #2d3c2e;  /* April */
+    --bg-day-month-5: #1e3a5f;  /* May */
+    --bg-day-month-6: #1e3a3c;  /* June */
+    --bg-day-month-7: #2d3c2e;  /* July */
+    --bg-day-month-8: #1e3a5f;  /* August */
+    --bg-day-month-9: #1e3a3c;  /* September */
+    --bg-day-month-10: #2d3c2e; /* October */
+    --bg-day-month-11: #1e3a5f; /* November */
+    --bg-day-month-12: #1e3a3c; /* December */
 
     --text-main: #e2e8f0;
     --text-heading: #f7fafc;
@@ -504,6 +532,20 @@ input:not(:checked) + .slider .sun {
     border: 1px solid transparent;
 }
 
+/* Month-specific background colors */
+.day-block.month-1 { background-color: var(--bg-day-month-1); }
+.day-block.month-2 { background-color: var(--bg-day-month-2); }
+.day-block.month-3 { background-color: var(--bg-day-month-3); }
+.day-block.month-4 { background-color: var(--bg-day-month-4); }
+.day-block.month-5 { background-color: var(--bg-day-month-5); }
+.day-block.month-6 { background-color: var(--bg-day-month-6); }
+.day-block.month-7 { background-color: var(--bg-day-month-7); }
+.day-block.month-8 { background-color: var(--bg-day-month-8); }
+.day-block.month-9 { background-color: var(--bg-day-month-9); }
+.day-block.month-10 { background-color: var(--bg-day-month-10); }
+.day-block.month-11 { background-color: var(--bg-day-month-11); }
+.day-block.month-12 { background-color: var(--bg-day-month-12); }
+
 .day-block:hover {
     background-color: var(--bg-day-hover);
     transform: translateY(-2px);
@@ -526,7 +568,11 @@ input:not(:checked) + .slider .sun {
 .day-date {
     font-size: 12px;
     font-weight: 500;
-    margin-bottom: 2px;
+    margin-bottom: 4px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--border-color);
+    width: 80%;
+    text-align: center;
 }
 
 .day-tut-date {
@@ -612,6 +658,9 @@ input:not(:checked) + .slider .sun {
 
     .day-date {
         font-size: 11px;
+        padding-bottom: 3px;
+        margin-bottom: 3px;
+        width: 90%;
     }
 
     .day-tut-date {
@@ -639,6 +688,9 @@ input:not(:checked) + .slider .sun {
 
     .day-date {
         font-size: 9px;
+        padding-bottom: 2px;
+        margin-bottom: 2px;
+        width: 95%;
     }
 
     .day-tut-date {
