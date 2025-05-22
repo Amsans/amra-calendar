@@ -89,8 +89,9 @@ h1 {
 /* Header controls styles */
 .header-controls {
     display: flex;
-    align-items: center;
     gap: 20px;
+    position: absolute;
+    right: 20px;
 }
 
 /* Language selector styles */
@@ -208,12 +209,21 @@ input:not(:checked) + .slider .sun {
 @media (max-width: 768px) {
     .calendar-title {
         flex-direction: column;
-        padding: 10px;
+        padding: 10px 10px 60px;
     }
 
     .header-controls {
         width: 100%;
-        justify-content: center;
+        justify-content: end;
+        position: absolute;
+        right: 0;
+        left: 0;
+        bottom: 10px;
+    }
+
+    .theme-switch-wrapper {
+        margin-left: 5px;
+        margin-right: 5px;
     }
 }
 
@@ -329,7 +339,7 @@ input:not(:checked) + .slider .sun {
 .calendar-title {
     padding: 18px 20px;
     display: flex;
-    justify-content: space-between;
+    justify-content: center; /* Changed from space-between to center */
     align-items: center;
     font-size: 20px;
     font-weight: 600;
@@ -342,7 +352,6 @@ input:not(:checked) + .slider .sun {
 }
 
 .calendar-title-text {
-    flex: 1;
     text-align: center;
     padding-bottom: 10px;
     margin-top: 10px;
@@ -561,6 +570,10 @@ input:not(:checked) + .slider .sun {
 @media (max-width: 768px) {
     body {
         padding: 10px;
+    }
+
+    .calendar-title-text {
+        padding-bottom: 30px;
     }
 
     .hiliada {
