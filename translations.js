@@ -64,10 +64,15 @@ function getTranslation(key, lang) {
     return translations[currentLang][key] || translations['en'][key] || key;
 }
 
-// Function to get current language from localStorage or default to browser language
+// Function to get current language from localStorage or default to English
 function getCurrentLanguage() {
+    // If localStorage is empty (first time loading), default to English
+    if (!localStorage.getItem('language')) {
+        return 'en';
+    }
+
+    // Otherwise use the stored language or fall back to English if not supported
     const lang = localStorage.getItem('language') ||
-        navigator.language.split('-')[0] ||
         'en';
 
     // Check if the language is supported, otherwise fall back to English

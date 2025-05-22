@@ -342,7 +342,7 @@ function initLanguageSelector() {
 // Theme switcher functionality
 function initThemeSwitch() {
     const toggleSwitch = document.querySelector('#checkbox');
-    const currentTheme = localStorage.getItem('theme') || 'light';
+    const currentTheme = localStorage.getItem('theme') || 'dark';
 
     // Set the initial theme from localStorage or system preference
     if (currentTheme === 'dark' || (currentTheme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
