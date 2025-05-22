@@ -83,6 +83,9 @@ function initializeCalendar() {
     // Display decadas for the current gekatontada
     displayDecadas(currentHiliada, currentGekatontada, currentDecada);
 
+    // Scroll to current decada/day in mobile or zoomed view
+    scrollToCurrentDecada();
+
     // Add event listeners to selectors
     document.getElementById('hiliada-selector').addEventListener('change', handleSelectorChange);
     document.getElementById('gekatontada-selector').addEventListener('change', handleSelectorChange);
@@ -284,6 +287,26 @@ function handleSelectorChange() {
     // Update the selected date information for the first decada
     const decadaDate = calculateDecadaDate(hiliada, gekatontada, 1);
     displaySelectedDate(decadaDate);
+
+    scrollToCurrentDecada();
+}
+
+function scrollToCurrentDecada() {
+    setTimeout(() => {
+        const selectedDecada = document.querySelector('.decada-item.selected');
+        if (selectedDecada) {
+            selectedDecada.scrollIntoView({alignToTop: true, behavior: 'smooth', block: 'center'});
+
+            // Find today's day block if it exists
+            const todayBlock = document.querySelector('.day-block.today');
+            if (todayBlock) {
+                // Scroll to today's day block after a short delay to ensure decada is scrolled first
+                setTimeout(() => {
+                    todayBlock.scrollIntoView({behavior: 'smooth', block: 'center'});
+                }, 300);
+            }
+        }
+    }, 100); // Short delay to ensure DOM is rendered
 }
 
 // Add a title to the calendar
@@ -419,6 +442,15 @@ function updateNumberFormatLabels() {
         generateCalendar(calendarRoot);
     }
 }
+
+// Add window resize event listener to handle scrolling when switching between desktop and mobile view
+window.addEventListener('resize', () => {
+    // Debounce the resize event to avoid excessive function calls
+    clearTimeout(window.resizeTimer);
+    window.resizeTimer = setTimeout(() => {
+        scrollToCurrentDecada();
+    }, 250);
+});
 
 document.addEventListener('DOMContentLoaded', () => {
     // Initialize language selector before generating the calendar
