@@ -180,7 +180,7 @@ function displayDecadas(hiliada, gekatontada, selectedDecada) {
             dayElement.appendChild(tutDateDisplay);
 
             // Keep tooltip for accessibility
-            dayElement.title = `${dayDate.toLocaleDateString()} - ${convertToTUT(dayDate)}`;
+            dayElement.title = `${translateToCommonFormat(dayDate)} \n ${convertToTUT(dayDate)}`;
 
             // Add click event to select this day
             dayElement.addEventListener('click', () => {
@@ -231,23 +231,7 @@ function displaySelectedDate(date) {
     }
 
     // Format the date in different formats
-    let commonFormat;
-    if (getTranslation('locale') === 'be-BY') {
-        const weekday = beLocale.weekdays[date.getDay()];
-        const day = date.getDate();
-        const month = beLocale.months[date.getMonth()];
-        const year = date.getFullYear();
-
-        commonFormat = `${weekday}, ${day} ${month} ${year}`;
-    } else {
-        commonFormat = date.toLocaleDateString(getTranslation('locale'), {
-            weekday: 'long',
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-        });
-    }
-
+    let commonFormat = translateToCommonFormat(date);
     const tutFormat = convertToTUT(date);
 
     // Update the content
