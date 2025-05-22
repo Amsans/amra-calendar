@@ -7,7 +7,10 @@ const translations = {
         gekatontada: 'Gekatontada',
         decada: 'Decada',
         locale: 'en-US',
-        today: 'Today'
+        today: 'Today',
+        numberFormat: 'Number format',
+        roman: 'Roman',
+        arabic: 'Arabic'
     },
     ru: {
         title: 'Календарь Учения Единого Храма',
@@ -16,7 +19,10 @@ const translations = {
         gekatontada: 'Гекатонтада',
         decada: 'Декада',
         locale: 'ru-RU',
-        today: 'Сегодня'
+        today: 'Сегодня',
+        numberFormat: 'Формат чисел',
+        roman: 'Римские',
+        arabic: 'Арабские'
     },
     de: {
         title: 'Kalender der Lehre des Vereinigten Tempels',
@@ -25,7 +31,10 @@ const translations = {
         gekatontada: 'Gekatontada',
         decada: 'Dekade',
         locale: 'de-DE',
-        today: 'Heute'
+        today: 'Heute',
+        numberFormat: 'Zahlenformat',
+        roman: 'Römisch',
+        arabic: 'Arabisch'
     },
     be: {
         title: 'Каляндар Вучэння Адзінага Храма',
@@ -34,7 +43,10 @@ const translations = {
         gekatontada: 'Гекатантада',
         decada: 'Дэкада',
         locale: 'be-BY',
-        today: 'Сёння'
+        today: 'Сёння',
+        numberFormat: 'Фармат лічбаў',
+        roman: 'Рымскія',
+        arabic: 'Арабскія'
     }
 };
 
@@ -84,6 +96,13 @@ function updatePageTranslations() {
     const headerTitle = document.querySelector('header h1');
     if (headerTitle) {
         headerTitle.textContent = getTranslation('title', lang);
+    }
+
+    const numFormatSelect = document.querySelector('#number-format-select');
+    if (numFormatSelect) {
+        for (let i = 0; i < numFormatSelect.options.length; i++) {
+            numFormatSelect.options[i].textContent = getTranslation(numFormatSelect.options[i].value, lang);
+        }
     }
 
     // Update dark mode toggle aria-label
