@@ -231,12 +231,22 @@ function displaySelectedDate(date) {
     }
 
     // Format the date in different formats
-    const commonFormat = date.toLocaleDateString(getTranslation('locale'), {
-        weekday: 'long',
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-    });
+    let commonFormat;
+    if (getTranslation('locale') === 'be-BY') {
+        const weekday = beLocale.weekdays[date.getDay()];
+        const day = date.getDate();
+        const month = beLocale.months[date.getMonth()];
+        const year = date.getFullYear();
+
+        commonFormat = `${weekday}, ${day} ${month} ${year}`;
+    } else {
+        commonFormat = date.toLocaleDateString(getTranslation('locale'), {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+    }
 
     const tutFormat = convertToTUT(date);
 

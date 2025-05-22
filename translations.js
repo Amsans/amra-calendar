@@ -1,53 +1,49 @@
 // Translations for Amra Calendar
 const translations = {
     en: {
-        // UI elements
         title: 'Calendar of the Teaching of the United Temple',
         darkMode: 'Toggle dark mode',
-        // Calendar structure
         hiliada: 'Hiliada',
         gekatontada: 'Gekatontada',
         decada: 'Decada',
-        // Date format
         locale: 'en-US',
         today: 'Today'
     },
     ru: {
-        // UI elements
         title: 'Календарь Учения Единого Храма',
         darkMode: 'Переключить темный режим',
-        // Calendar structure
         hiliada: 'Хилиада',
         gekatontada: 'Гекатонтада',
         decada: 'Декада',
-        // Date format
         locale: 'ru-RU',
         today: 'Сегодня'
     },
-    es: {
-        // UI elements
-        title: 'Calendario Hiliada',
-        darkMode: 'Alternar modo oscuro',
-        // Calendar structure
+    de: {
+        title: 'Kalender der Lehre des Vereinigten Tempels',
+        darkMode: 'Dunkelmodus umschalten',
         hiliada: 'Hiliada',
         gekatontada: 'Gekatontada',
-        decada: 'Década',
-        // Date format
-        locale: 'es-ES',
-        today: 'Hoy'
+        decada: 'Dekade',
+        locale: 'de-DE',
+        today: 'Heute'
     },
-    fr: {
-        // UI elements
-        title: 'Calendrier Hiliada',
-        darkMode: 'Basculer en mode sombre',
-        // Calendar structure
-        hiliada: 'Hiliada',
-        gekatontada: 'Gekatontada',
-        decada: 'Décade',
-        // Date format
-        locale: 'fr-FR',
-        today: 'Aujourd\'hui'
+    be: {
+        title: 'Каляндар Вучэння Адзінага Храма',
+        darkMode: 'Пераключыць цёмны рэжым',
+        hiliada: 'Хіліяда',
+        gekatontada: 'Гекатантада',
+        decada: 'Дэкада',
+        locale: 'be-BY',
+        today: 'Сёння'
     }
+};
+
+const beLocale = {
+    weekdays: ['нядзеля', 'панядзелак', 'аўторак', 'серада', 'чацвер', 'пятніца', 'субота'],
+    months: [
+        'студзеня', 'лютага', 'сакавіка', 'красавіка', 'траўня', 'чэрвеня',
+        'ліпеня', 'жніўня', 'верасня', 'кастрычніка', 'лістапада', 'снежня'
+    ]
 };
 
 // Function to get translation
@@ -80,31 +76,26 @@ function setLanguage(lang) {
 // Function to update all translations on the page
 function updatePageTranslations() {
     const lang = getCurrentLanguage();
-    
+
     // Update page title
     document.title = getTranslation('title', lang);
-    
+
     // Update header title
     const headerTitle = document.querySelector('header h1');
     if (headerTitle) {
         headerTitle.textContent = getTranslation('title', lang);
     }
-    
+
     // Update dark mode toggle aria-label
     const darkModeToggle = document.querySelector('#checkbox');
     if (darkModeToggle) {
         darkModeToggle.setAttribute('aria-label', getTranslation('darkMode', lang));
     }
-    
+
     // Regenerate calendar with new language
     const calendarRoot = document.getElementById('calendar-root');
     if (calendarRoot) {
         calendarRoot.innerHTML = '';
         generateCalendar(calendarRoot);
     }
-}
-
-// Get available languages
-function getAvailableLanguages() {
-    return Object.keys(translations);
 }
