@@ -162,6 +162,10 @@ function displayDecadas(hiliada, gekatontada, selectedDecada) {
             const dayElement = document.createElement('div');
             dayElement.className = 'day-block';
 
+            // Add month-specific class for styling
+            const month = dayDate.getMonth() + 1; // getMonth() returns 0-11, we need 1-12
+            dayElement.classList.add(`month-${month}`);
+
             // Check if this day is today
             const today = new Date();
             const todayNormalized = new Date(today.getFullYear(), today.getMonth(), today.getDate());
