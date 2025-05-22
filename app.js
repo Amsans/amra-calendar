@@ -293,7 +293,8 @@ function addCalendarTitle() {
     titleElement.className = 'calendar-title';
 
     // Create title text element
-    const titleTextElement = document.createElement('span');
+    const titleTextElement = document.createElement('div');
+    titleTextElement.className = 'calendar-title-text';
     titleTextElement.textContent = getTranslation('title');
     titleElement.appendChild(titleTextElement);
 
