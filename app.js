@@ -98,18 +98,11 @@ function initializeCalendar() {
 function populateSelector(selectorId, start, end, selected) {
     const selector = document.getElementById(selectorId);
     selector.innerHTML = '';
-    const format = getCurrentNumberFormat();
 
     for (let i = start; i <= end; i++) {
         const option = document.createElement('option');
         option.value = i;
-
-        // Use the appropriate number format based on user preference
-        if (format === 'roman') {
-            option.textContent = toRoman(i);
-        } else {
-            option.textContent = i;
-        }
+        option.textContent = getCurrentNumberFormat() === 'roman' ? toRoman(i) : i;
 
         if (i === selected) {
             option.selected = true;
@@ -190,12 +183,10 @@ function displayDecadas(hiliada, gekatontada, selectedDecada) {
             // Add TUT date display
             const tutDateDisplay = document.createElement('div');
             tutDateDisplay.className = 'day-tut-date';
-            tutDateDisplay.textContent = convertToTUT(dayDate);
+            let tutDate = getCurrentNumberFormat() === 'roman' ? convertToTUT(dayDate) : dateToArabic(convertToTUT(dayDate));
+            tutDateDisplay.textContent = tutDate;
+            dayElement.title = `${translateToCommonFormat(dayDate)} \n ${tutDate}`;
             dayElement.appendChild(tutDateDisplay);
-
-            // Keep tooltip for accessibility
-            let tutDateForTooltip = getCurrentNumberFormat() === 'roman' ? convertToTUT(dayDate) : dateToArabic(convertToTUT(dayDate));
-            dayElement.title = `${translateToCommonFormat(dayDate)} \n ${tutDateForTooltip}`;
 
             // Add click event to select this day
             dayElement.addEventListener('click', () => {
@@ -249,13 +240,7 @@ function displaySelectedDate(date) {
     let commonFormat = translateToCommonFormat(date);
 
     // Use the appropriate number format based on user preference
-    const format = getCurrentNumberFormat();
-    let tutFormat;
-    if (format === 'roman') {
-        tutFormat = convertToTUT(date);
-    } else {
-        tutFormat = dateToArabic(convertToTUT(date));
-    }
+    let tutFormat = getCurrentNumberFormat() === 'roman' ? convertToTUT(date) : dateToArabic(convertToTUT(date));
 
     // Update the content
     selectedDateInfo.innerHTML = `
