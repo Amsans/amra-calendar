@@ -23,6 +23,23 @@ function generateCalendar(rootEl) {
     navigationControls.appendChild(hiliadaSelector);
     navigationControls.appendChild(gekatontadaSelector);
 
+    // Create toggle button for header controls
+    const toggleContainer = document.createElement('div');
+    toggleContainer.className = 'toggle-container';
+
+    const settingsButton = document.createElement('button');
+    settingsButton.className = 'toggle-button header-toggle';
+    settingsButton.title = getTranslation('settings');
+    settingsButton.setAttribute('aria-label', 'Toggle header controls');
+    settingsButton.textContent = '⚙️'; // Gear emoji as an icon
+    settingsButton.setAttribute('aria-label', 'Toggle settings');
+    settingsButton.addEventListener('click', toggleHeaderControls);
+
+    toggleContainer.appendChild(settingsButton);
+
+    // Add the toggle container to navigation controls
+    navigationControls.appendChild(toggleContainer);
+
     // Add navigation controls to the calendar container
     calendarContainer.appendChild(navigationControls);
 
@@ -92,9 +109,6 @@ function initializeCalendar() {
 
     // Display today's date information
     displaySelectedDate(today);
-
-    // Add a title to the calendar
-    addCalendarTitle();
 }
 
 // Populate a selector with options
@@ -309,30 +323,6 @@ function scrollToCurrentDecada() {
     }, 100); // Short delay to ensure DOM is rendered
 }
 
-// Add a title to the calendar
-function addCalendarTitle() {
-    const calendarContainer = document.querySelector('.calendar-container');
-
-    // Create title element
-    const titleElement = document.createElement('div');
-    titleElement.className = 'calendar-title';
-
-    // Create title text element
-    const titleTextElement = document.createElement('div');
-    titleTextElement.className = 'calendar-title-text';
-    titleTextElement.textContent = getTranslation('title');
-    titleElement.appendChild(titleTextElement);
-
-    // // Move header controls to calendar title
-    // const headerControls = document.querySelector('.header-controls');
-    // if (headerControls) {
-    //     titleElement.appendChild(headerControls);
-    // }
-
-    // Insert at the beginning of the container
-    calendarContainer.insertBefore(titleElement, calendarContainer.firstChild);
-}
-
 // Language selector functionality
 function initLanguageSelector() {
     const languageSelect = document.querySelector('#language-select');
@@ -441,6 +431,15 @@ function updateNumberFormatLabels() {
         calendarRoot.innerHTML = '';
         generateCalendar(calendarRoot);
     }
+}
+
+// Function to toggle header controls visibility
+function toggleHeaderControls() {
+    const headerControls = document.querySelector('.header-controls');
+    const toggleButton = document.querySelector('.header-toggle');
+
+    headerControls.classList.toggle('visible');
+    toggleButton.classList.toggle('active');
 }
 
 // Add window resize event listener to handle scrolling when switching between desktop and mobile view

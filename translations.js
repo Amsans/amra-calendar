@@ -8,6 +8,7 @@ const translations = {
         decada: 'Decada',
         locale: 'en-US',
         today: 'Today',
+        settings: 'Settings',
         numberFormat: 'Number format',
         roman: 'Roman',
         arabic: 'Arabic'
@@ -20,6 +21,7 @@ const translations = {
         decada: 'Декада',
         locale: 'ru-RU',
         today: 'Сегодня',
+        settings: 'Настройки',
         numberFormat: 'Формат чисел',
         roman: 'Римские',
         arabic: 'Арабские'
@@ -32,6 +34,7 @@ const translations = {
         decada: 'Dekade',
         locale: 'de-DE',
         today: 'Heute',
+        settings: 'Einstellungen',
         numberFormat: 'Zahlenformat',
         roman: 'Römisch',
         arabic: 'Arabisch'
@@ -44,6 +47,7 @@ const translations = {
         decada: 'Дэкада',
         locale: 'be-BY',
         today: 'Сёння',
+        settings: 'Налады',
         numberFormat: 'Фармат лічбаў',
         roman: 'Рымскія',
         arabic: 'Арабскія'
