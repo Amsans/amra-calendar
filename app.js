@@ -181,6 +181,11 @@ function displayDecadas(hiliada, gekatontada, selectedDecada) {
                 dayElement.classList.add('selected');
             }
 
+            // Check if this day is a hiliada day (n*1000 days after a memorable date)
+            if (isHiliadaDay(dayDate)) {
+                dayElement.classList.add('hiliada-day');
+            }
+
             // Add date display
             const dateDisplay = document.createElement('div');
             dateDisplay.className = 'day-date';

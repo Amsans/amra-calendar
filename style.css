@@ -601,6 +601,15 @@ input:not(:checked) + .slider .sun {
     box-shadow: 0 0 0 2px rgba(66, 153, 225, 0.2);
 }
 
+/* Styling for hiliada days (n*1000 days after a memorable date) */
+.day-block.hiliada-day {
+    background: linear-gradient(135deg, var(--bg-day-hover), var(--accent-color) 150%);
+    border: 2px dashed gold;
+    box-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
+    color: var(--text-heading);
+    font-weight: bold;
+}
+
 .day-date {
     font-size: 12px;
     font-weight: 500;
