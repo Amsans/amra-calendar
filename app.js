@@ -151,6 +151,7 @@ function displayDecadas(hiliada, gekatontada, selectedDecada) {
         // Create decada label (only showing the decada number)
         const decadaLabel = document.createElement('div');
         decadaLabel.className = 'decada-label';
+        decadaLabel.title = getTranslation('decada');
 
         // Use the appropriate number format based on user preference
         decadaLabel.textContent = getCurrentNumberFormat() === 'roman' ? toRoman(d) : d;
