@@ -10,6 +10,7 @@ const translations = {
         today: 'Today',
         settings: 'Settings',
         numberFormat: 'Number format',
+        toggleNumberFormat: 'Toggle number format',
         roman: 'Roman',
         arabic: 'Arabic'
     },
@@ -23,6 +24,7 @@ const translations = {
         today: 'Сегодня',
         settings: 'Настройки',
         numberFormat: 'Формат чисел',
+        toggleNumberFormat: 'Переключить формат чисел',
         roman: 'Римские',
         arabic: 'Арабские'
     },
@@ -36,6 +38,7 @@ const translations = {
         today: 'Heute',
         settings: 'Einstellungen',
         numberFormat: 'Zahlenformat',
+        toggleNumberFormat: 'Zahlenformat umschalten',
         roman: 'Römisch',
         arabic: 'Arabisch'
     },
@@ -49,6 +52,7 @@ const translations = {
         today: 'Сёння',
         settings: 'Налады',
         numberFormat: 'Фармат лічбаў',
+        toggleNumberFormat: 'Пераключыць фармат лічбаў',
         roman: 'Рымскія',
         arabic: 'Арабскія'
     }
@@ -68,7 +72,7 @@ function getTranslation(key, lang) {
     return translations[currentLang][key] || translations['en'][key] || key;
 }
 
-// Function to get current language from localStorage or default to English
+// Function to get the current language from localStorage or default to English
 function getCurrentLanguage() {
     // If localStorage is empty (first time loading), default to English
     if (!localStorage.getItem('language')) {
@@ -107,10 +111,24 @@ function updatePageTranslations() {
         headerTitle.textContent = getTranslation('title', lang);
     }
 
-    const numFormatSelect = document.querySelector('#number-format-select');
-    if (numFormatSelect) {
-        for (let i = 0; i < numFormatSelect.options.length; i++) {
-            numFormatSelect.options[i].textContent = getTranslation(numFormatSelect.options[i].value, lang);
+    // Update the number format switch aria-label
+    const numberFormatSwitch = document.querySelector('#number-format-checkbox');
+    if (numberFormatSwitch) {
+        const numberFormatLabel = document.querySelector('.number-format-switch');
+        numberFormatLabel.title = getTranslation('toggleNumberFormat', lang);
+
+        numberFormatSwitch.setAttribute('aria-label', getTranslation('toggleNumberFormat', lang));
+
+        // Update aria-labels for the Roman and Arabic spans
+        const romanSpan = document.querySelector('.roman');
+        const arabicSpan = document.querySelector('.arabic');
+
+        if (romanSpan) {
+            romanSpan.setAttribute('aria-label', getTranslation('roman', lang));
+        }
+
+        if (arabicSpan) {
+            arabicSpan.setAttribute('aria-label', getTranslation('arabic', lang));
         }
     }
 
@@ -120,7 +138,7 @@ function updatePageTranslations() {
         darkModeToggle.setAttribute('aria-label', getTranslation('darkMode', lang));
     }
 
-    // Regenerate calendar with new language
+    // Regenerate calendar with a new language
     const calendarRoot = document.getElementById('calendar-root');
     if (calendarRoot) {
         calendarRoot.innerHTML = '';

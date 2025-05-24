@@ -17,11 +17,14 @@
       <option value="de">Deutsch</option>
     </select>
   </div>
-  <div class="number-format-selector">
-    <select id="number-format-select" aria-label="Select number format">
-      <option value="roman">Roman</option>
-      <option value="arabic">Arabic</option>
-    </select>
+  <div class="number-format-switch-wrapper">
+    <label class="number-format-switch" for="number-format-checkbox">
+      <input type="checkbox" id="number-format-checkbox" aria-label="Toggle number format" />
+      <span class="number-format-slider round">
+        <span class="roman" role="img" aria-label="Roman">X</span>
+        <span class="arabic" role="img" aria-label="Arabic">10</span>
+      </span>
+    </label>
   </div>
   <div class="theme-switch-wrapper">
     <label class="theme-switch" for="checkbox">

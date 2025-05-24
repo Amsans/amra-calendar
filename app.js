@@ -426,18 +426,24 @@ function initThemeSwitch() {
     });
 }
 
-// Number format selector functionality
+// Number format switch functionality
 function initNumberFormatSelector() {
-    const numberFormatSelect = document.querySelector('#number-format-select');
+    const numberFormatSwitch = document.querySelector('#number-format-checkbox');
+    const currentFormat = localStorage.getItem('numberFormat') || 'roman';
+
     // Set the initial number format
-    numberFormatSelect.value = localStorage.getItem('numberFormat') || 'roman';
+    numberFormatSwitch.checked = currentFormat === 'arabic';
 
     // Update the number format translations
     updateNumberFormatLabels();
 
     // Listen for number format changes
-    numberFormatSelect.addEventListener('change', function () {
-        setNumberFormat(this.value);
+    numberFormatSwitch.addEventListener('change', function () {
+        if (this.checked) {
+            setNumberFormat('arabic');
+        } else {
+            setNumberFormat('roman');
+        }
     });
 }
 
@@ -458,22 +464,24 @@ function setNumberFormat(format) {
 
 // Function to update all number format labels on the page
 function updateNumberFormatLabels() {
-    const numberFormatSelect = document.querySelector('#number-format-select');
+    const numberFormatSwitch = document.querySelector('#number-format-checkbox');
 
-    // Update the select label and options with translated labels
-    if (numberFormatSelect) {
+    // Update the switch label with translated labels
+    if (numberFormatSwitch) {
         // Set the aria-label to the translated 'numberFormat'
-        numberFormatSelect.setAttribute('aria-label', getTranslation('numberFormat'));
+        numberFormatSwitch.setAttribute('aria-label', getTranslation('toggleNumberFormat'));
 
-        // Update option labels
-        const options = numberFormatSelect.querySelectorAll('option');
-        options.forEach(option => {
-            if (option.value === 'roman') {
-                option.textContent = getTranslation('roman');
-            } else if (option.value === 'arabic') {
-                option.textContent = getTranslation('arabic');
-            }
-        });
+        // Update aria-labels for the roman and arabic spans
+        const romanSpan = document.querySelector('.roman');
+        const arabicSpan = document.querySelector('.arabic');
+
+        if (romanSpan) {
+            romanSpan.setAttribute('aria-label', getTranslation('roman'));
+        }
+
+        if (arabicSpan) {
+            arabicSpan.setAttribute('aria-label', getTranslation('arabic'));
+        }
     }
 
     // Regenerate calendar to update the formats of all the numbers
