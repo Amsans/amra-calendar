@@ -13,16 +13,6 @@ function generateCalendar(rootEl) {
     const navigationControls = document.createElement('div');
     navigationControls.className = 'calendar-navigation';
 
-    // Add hiliada selector
-    const hiliadaSelector = createSelector('hiliada-selector', getTranslation('hiliada'));
-
-    // Add gekatontada selector
-    const gekatontadaSelector = createSelector('gekatontada-selector', getTranslation('gekatontada'));
-
-    // Add the selectors to navigation controls
-    navigationControls.appendChild(hiliadaSelector);
-    navigationControls.appendChild(gekatontadaSelector);
-
     // Create the settings button for header controls
     const toggleContainer = document.createElement('div');
     toggleContainer.className = 'toggle-container';
@@ -34,9 +24,24 @@ function generateCalendar(rootEl) {
     settingsButton.textContent = '⚙️'; // Gear emoji as an icon
     settingsButton.setAttribute('aria-label', 'Toggle settings');
     settingsButton.addEventListener('click', toggleHeaderControls);
+    const headerControls = document.querySelector('.header-controls');
+    if (headerControls.classList.contains('visible')) {
+        settingsButton.classList.add('active');
+    }
 
     toggleContainer.appendChild(settingsButton);
     navigationControls.appendChild(toggleContainer);
+
+    // Add hiliada selector
+    const hiliadaSelector = createSelector('hiliada-selector', getTranslation('hiliada'));
+    // Add gekatontada selector
+    const gekatontadaSelector = createSelector('gekatontada-selector', getTranslation('gekatontada'));
+
+    // Add the selectors to navigation controls
+    navigationControls.appendChild(hiliadaSelector);
+    navigationControls.appendChild(gekatontadaSelector);
+
+
     calendarContainer.appendChild(navigationControls);
 
     // Create decadas grid
@@ -58,12 +63,33 @@ function createSelector(id, labelText) {
     label.textContent = labelText;
     label.htmlFor = id;
 
+    // Create left control button
+    const leftButton = document.createElement('button');
+    leftButton.className = 'selector-control-button';
+    leftButton.textContent = '←';
+    leftButton.setAttribute('aria-label', 'Previous');
+    leftButton.dataset.direction = 'prev';
+    leftButton.dataset.for = id;
+    leftButton.addEventListener('click', handleSelectorControlClick);
+
+    // Create select element
     const select = document.createElement('select');
     select.id = id;
     select.setAttribute('aria-label', labelText);
 
+    // Create right control button
+    const rightButton = document.createElement('button');
+    rightButton.className = 'selector-control-button';
+    rightButton.textContent = '→';
+    rightButton.setAttribute('aria-label', 'Next');
+    rightButton.dataset.direction = 'next';
+    rightButton.dataset.for = id;
+    rightButton.addEventListener('click', handleSelectorControlClick);
+
     selectorContainer.appendChild(label);
+    selectorContainer.appendChild(leftButton);
     selectorContainer.appendChild(select);
+    selectorContainer.appendChild(rightButton);
 
     return selectorContainer;
 }
@@ -303,11 +329,38 @@ function handleSelectorChange() {
     scrollToCurrentDecada();
 }
 
+// Handle selector control button click
+function handleSelectorControlClick(event) {
+    const button = event.currentTarget;
+    const direction = button.dataset.direction;
+    const selectorId = button.dataset.for;
+    const selector = document.getElementById(selectorId);
+
+    // Get current value and limits
+    const currentValue = parseInt(selector.value);
+    const options = selector.options;
+    const minValue = parseInt(options[0].value);
+    const maxValue = parseInt(options[options.length - 1].value);
+
+    // Calculate new value based on direction
+    let newValue;
+    if (direction === 'prev') {
+        newValue = currentValue > minValue ? currentValue - 1 : maxValue;
+    } else {
+        newValue = currentValue < maxValue ? currentValue + 1 : minValue;
+    }
+    selector.value = newValue;
+
+    // Trigger change event to update the calendar
+    const changeEvent = new Event('change');
+    selector.dispatchEvent(changeEvent);
+}
+
 function scrollToCurrentDecada() {
     setTimeout(() => {
         const selectedDecada = document.querySelector('.decada-item.selected');
         if (selectedDecada) {
-            selectedDecada.scrollIntoView({behavior: 'smooth', block: 'center'});
+            selectedDecada.scrollIntoView({alignToTop: true, behavior: 'smooth', block: 'center'});
 
             // Find today's day block if it exists
             const todayBlock = document.querySelector('.day-block.today');
