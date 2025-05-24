@@ -641,8 +641,11 @@ input:not(:checked) + .slider .sun {
     font-weight: 400;
 }
 
-/* When day-block is selected, change the color of the TUT date */
 .day-block.selected .day-tut-date {
+    color: rgba(0, 0, 0, 0.9);
+}
+
+.day-block.selected .day-date {
     color: rgba(0, 0, 0, 0.9);
 }
 
