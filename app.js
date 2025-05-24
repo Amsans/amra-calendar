@@ -23,7 +23,7 @@ function generateCalendar(rootEl) {
     navigationControls.appendChild(hiliadaSelector);
     navigationControls.appendChild(gekatontadaSelector);
 
-    // Create toggle button for header controls
+    // Create the settings button for header controls
     const toggleContainer = document.createElement('div');
     toggleContainer.className = 'toggle-container';
 
@@ -36,11 +36,7 @@ function generateCalendar(rootEl) {
     settingsButton.addEventListener('click', toggleHeaderControls);
 
     toggleContainer.appendChild(settingsButton);
-
-    // Add the toggle container to navigation controls
     navigationControls.appendChild(toggleContainer);
-
-    // Add navigation controls to the calendar container
     calendarContainer.appendChild(navigationControls);
 
     // Create decadas grid
@@ -51,11 +47,9 @@ function generateCalendar(rootEl) {
     // Add the calendar container to the root element
     rootEl.appendChild(calendarContainer);
 
-    // Initialize the calendar with the TUT foundation date
-    initializeCalendar();
+    initialiseCalendar();
 }
 
-// Helper function to create a selector
 function createSelector(id, labelText) {
     const selectorContainer = document.createElement('div');
     selectorContainer.className = 'selector-container';
@@ -74,8 +68,8 @@ function createSelector(id, labelText) {
     return selectorContainer;
 }
 
-// Initialize the calendar with the TUT foundation date
-function initializeCalendar() {
+// Initialise the calendar with the TUT foundation date
+function initialiseCalendar() {
     // Start from TUT foundation date (March 1, 1996)
     const startDate = new Date(TUT_FOUNDATION_DATE);
 
@@ -91,7 +85,7 @@ function initializeCalendar() {
     const currentGekatontada = Math.floor((daysSinceStart % 1000) / 100) + 1;
     const currentDecada = Math.floor((daysSinceStart % 100) / 10) + 1;
 
-    // Populate hiliada selector (show a reasonable range, e.g., 20 hiliadas)
+    // Populate hiliada selector (show a reasonable range, e.g. 20 hiliadas)
     populateSelector('hiliada-selector', 1, 20, currentHiliada);
 
     // Populate gekatontada selector (1-10)
@@ -148,7 +142,7 @@ function displayDecadas(hiliada, gekatontada, selectedDecada) {
         // Calculate the date for this decada
         const decadaDate = calculateDecadaDate(hiliada, gekatontada, d);
 
-        // Create decada label (only showing the decada number)
+        // Create the decada label (only showing the decada number)
         const decadaLabel = document.createElement('div');
         decadaLabel.className = 'decada-label';
         decadaLabel.title = getTranslation('decada');
@@ -169,7 +163,7 @@ function displayDecadas(hiliada, gekatontada, selectedDecada) {
             // Calculate the date for this specific day
             const dayDate = calculateDayDate(hiliada, gekatontada, d, day);
 
-            // Create day element
+            // Create a day element
             const dayElement = document.createElement('div');
             dayElement.className = 'day-block';
 
@@ -192,13 +186,11 @@ function displayDecadas(hiliada, gekatontada, selectedDecada) {
             dateDisplay.className = 'day-date';
             // Format date as DD/MM
             dateDisplay.textContent = dayDate.toLocaleDateString(getTranslation('locale'), {
-                day: '2-digit',
-                month: '2-digit',
-                year: '2-digit'
+                day: '2-digit', month: '2-digit', year: '2-digit'
             });
             dayElement.appendChild(dateDisplay);
 
-            // Add TUT date display
+            // Add TUT date format display
             const tutDateDisplay = document.createElement('div');
             tutDateDisplay.className = 'day-tut-date';
             let tutDate = getCurrentNumberFormat() === 'roman' ? convertToTUT(dayDate) : dateToArabic(convertToTUT(dayDate));
@@ -208,12 +200,12 @@ function displayDecadas(hiliada, gekatontada, selectedDecada) {
 
             // Add click event to select this day
             dayElement.addEventListener('click', () => {
-                // Remove selected class from all days
+                // Remove the selected class from all days
                 document.querySelectorAll('.day-block').forEach(item => {
                     item.classList.remove('selected');
                 });
 
-                // Add selected class to this day
+                // Add the selected class to this day
                 dayElement.classList.add('selected');
 
                 // Display selected date information
@@ -227,12 +219,12 @@ function displayDecadas(hiliada, gekatontada, selectedDecada) {
 
         // Add click event to select this decada
         decadaHeader.addEventListener('click', () => {
-            // Remove selected class from all decadas
+            // Remove the selected class from all decadas
             document.querySelectorAll('.decada-item').forEach(item => {
                 item.classList.remove('selected');
             });
 
-            // Add selected class to this decada
+            // Add the selected class to this decada
             decada.classList.add('selected');
 
             // Display selected date information
@@ -245,7 +237,7 @@ function displayDecadas(hiliada, gekatontada, selectedDecada) {
 
 // Display selected date information
 function displaySelectedDate(date) {
-    // Check if the selected date info container exists, if not create it
+    // Check if the selected date info container exists, if not, create it
     let selectedDateInfo = document.querySelector('.selected-date-info');
 
     if (!selectedDateInfo) {
@@ -310,7 +302,7 @@ function scrollToCurrentDecada() {
     setTimeout(() => {
         const selectedDecada = document.querySelector('.decada-item.selected');
         if (selectedDecada) {
-            selectedDecada.scrollIntoView({alignToTop: true, behavior: 'smooth', block: 'center'});
+            selectedDecada.scrollIntoView({behavior: 'smooth', block: 'center'});
 
             // Find today's day block if it exists
             const todayBlock = document.querySelector('.day-block.today');
@@ -379,7 +371,7 @@ function initThemeSwitch() {
 // Number format selector functionality
 function initNumberFormatSelector() {
     const numberFormatSelect = document.querySelector('#number-format-select');
-    // Set initial number format
+    // Set the initial number format
     numberFormatSelect.value = localStorage.getItem('numberFormat') || 'roman';
 
     // Update the number format translations
@@ -391,12 +383,12 @@ function initNumberFormatSelector() {
     });
 }
 
-// Function to get current number format from localStorage or default to roman
+// Function to get the current number format from localStorage or default to roman
 function getCurrentNumberFormat() {
     return localStorage.getItem('numberFormat') || 'roman';
 }
 
-// Function to set number format
+// Function to set the number format
 function setNumberFormat(format) {
     if (format === 'roman' || format === 'arabic') {
         localStorage.setItem('numberFormat', format);
@@ -426,7 +418,7 @@ function updateNumberFormatLabels() {
         });
     }
 
-    // Regenerate calendar to update the number formats
+    // Regenerate calendar to update the formats of all the numbers
     const calendarRoot = document.getElementById('calendar-root');
     if (calendarRoot) {
         calendarRoot.innerHTML = '';
@@ -443,7 +435,7 @@ function toggleHeaderControls() {
     toggleButton.classList.toggle('active');
 }
 
-// Add window resize event listener to handle scrolling when switching between desktop and mobile view
+// Add a window resize event listener to handle scrolling when switching between desktop and mobile view
 window.addEventListener('resize', () => {
     // Debounce the resize event to avoid excessive function calls
     clearTimeout(window.resizeTimer);
@@ -453,7 +445,7 @@ window.addEventListener('resize', () => {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Initialize language selector before generating the calendar
+    // Initialise language selector before generating the calendar
     initLanguageSelector();
 
     // Initialize number format selector
