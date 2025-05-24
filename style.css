@@ -673,8 +673,12 @@ input:not(:checked) + .slider .sun {
 .selected-date-tut {
     font-size: 18px;
     font-weight: 600;
-    color: var(--accent-color);
+    color: #0056b3; /* Darker blue for better contrast in light theme */
     letter-spacing: 0.01em;
+}
+
+.dark-theme .selected-date-tut {
+    color: #63b3ed; /* Lighter blue for better contrast in dark theme */
 }
 
 /* Additional responsive styles */
