@@ -207,9 +207,8 @@ function displayDecadas(hiliada, gekatontada, selectedDecada) {
                 dayElement.classList.add('selected');
             }
 
-            // Check if this day is a hiliada day (n*1000 days after a memorable date)
-            if (isHiliadaDay(dayDate)) {
-                dayElement.classList.add('hiliada-day');
+            if (isHoliday(dayDate)) {
+                dayElement.classList.add('holiday');
             }
 
             // Add date display
@@ -283,10 +282,24 @@ function displaySelectedDate(date) {
     // Use the appropriate number format based on user preference
     let tutFormat = getCurrentNumberFormat() === 'roman' ? convertToTUT(date) : dateToArabic(convertToTUT(date));
 
+    const holidayData = isHoliday(date);
+    let hiliadaHtml = '';
+
+    if (holidayData) {
+        hiliadaHtml = `
+            <div class="holiday-info">
+                <div class="holiday-description">${holidayData.description}</div>
+            </div>
+        `;
+    }
+
     // Update the content
     selectedDateInfo.innerHTML = `
-        <div class="selected-date-common">${commonFormat}</div>
-        <div class="selected-date-tut">${tutFormat}</div>
+        <div class="selected-date-container">
+            <div class="selected-date-common">${commonFormat}</div>
+            <div class="selected-date-tut">${tutFormat}</div>
+        </div>
+        ${hiliadaHtml}
     `;
 }
 

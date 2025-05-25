@@ -11,8 +11,11 @@ const translations = {
         settings: 'Settings',
         numberFormat: 'Number format',
         toggleNumberFormat: 'Toggle number format',
-        roman: 'Roman',
-        arabic: 'Arabic'
+        // Dates
+        foundation: "Foundation Day of the Teaching",
+        declaration: "Declaration Day",
+        pandect: "Pandect Day",
+        cosmonautics: "Cosmonautics Day",
     },
     ru: {
         title: 'Календарь Учения Единого Храма',
@@ -25,8 +28,11 @@ const translations = {
         settings: 'Настройки',
         numberFormat: 'Формат чисел',
         toggleNumberFormat: 'Переключить формат чисел',
-        roman: 'Римские',
-        arabic: 'Арабские'
+        // Dates
+        foundation: "День основания Учения",
+        declaration: "День Декларации",
+        pandect: "День пандекта",
+        cosmonautics: "День космонавтики",
     },
     de: {
         title: 'Kalender der Lehre des Vereinigten Tempels',
@@ -39,8 +45,11 @@ const translations = {
         settings: 'Einstellungen',
         numberFormat: 'Zahlenformat',
         toggleNumberFormat: 'Zahlenformat umschalten',
-        roman: 'Römisch',
-        arabic: 'Arabisch'
+        // Dates
+        foundation: "Tag der Gründung der Lehre",
+        declaration: "Tag der Deklaration",
+        pandect: "Tag des Pandekts",
+        cosmonautics: "Tag der Kosmonautik",
     },
     be: {
         title: 'Каляндар Вучэння Адзінага Храма',
@@ -53,8 +62,11 @@ const translations = {
         settings: 'Налады',
         numberFormat: 'Фармат лічбаў',
         toggleNumberFormat: 'Пераключыць фармат лічбаў',
-        roman: 'Рымскія',
-        arabic: 'Арабскія'
+        // Dates
+        foundation: "Дзень заснавання Вучэння",
+        declaration: "Дзень Дэкларацыі",
+        pandect: "Дзень пандекта",
+        cosmonautics: "Дзень касманаўтыкі",
     }
 };
 

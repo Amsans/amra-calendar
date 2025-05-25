@@ -689,7 +689,7 @@ input:not(:checked) + .slider .sun {
 }
 
 /* Styling for hiliada days (n*1000 days after a memorable date) */
-.day-block.hiliada-day {
+.day-block.holiday {
     background: linear-gradient(135deg, var(--bg-day-hover), var(--accent-color) 150%);
     border: 2px dashed gold;
     box-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
@@ -722,6 +722,10 @@ input:not(:checked) + .slider .sun {
 }
 
 .selected-date-info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
     background-color: var(--bg2-container);
     padding: 16px 0 16px;
     text-align: center;
