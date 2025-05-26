@@ -5,13 +5,11 @@ function generateCalendar(rootEl) {
     // Clear the root element
     rootEl.innerHTML = '';
 
-    // Create the calendar container
     const calendarContainer = document.createElement('div');
     calendarContainer.className = 'calendar-container';
 
-    // Create navigation controls
-    const navigationControls = document.createElement('div');
-    navigationControls.className = 'calendar-navigation';
+    const calendarNavigation = document.createElement('div');
+    calendarNavigation.className = 'calendar-navigation';
 
     // Create the settings button
     const toggleContainer = document.createElement('div');
@@ -21,7 +19,6 @@ function generateCalendar(rootEl) {
     buttonsContainer.className = 'buttons-container';
 
     const settingsButton = createSettingsButton();
-
     toggleContainer.appendChild(settingsButton);
     buttonsContainer.appendChild(toggleContainer);
 
@@ -30,7 +27,6 @@ function generateCalendar(rootEl) {
     todayButtonContainer.className = 'today-button-container';
 
     const todayButton = createTodayButton();
-
     todayButtonContainer.appendChild(todayButton);
     buttonsContainer.appendChild(todayButtonContainer);
 
@@ -44,10 +40,10 @@ function generateCalendar(rootEl) {
     selectorsContainer.appendChild(hiliadaSelector);
     selectorsContainer.appendChild(gekatontadaSelector);
 
-    navigationControls.appendChild(buttonsContainer);
-    navigationControls.appendChild(selectorsContainer);
+    calendarNavigation.appendChild(buttonsContainer);
+    calendarNavigation.appendChild(selectorsContainer);
 
-    calendarContainer.appendChild(navigationControls);
+    calendarContainer.appendChild(calendarNavigation);
 
     // Create decadas grid
     const decadasGrid = document.createElement('div');
