@@ -843,7 +843,7 @@ input:not(:checked) + .slider .sun {
     }
 
     .header-controls.visible {
-        top: 60px;
+        top: 90px;
     }
 
     .today-button {
@@ -941,6 +941,10 @@ input:not(:checked) + .slider .sun {
         align-items: center;
         padding: 10px;
         gap: 1px;
+    }
+
+    .decadas-grid {
+        padding-bottom: 120px;
     }
 
     .decada-item {
