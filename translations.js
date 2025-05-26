@@ -13,9 +13,9 @@ const translations = {
         toggleNumberFormat: 'Toggle number format',
         // Dates
         foundation: "Foundation Day of the Teaching",
-        declaration: "Declaration Day",
-        pandect: "Pandect Day",
-        cosmonautics: "Cosmonautics Day",
+        declaration: "Declaration Day - the day when the Declaration of the Teaching, the first programmatic document, was established.",
+        pandect: "Pandect Day - the day when its first text was recorded.",
+        cosmonautics: "Cosmonautics Day - the day when the first human spaceflight was accomplished.",
     },
     ru: {
         title: 'Календарь Учения Единого Храма',
@@ -29,10 +29,10 @@ const translations = {
         numberFormat: 'Формат чисел',
         toggleNumberFormat: 'Переключить формат чисел',
         // Dates
-        foundation: "День основания Учения",
-        declaration: "День Декларации",
-        pandect: "День пандекта",
-        cosmonautics: "День космонавтики",
+        foundation: "День основания Учения.",
+        declaration: "День Декларации - день, когда появилась Декларация Учения, первый программный документ.",
+        pandect: "День пандекта - день, когда был записан первый его текст.",
+        cosmonautics: "День космонавтики - день, когда был совершён первый полёт человека в космос.",
     },
     de: {
         title: 'Kalender der Lehre des Vereinigten Tempels',
@@ -47,9 +47,9 @@ const translations = {
         toggleNumberFormat: 'Zahlenformat umschalten',
         // Dates
         foundation: "Tag der Gründung der Lehre",
-        declaration: "Tag der Deklaration",
-        pandect: "Tag des Pandekts",
-        cosmonautics: "Tag der Kosmonautik",
+        declaration: "Tag der Deklaration – der tag, an dem die Deklaration der Lehre, das erste programmatische dokument, entstand.",
+        pandect: "Tag der Pandekt – der tag, an dem der erste text davon niedergeschrieben wurde.",
+        cosmonautics: "Tag der Kosmonauten - der tag, an dem der erste bemannte raumflug stattfand.",
     },
     be: {
         title: 'Каляндар Вучэння Адзінага Храма',
@@ -64,9 +64,9 @@ const translations = {
         toggleNumberFormat: 'Пераключыць фармат лічбаў',
         // Dates
         foundation: "Дзень заснавання Вучэння",
-        declaration: "Дзень Дэкларацыі",
-        pandect: "Дзень пандекта",
-        cosmonautics: "Дзень касманаўтыкі",
+        declaration: "Дзень Дэкларацыі - дзень, калі з'явілася Дэкларацыя Вучэння, першы праграмны дакумент.",
+        pandect: "Дзень пандекта - дзень, калі быў запісаны першы яго тэкст.",
+        cosmonautics: "Дзень касманаўтыкі - дзень, калі быў выкананы першы палёт чалавека ў космас.",
     }
 };
 
