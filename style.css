@@ -7,18 +7,18 @@
     --bg-day-hover: #e2e8f0;
 
     /* Month-specific background colors - Light theme */
-    --bg-day-month-1: #fef2f2;  /* January */
-    --bg-day-month-2: #fdf4ff;  /* February */
-    --bg-day-month-3: #fff7ed;  /* March */
-    --bg-day-month-4: #fef2f2;  /* April */
-    --bg-day-month-5: #fdf4ff;  /* May */
-    --bg-day-month-6: #fff7ed;  /* June */
-    --bg-day-month-7: #fef2f2;  /* July */
-    --bg-day-month-8: #fdf4ff;  /* August */
-    --bg-day-month-9: #fff7ed;  /* September */
-    --bg-day-month-10: #fef2f2; /* October */
-    --bg-day-month-11: #fdf4ff; /* November */
-    --bg-day-month-12: #fff7ed; /* December */
+    --bg-day-month-1: #ffe4b5;  /* January - Light Red */
+    --bg-day-month-2: #c1e1c1;  /* February - Light Purple */
+    --bg-day-month-3: #add8e6;  /* March - Light Orange */
+    --bg-day-month-4: #ffe4b5;  /* April - Light Green */
+    --bg-day-month-5: #c1e1c1;  /* May - Light Blue */
+    --bg-day-month-6: #add8e6;  /* June - Light Yellow */
+    --bg-day-month-7: #ffe4b5;  /* July - Light Pink */
+    --bg-day-month-8: #c1e1c1;  /* August - Light Teal */
+    --bg-day-month-9: #add8e6;  /* September - Light Khaki */
+    --bg-day-month-10: #ffe4b5; /* October - Light Lavender */
+    --bg-day-month-11: #c1e1c1; /* November - Light Peach */
+    --bg-day-month-12: #add8e6; /* December - Light Gray */
 
     --text-main: #2d3748;
     --text-heading: #1a202c;
@@ -51,18 +51,18 @@
     --bg-day-hover: #4a5568;
 
     /* Month-specific background colors - Dark theme */
-    --bg-day-month-1: #2d3c2e;  /* January */
-    --bg-day-month-2: #1e3a5f;  /* February */
-    --bg-day-month-3: #1e3a3c;  /* March */
-    --bg-day-month-4: #2d3c2e;  /* April */
-    --bg-day-month-5: #1e3a5f;  /* May */
-    --bg-day-month-6: #1e3a3c;  /* June */
-    --bg-day-month-7: #2d3c2e;  /* July */
-    --bg-day-month-8: #1e3a5f;  /* August */
-    --bg-day-month-9: #1e3a3c;  /* September */
-    --bg-day-month-10: #2d3c2e; /* October */
-    --bg-day-month-11: #1e3a5f; /* November */
-    --bg-day-month-12: #1e3a3c; /* December */
+    --bg-day-month-1: #663399;  /* January - Dark Red */
+    --bg-day-month-2: #2e8b57;  /* February - Dark Purple */
+    --bg-day-month-3: #8b3a3a;  /* March - Dark Orange */
+    --bg-day-month-4: #663399;  /* April - Dark Green */
+    --bg-day-month-5: #2e8b57;  /* May - Dark Blue */
+    --bg-day-month-6: #8b3a3a;  /* June - Dark Yellow */
+    --bg-day-month-7: #663399;  /* July - Dark Pink */
+    --bg-day-month-8: #2e8b57;  /* August - Dark Teal */
+    --bg-day-month-9: #8b3a3a;  /* September - Dark Khaki */
+    --bg-day-month-10: #663399; /* October - Dark Lavender */
+    --bg-day-month-11: #2e8b57; /* November - Dark Peach */
+    --bg-day-month-12: #8b3a3a; /* December - Dark Gray */
 
     --text-main: #e2e8f0;
     --text-heading: #f7fafc;
