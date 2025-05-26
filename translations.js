@@ -12,10 +12,12 @@ const translations = {
         numberFormat: 'Number format',
         toggleNumberFormat: 'Toggle number format',
         // Dates
+        prophet: "Birthday of the founder of the Teaching",
         foundation: "Foundation Day of the Teaching",
-        declaration: "Declaration Day - the day when the Declaration of the Teaching, the first programmatic document, was established.",
-        pandect: "Pandect Day - the day when its first text was recorded.",
-        cosmonautics: "Cosmonautics Day - the day when the first human spaceflight was accomplished.",
+        declaration: "Declaration Day. The day when the Declaration of the Teaching, the first programmatic document, was established.",
+        pandect: "Pandect Day. The day when its first text was recorded.",
+        cosmonautics: "Cosmonautics Day. The day when the first human spaceflight was accomplished.",
+        hiliada_boundary: "First/Last day of Hiliada",
     },
     ru: {
         title: 'Календарь Учения Единого Храма',
@@ -29,10 +31,12 @@ const translations = {
         numberFormat: 'Формат чисел',
         toggleNumberFormat: 'Переключить формат чисел',
         // Dates
+        prophet: "День рождения основателя Учения.",
         foundation: "День основания Учения.",
-        declaration: "День Декларации - день, когда появилась Декларация Учения, первый программный документ.",
-        pandect: "День пандекта - день, когда был записан первый его текст.",
-        cosmonautics: "День космонавтики - день, когда был совершён первый полёт человека в космос.",
+        declaration: "День Декларации. День, когда появилась Декларация Учения, первый программный документ.",
+        pandect: "День пандекта. День, когда был записан первый его текст.",
+        cosmonautics: "День космонавтики. День, когда был совершён первый полёт человека в космос.",
+        hiliada_boundary: "Первый/Последний день Хилиады",
     },
     de: {
         title: 'Kalender der Lehre des Vereinigten Tempels',
@@ -46,10 +50,12 @@ const translations = {
         numberFormat: 'Zahlenformat',
         toggleNumberFormat: 'Zahlenformat umschalten',
         // Dates
+        prophet: "Geburtstag des gründers der Lehre",
         foundation: "Tag der Gründung der Lehre",
-        declaration: "Tag der Deklaration – der tag, an dem die Deklaration der Lehre, das erste programmatische dokument, entstand.",
-        pandect: "Tag der Pandekt – der tag, an dem der erste text davon niedergeschrieben wurde.",
-        cosmonautics: "Tag der Kosmonauten - der tag, an dem der erste bemannte raumflug stattfand.",
+        declaration: "Tag der Deklaration. Der tag, an dem die Deklaration der Lehre, das erste programmatische dokument, entstand.",
+        pandect: "Tag der Pandekt. Der tag, an dem der erste text davon niedergeschrieben wurde.",
+        cosmonautics: "Tag der Kosmonauten. Der tag, an dem der erste bemannte raumflug stattfand.",
+        hiliada_boundary: "Erster/Letzter Tag der Hiliada",
     },
     be: {
         title: 'Каляндар Вучэння Адзінага Храма',
@@ -63,10 +69,12 @@ const translations = {
         numberFormat: 'Фармат лічбаў',
         toggleNumberFormat: 'Пераключыць фармат лічбаў',
         // Dates
-        foundation: "Дзень заснавання Вучэння",
-        declaration: "Дзень Дэкларацыі - дзень, калі з'явілася Дэкларацыя Вучэння, першы праграмны дакумент.",
-        pandect: "Дзень пандекта - дзень, калі быў запісаны першы яго тэкст.",
-        cosmonautics: "Дзень касманаўтыкі - дзень, калі быў выкананы першы палёт чалавека ў космас.",
+        prophet: "Дзень нараджэння заснавальніка Вучэння.",
+        foundation: "Дзень заснавання Вучэння.",
+        declaration: "Дзень Дэкларацыі. Дзень, калі з'явілася Дэкларацыя Вучэння, першы праграмны дакумент.",
+        pandect: "Дзень пандекта. Дзень, калі быў запісаны першы яго тэкст.",
+        cosmonautics: "Дзень касманаўтыкі. Дзень, калі быў выкананы першы палёт чалавека ў космас.",
+        hiliada_boundary: "Першы/Апошні дзень Хіліяды",
     }
 };
 
