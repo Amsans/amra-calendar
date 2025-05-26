@@ -417,6 +417,11 @@ input:not(:checked) + .slider .sun {
     transition: all var(--transition-speed) ease;
 }
 
+.toggle-container {
+    margin-left: 10px;
+    padding-top: 6px;
+}
+
 .toggle-button {
     cursor: pointer;
     font-weight: 600;
@@ -468,6 +473,10 @@ input:not(:checked) + .slider .sun {
 }
 
 /* Today button styling */
+.today-button-container {
+    padding-top: 6px;
+}
+
 .today-button {
     background-color: var(--bg-day-hover);
     border: 1px solid var(--border-color);
@@ -540,10 +549,10 @@ input:not(:checked) + .slider .sun {
 
 .selector-container label {
     font-size: 18px;
-    margin-right: 20px;
+    margin-right: 5px;
     color: var(--text-heading);
     font-weight: 500;
-    min-width: 80px;
+    /*min-width: 80px;*/
 }
 
 .selector-container select {
@@ -561,7 +570,7 @@ input:not(:checked) + .slider .sun {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%234a5568' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right 8px center;
-    padding: 10px 32px 10px 12px;
+    padding: 6px 32px 6px 12px;
 }
 
 .selector-container select:hover {
@@ -590,7 +599,7 @@ input:not(:checked) + .slider .sun {
     align-items: center;
     justify-content: center;
     min-width: 30px;
-    height: 43px;
+    height: 36px;
 }
 
 .selector-control-button:hover {
@@ -904,6 +913,12 @@ input:not(:checked) + .slider .sun {
         top: 60px;
     }
 
+    .today-button {
+        font-size: 14px;
+        padding: 6px 10px;
+        margin: 5px 0;
+    }
+
     .selector-container {
         width: 100%;
         max-width: 300px;
@@ -1031,6 +1046,7 @@ input:not(:checked) + .slider .sun {
     }
 
     .toggle-container {
+        margin-left: 0;
         margin-bottom: 5px;
     }
 }
@@ -1071,12 +1087,3 @@ input:not(:checked) + .slider .sun {
     border-width: 1px;
 }
 
-
-
-@media (max-width: 480px) {
-    .today-button {
-        font-size: 14px;
-        padding: 6px 10px;
-        margin: 5px 0;
-    }
-}

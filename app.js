@@ -27,6 +27,9 @@ function generateCalendar(rootEl) {
     toggleContainer.appendChild(settingsButton);
     navigationControls.appendChild(toggleContainer);
 
+    const todayButtonContainer = document.createElement('div');
+    todayButtonContainer.className = 'today-button-container';
+
     const todayButton = document.createElement('button');
     todayButton.className = 'today-button';
     todayButton.title = getTranslation('today');
@@ -34,7 +37,8 @@ function generateCalendar(rootEl) {
     todayButton.addEventListener('click', scrollToCurrentDay);
     todayButton.textContent = getTranslation('today');
 
-    navigationControls.appendChild(todayButton);
+    todayButtonContainer.appendChild(todayButton);
+    navigationControls.appendChild(todayButtonContainer);
 
     // Add hiliada selector
     const hiliadaSelector = createSelector('hiliada-selector', getTranslation('hiliada'));
