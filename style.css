@@ -744,16 +744,18 @@ input:not(:checked) + .slider .sun {
 }
 
 .selected-date-container {
-    width: 50%;
+    width: 30%;
 }
 
 .holiday-info {
-    width: 50%;
+    width: 70%;
+    margin-right: 10px;
 }
 
 .selected-date-common {
     font-size: 15px;
     margin-bottom: 6px;
+    margin-left: 10px;
     color: var(--text-heading);
     letter-spacing: 0.01em;
     display: flex;
@@ -770,6 +772,7 @@ input:not(:checked) + .slider .sun {
 }
 
 .selected-date-tut {
+    margin-left: 10px;
     font-size: 18px;
     font-weight: 600;
     color: #0056b3; /* Darker blue for better contrast in light theme */
