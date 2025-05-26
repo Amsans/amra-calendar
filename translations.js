@@ -17,7 +17,8 @@ const translations = {
         declaration: "Declaration Day. The day when the Declaration of the Teaching, the first programmatic document, was established.",
         pandect: "Pandect Day. The day when its first text was recorded.",
         cosmonautics: "Cosmonautics Day. The day when the first human spaceflight was accomplished.",
-        hiliada_boundary: "First/Last day of Hiliada",
+        hiliada_first: "First day of the hiliada",
+        hiliada_last: "Last day of the hiliada",
     },
     ru: {
         title: 'Календарь Учения Единого Храма',
@@ -34,9 +35,10 @@ const translations = {
         prophet: "День рождения основателя Учения.",
         foundation: "День основания Учения.",
         declaration: "День Декларации. День, когда появилась Декларация Учения, первый программный документ.",
-        pandect: "День пандекта. День, когда был записан первый его текст.",
+        pandect: "День пандэкта. День, когда был записан первый его текст.",
         cosmonautics: "День космонавтики. День, когда был совершён первый полёт человека в космос.",
-        hiliada_boundary: "Первый/Последний день Хилиады",
+        hiliada_first: "Первый день хилиады",
+        hiliada_last: "Последний день хилиады",
     },
     de: {
         title: 'Kalender der Lehre des Vereinigten Tempels',
@@ -55,7 +57,8 @@ const translations = {
         declaration: "Tag der Deklaration. Der tag, an dem die Deklaration der Lehre, das erste programmatische dokument, entstand.",
         pandect: "Tag der Pandekt. Der tag, an dem der erste text davon niedergeschrieben wurde.",
         cosmonautics: "Tag der Kosmonauten. Der tag, an dem der erste bemannte raumflug stattfand.",
-        hiliada_boundary: "Erster/Letzter Tag der Hiliada",
+        hiliada_first: "Erster Tag der hiliada",
+        hiliada_last: "Letzter Tag der hiliada",
     },
     be: {
         title: 'Каляндар Вучэння Адзінага Храма',
@@ -72,9 +75,10 @@ const translations = {
         prophet: "Дзень нараджэння заснавальніка Вучэння.",
         foundation: "Дзень заснавання Вучэння.",
         declaration: "Дзень Дэкларацыі. Дзень, калі з'явілася Дэкларацыя Вучэння, першы праграмны дакумент.",
-        pandect: "Дзень пандекта. Дзень, калі быў запісаны першы яго тэкст.",
+        pandect: "Дзень пандэкта. Дзень, калі быў запісаны першы яго тэкст.",
         cosmonautics: "Дзень касманаўтыкі. Дзень, калі быў выкананы першы палёт чалавека ў космас.",
-        hiliada_boundary: "Першы/Апошні дзень Хіліяды",
+        hiliada_first: "Першы дзень хіліяды",
+        hiliada_last: "Апошні дзень хіліяды",
     }
 };
 
