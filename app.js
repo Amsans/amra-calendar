@@ -614,15 +614,10 @@ function toggleHeaderControls() {
 
     headerControls.classList.toggle('visible');
 
-    // Only add the active class temporarily for visual feedback
     if (!headerControls.classList.contains('visible')) {
         toggleButton.classList.remove('active');
     } else {
         toggleButton.classList.add('active');
-        // Remove the active class after a short delay
-        setTimeout(() => {
-            toggleButton.classList.remove('active');
-        }, 300);
     }
 }
 
