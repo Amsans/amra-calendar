@@ -343,12 +343,26 @@ input:not(:checked) + .slider .sun {
     }
 }
 
+.buttons-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    flex-shrink: 0;
+    width: 25%;
+}
 
-
-
+.selectors-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 75%;
+}
 
 .toggle-container {
-    margin-left: 10px;
+
     padding-top: 6px;
 }
 
@@ -671,13 +685,14 @@ input:not(:checked) + .slider .sun {
 }
 
 .day-block.today {
+    background: linear-gradient(135deg, var(--bg-day-hover), var(--accent-color) 150%);
     border: 2px solid var(--accent-color);
     box-shadow: 0 0 0 2px rgba(66, 153, 225, 0.2);
 }
 
 /* Styling for hiliada days (n*1000 days after a memorable date) */
 .day-block.holiday {
-    background: linear-gradient(135deg, var(--bg-day-hover), var(--accent-color) 150%);
+
     border: 2px dashed gold;
     box-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
     color: var(--text-heading);
@@ -700,13 +715,15 @@ input:not(:checked) + .slider .sun {
     font-weight: bold;
 }
 
-.day-block.selected .day-tut-date {
-    color: rgba(0, 0, 0, 0.9);
+.day-block.selected .day-date {
+    color: rgba(19, 25, 46, 0.9);
 }
 
-.day-block.selected .day-date {
-    color: rgba(0, 0, 0, 0.9);
+.day-block.selected .day-tut-date {
+    color: rgba(34, 46, 81, 0.9);
 }
+
+
 
 .selected-date-info {
     display: flex;
@@ -798,13 +815,13 @@ input:not(:checked) + .slider .sun {
 /* Fix for overlapping controls in medium-small screens */
 @media (max-width: 620px) and (min-width: 481px) {
     .selector-container {
-        width: 45%;
+        /*width: 45%;*/
     }
 
     .selector-container label {
         font-size: 16px;
-        margin-right: 10px;
-        min-width: 70px;
+        /*margin-right: 10px;*/
+        /*min-width: 70px;*/
     }
 
     .selector-control-button {
@@ -831,26 +848,42 @@ input:not(:checked) + .slider .sun {
 
     .today-button {
         font-size: 14px;
-        padding: 6px 10px;
-        margin: 5px 0;
+    }
+
+    .selectors-container {
+        justify-content: end;
+        align-items: end;
     }
 
     .selector-container {
+        justify-content: end;
+        align-items: end;
         width: 100%;
         max-width: 300px;
-        margin: 5px 0;
+        margin: 5px 30px 5px 0;
     }
 
     .selector-container label {
-        width: 50%;
+        /*width: 50%;*/
     }
 
     .calendar-navigation {
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         align-items: center;
         padding: 10px;
         gap: 1px;
+    }
+
+    .buttons-container {
+        width: 35%;
+        margin-right: 30px;
+    }
+
+    .selectors-container {
+        width: 65%;
+        flex-direction: column;
+        justify-content: end;
     }
 
     .days-grid {
@@ -904,7 +937,7 @@ input:not(:checked) + .slider .sun {
 
     .calendar-navigation {
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         align-items: center;
         padding: 10px;
         gap: 1px;
@@ -963,7 +996,6 @@ input:not(:checked) + .slider .sun {
 
     .toggle-container {
         margin-left: 0;
-        margin-bottom: 5px;
     }
 }
 

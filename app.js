@@ -13,42 +13,39 @@ function generateCalendar(rootEl) {
     const navigationControls = document.createElement('div');
     navigationControls.className = 'calendar-navigation';
 
-    // Create the settings button for header controls
+    // Create the settings button
     const toggleContainer = document.createElement('div');
     toggleContainer.className = 'toggle-container';
 
-    const settingsButton = document.createElement('button');
-    settingsButton.className = 'toggle-button header-toggle';
-    settingsButton.title = getTranslation('settings');
-    settingsButton.textContent = '⚙️'; // Gear emoji as an icon
-    settingsButton.setAttribute('aria-label', 'Toggle settings');
-    settingsButton.addEventListener('click', toggleHeaderControls);
+    const buttonsContainer = document.createElement('div');
+    buttonsContainer.className = 'buttons-container';
+
+    const settingsButton = createSettingsButton();
 
     toggleContainer.appendChild(settingsButton);
-    navigationControls.appendChild(toggleContainer);
+    buttonsContainer.appendChild(toggleContainer);
 
+    // Create the Today button
     const todayButtonContainer = document.createElement('div');
     todayButtonContainer.className = 'today-button-container';
 
-    const todayButton = document.createElement('button');
-    todayButton.className = 'today-button';
-    todayButton.title = getTranslation('today');
-    todayButton.setAttribute('aria-label', 'Today');
-    todayButton.addEventListener('click', scrollToCurrentDay);
-    todayButton.textContent = getTranslation('today');
+    const todayButton = createTodayButton();
 
     todayButtonContainer.appendChild(todayButton);
-    navigationControls.appendChild(todayButtonContainer);
+    buttonsContainer.appendChild(todayButtonContainer);
 
-    // Add hiliada selector
+    const selectorsContainer = document.createElement('div');
+    selectorsContainer.className = 'selectors-container';
+
+    // Create the selectors
     const hiliadaSelector = createSelector('hiliada-selector', getTranslation('hiliada'));
-    // Add gekatontada selector
     const gekatontadaSelector = createSelector('gekatontada-selector', getTranslation('gekatontada'));
 
-    // Add the selectors to navigation controls
-    navigationControls.appendChild(hiliadaSelector);
-    navigationControls.appendChild(gekatontadaSelector);
+    selectorsContainer.appendChild(hiliadaSelector);
+    selectorsContainer.appendChild(gekatontadaSelector);
 
+    navigationControls.appendChild(buttonsContainer);
+    navigationControls.appendChild(selectorsContainer);
 
     calendarContainer.appendChild(navigationControls);
 
@@ -61,6 +58,26 @@ function generateCalendar(rootEl) {
     rootEl.appendChild(calendarContainer);
 
     initialiseCalendar();
+}
+
+function createSettingsButton() {
+    const settingsButton = document.createElement('button');
+    settingsButton.className = 'toggle-button header-toggle';
+    settingsButton.title = getTranslation('settings');
+    settingsButton.textContent = '⚙️'; // Gear emoji as an icon
+    settingsButton.setAttribute('aria-label', 'Toggle settings');
+    settingsButton.addEventListener('click', toggleHeaderControls);
+    return settingsButton;
+}
+
+function createTodayButton() {
+    const todayButton = document.createElement('button');
+    todayButton.className = 'today-button';
+    todayButton.title = getTranslation('today');
+    todayButton.setAttribute('aria-label', 'Today');
+    todayButton.addEventListener('click', scrollToCurrentDay);
+    todayButton.textContent = getTranslation('today');
+    return todayButton;
 }
 
 function createSelector(id, labelText) {
