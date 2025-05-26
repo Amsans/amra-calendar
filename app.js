@@ -23,7 +23,6 @@ function generateCalendar(rootEl) {
     settingsButton.textContent = '⚙️'; // Gear emoji as an icon
     settingsButton.setAttribute('aria-label', 'Toggle settings');
     settingsButton.addEventListener('click', toggleHeaderControls);
-    const headerControls = document.querySelector('.header-controls');
 
     toggleContainer.appendChild(settingsButton);
     navigationControls.appendChild(toggleContainer);
@@ -401,7 +400,6 @@ function scrollToCurrentDay() {
     // Calculate hiliada, gekatontada, decada based on days since start
     const currentHiliada = Math.floor(daysSinceStart / 1000) + 1;
     const currentGekatontada = Math.floor((daysSinceStart % 1000) / 100) + 1;
-    const currentDecada = Math.floor((daysSinceStart % 100) / 10) + 1;
 
     // Update the selectors to the current values
     const hiliadaSelector = document.getElementById('hiliada-selector');
