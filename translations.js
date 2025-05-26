@@ -8,9 +8,14 @@ const translations = {
         decada: 'Decada',
         locale: 'en-US',
         today: 'Today',
+        settings: 'Settings',
         numberFormat: 'Number format',
-        roman: 'Roman',
-        arabic: 'Arabic'
+        toggleNumberFormat: 'Toggle number format',
+        // Dates
+        foundation: "Foundation Day of the Teaching",
+        declaration: "Declaration Day",
+        pandect: "Pandect Day",
+        cosmonautics: "Cosmonautics Day",
     },
     ru: {
         title: 'Календарь Учения Единого Храма',
@@ -20,9 +25,14 @@ const translations = {
         decada: 'Декада',
         locale: 'ru-RU',
         today: 'Сегодня',
+        settings: 'Настройки',
         numberFormat: 'Формат чисел',
-        roman: 'Римские',
-        arabic: 'Арабские'
+        toggleNumberFormat: 'Переключить формат чисел',
+        // Dates
+        foundation: "День основания Учения",
+        declaration: "День Декларации",
+        pandect: "День пандекта",
+        cosmonautics: "День космонавтики",
     },
     de: {
         title: 'Kalender der Lehre des Vereinigten Tempels',
@@ -32,9 +42,14 @@ const translations = {
         decada: 'Dekade',
         locale: 'de-DE',
         today: 'Heute',
+        settings: 'Einstellungen',
         numberFormat: 'Zahlenformat',
-        roman: 'Römisch',
-        arabic: 'Arabisch'
+        toggleNumberFormat: 'Zahlenformat umschalten',
+        // Dates
+        foundation: "Tag der Gründung der Lehre",
+        declaration: "Tag der Deklaration",
+        pandect: "Tag des Pandekts",
+        cosmonautics: "Tag der Kosmonautik",
     },
     be: {
         title: 'Каляндар Вучэння Адзінага Храма',
@@ -44,9 +59,14 @@ const translations = {
         decada: 'Дэкада',
         locale: 'be-BY',
         today: 'Сёння',
+        settings: 'Налады',
         numberFormat: 'Фармат лічбаў',
-        roman: 'Рымскія',
-        arabic: 'Арабскія'
+        toggleNumberFormat: 'Пераключыць фармат лічбаў',
+        // Dates
+        foundation: "Дзень заснавання Вучэння",
+        declaration: "Дзень Дэкларацыі",
+        pandect: "Дзень пандекта",
+        cosmonautics: "Дзень касманаўтыкі",
     }
 };
 
@@ -64,7 +84,7 @@ function getTranslation(key, lang) {
     return translations[currentLang][key] || translations['en'][key] || key;
 }
 
-// Function to get current language from localStorage or default to English
+// Function to get the current language from localStorage or default to English
 function getCurrentLanguage() {
     // If localStorage is empty (first time loading), default to English
     if (!localStorage.getItem('language')) {
@@ -103,10 +123,24 @@ function updatePageTranslations() {
         headerTitle.textContent = getTranslation('title', lang);
     }
 
-    const numFormatSelect = document.querySelector('#number-format-select');
-    if (numFormatSelect) {
-        for (let i = 0; i < numFormatSelect.options.length; i++) {
-            numFormatSelect.options[i].textContent = getTranslation(numFormatSelect.options[i].value, lang);
+    // Update the number format switch aria-label
+    const numberFormatSwitch = document.querySelector('#number-format-checkbox');
+    if (numberFormatSwitch) {
+        const numberFormatLabel = document.querySelector('.number-format-switch');
+        numberFormatLabel.title = getTranslation('toggleNumberFormat', lang);
+
+        numberFormatSwitch.setAttribute('aria-label', getTranslation('toggleNumberFormat', lang));
+
+        // Update aria-labels for the Roman and Arabic spans
+        const romanSpan = document.querySelector('.roman');
+        const arabicSpan = document.querySelector('.arabic');
+
+        if (romanSpan) {
+            romanSpan.setAttribute('aria-label', getTranslation('roman', lang));
+        }
+
+        if (arabicSpan) {
+            arabicSpan.setAttribute('aria-label', getTranslation('arabic', lang));
         }
     }
 
@@ -116,7 +150,7 @@ function updatePageTranslations() {
         darkModeToggle.setAttribute('aria-label', getTranslation('darkMode', lang));
     }
 
-    // Regenerate calendar with new language
+    // Regenerate calendar with a new language
     const calendarRoot = document.getElementById('calendar-root');
     if (calendarRoot) {
         calendarRoot.innerHTML = '';

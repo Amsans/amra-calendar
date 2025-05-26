@@ -13,17 +13,40 @@ function generateCalendar(rootEl) {
     const navigationControls = document.createElement('div');
     navigationControls.className = 'calendar-navigation';
 
-    // Add hiliada selector
-    const hiliadaSelector = createSelector('hiliada-selector', getTranslation('hiliada'));
+    // Create the settings button
+    const toggleContainer = document.createElement('div');
+    toggleContainer.className = 'toggle-container';
 
-    // Add gekatontada selector
+    const buttonsContainer = document.createElement('div');
+    buttonsContainer.className = 'buttons-container';
+
+    const settingsButton = createSettingsButton();
+
+    toggleContainer.appendChild(settingsButton);
+    buttonsContainer.appendChild(toggleContainer);
+
+    // Create the Today button
+    const todayButtonContainer = document.createElement('div');
+    todayButtonContainer.className = 'today-button-container';
+
+    const todayButton = createTodayButton();
+
+    todayButtonContainer.appendChild(todayButton);
+    buttonsContainer.appendChild(todayButtonContainer);
+
+    const selectorsContainer = document.createElement('div');
+    selectorsContainer.className = 'selectors-container';
+
+    // Create the selectors
+    const hiliadaSelector = createSelector('hiliada-selector', getTranslation('hiliada'));
     const gekatontadaSelector = createSelector('gekatontada-selector', getTranslation('gekatontada'));
 
-    // Add the selectors to navigation controls
-    navigationControls.appendChild(hiliadaSelector);
-    navigationControls.appendChild(gekatontadaSelector);
+    selectorsContainer.appendChild(hiliadaSelector);
+    selectorsContainer.appendChild(gekatontadaSelector);
 
-    // Add navigation controls to the calendar container
+    navigationControls.appendChild(buttonsContainer);
+    navigationControls.appendChild(selectorsContainer);
+
     calendarContainer.appendChild(navigationControls);
 
     // Create decadas grid
@@ -34,11 +57,29 @@ function generateCalendar(rootEl) {
     // Add the calendar container to the root element
     rootEl.appendChild(calendarContainer);
 
-    // Initialize the calendar with the TUT foundation date
-    initializeCalendar();
+    initialiseCalendar();
 }
 
-// Helper function to create a selector
+function createSettingsButton() {
+    const settingsButton = document.createElement('button');
+    settingsButton.className = 'toggle-button header-toggle';
+    settingsButton.title = getTranslation('settings');
+    settingsButton.textContent = '⚙️'; // Gear emoji as an icon
+    settingsButton.setAttribute('aria-label', 'Toggle settings');
+    settingsButton.addEventListener('click', toggleHeaderControls);
+    return settingsButton;
+}
+
+function createTodayButton() {
+    const todayButton = document.createElement('button');
+    todayButton.className = 'today-button';
+    todayButton.title = getTranslation('today');
+    todayButton.setAttribute('aria-label', 'Today');
+    todayButton.addEventListener('click', scrollToCurrentDay);
+    todayButton.textContent = getTranslation('today');
+    return todayButton;
+}
+
 function createSelector(id, labelText) {
     const selectorContainer = document.createElement('div');
     selectorContainer.className = 'selector-container';
@@ -47,20 +88,41 @@ function createSelector(id, labelText) {
     label.textContent = labelText;
     label.htmlFor = id;
 
+    // Create left control button
+    const leftButton = document.createElement('button');
+    leftButton.className = 'selector-control-button';
+    leftButton.textContent = '←';
+    leftButton.setAttribute('aria-label', 'Previous');
+    leftButton.dataset.direction = 'prev';
+    leftButton.dataset.for = id;
+    leftButton.addEventListener('click', handleSelectorControlClick);
+
+    // Create select element
     const select = document.createElement('select');
     select.id = id;
     select.setAttribute('aria-label', labelText);
 
+    // Create right control button
+    const rightButton = document.createElement('button');
+    rightButton.className = 'selector-control-button';
+    rightButton.textContent = '→';
+    rightButton.setAttribute('aria-label', 'Next');
+    rightButton.dataset.direction = 'next';
+    rightButton.dataset.for = id;
+    rightButton.addEventListener('click', handleSelectorControlClick);
+
     selectorContainer.appendChild(label);
+    selectorContainer.appendChild(leftButton);
     selectorContainer.appendChild(select);
+    selectorContainer.appendChild(rightButton);
 
     return selectorContainer;
 }
 
-// Initialize the calendar with the TUT foundation date
-function initializeCalendar() {
+// Initialise the calendar with the TUT foundation date
+function initialiseCalendar() {
     // Start from TUT foundation date (March 1, 1996)
-    const startDate = new Date(TUT_FOUNDATION_DATE);
+    const startDate = TUT_FOUNDATION_DATE;
 
     // Calculate current hiliada, gekatontada, and decada
     const today = new Date();
@@ -74,7 +136,7 @@ function initializeCalendar() {
     const currentGekatontada = Math.floor((daysSinceStart % 1000) / 100) + 1;
     const currentDecada = Math.floor((daysSinceStart % 100) / 10) + 1;
 
-    // Populate hiliada selector (show a reasonable range, e.g., 20 hiliadas)
+    // Populate hiliada selector (show a reasonable range, e.g. 20 hiliadas)
     populateSelector('hiliada-selector', 1, 20, currentHiliada);
 
     // Populate gekatontada selector (1-10)
@@ -92,9 +154,6 @@ function initializeCalendar() {
 
     // Display today's date information
     displaySelectedDate(today);
-
-    // Add a title to the calendar
-    addCalendarTitle();
 }
 
 // Populate a selector with options
@@ -134,9 +193,10 @@ function displayDecadas(hiliada, gekatontada, selectedDecada) {
         // Calculate the date for this decada
         const decadaDate = calculateDecadaDate(hiliada, gekatontada, d);
 
-        // Create decada label (only showing the decada number)
+        // Create the decada label (only showing the decada number)
         const decadaLabel = document.createElement('div');
         decadaLabel.className = 'decada-label';
+        decadaLabel.title = getTranslation('decada');
 
         // Use the appropriate number format based on user preference
         decadaLabel.textContent = getCurrentNumberFormat() === 'roman' ? toRoman(d) : d;
@@ -154,7 +214,7 @@ function displayDecadas(hiliada, gekatontada, selectedDecada) {
             // Calculate the date for this specific day
             const dayDate = calculateDayDate(hiliada, gekatontada, d, day);
 
-            // Create day element
+            // Create a day element
             const dayElement = document.createElement('div');
             dayElement.className = 'day-block';
 
@@ -172,18 +232,20 @@ function displayDecadas(hiliada, gekatontada, selectedDecada) {
                 dayElement.classList.add('selected');
             }
 
+            if (isHoliday(dayDate)) {
+                dayElement.classList.add('holiday');
+            }
+
             // Add date display
             const dateDisplay = document.createElement('div');
             dateDisplay.className = 'day-date';
             // Format date as DD/MM
             dateDisplay.textContent = dayDate.toLocaleDateString(getTranslation('locale'), {
-                day: '2-digit',
-                month: '2-digit',
-                year: '2-digit'
+                day: '2-digit', month: '2-digit', year: '2-digit'
             });
             dayElement.appendChild(dateDisplay);
 
-            // Add TUT date display
+            // Add TUT date format display
             const tutDateDisplay = document.createElement('div');
             tutDateDisplay.className = 'day-tut-date';
             let tutDate = getCurrentNumberFormat() === 'roman' ? convertToTUT(dayDate) : dateToArabic(convertToTUT(dayDate));
@@ -193,12 +255,12 @@ function displayDecadas(hiliada, gekatontada, selectedDecada) {
 
             // Add click event to select this day
             dayElement.addEventListener('click', () => {
-                // Remove selected class from all days
+                // Remove the selected class from all days
                 document.querySelectorAll('.day-block').forEach(item => {
                     item.classList.remove('selected');
                 });
 
-                // Add selected class to this day
+                // Add the selected class to this day
                 dayElement.classList.add('selected');
 
                 // Display selected date information
@@ -212,12 +274,12 @@ function displayDecadas(hiliada, gekatontada, selectedDecada) {
 
         // Add click event to select this decada
         decadaHeader.addEventListener('click', () => {
-            // Remove selected class from all decadas
+            // Remove the selected class from all decadas
             document.querySelectorAll('.decada-item').forEach(item => {
                 item.classList.remove('selected');
             });
 
-            // Add selected class to this decada
+            // Add the selected class to this decada
             decada.classList.add('selected');
 
             // Display selected date information
@@ -230,7 +292,7 @@ function displayDecadas(hiliada, gekatontada, selectedDecada) {
 
 // Display selected date information
 function displaySelectedDate(date) {
-    // Check if the selected date info container exists, if not create it
+    // Check if the selected date info container exists, if not, create it
     let selectedDateInfo = document.querySelector('.selected-date-info');
 
     if (!selectedDateInfo) {
@@ -245,10 +307,24 @@ function displaySelectedDate(date) {
     // Use the appropriate number format based on user preference
     let tutFormat = getCurrentNumberFormat() === 'roman' ? convertToTUT(date) : dateToArabic(convertToTUT(date));
 
+    const holidayData = isHoliday(date);
+    let hiliadaHtml = '';
+
+    if (holidayData) {
+        hiliadaHtml = `
+            <div class="holiday-description">${holidayData.description}</div>
+        `;
+    }
+
     // Update the content
     selectedDateInfo.innerHTML = `
-        <div class="selected-date-common">${commonFormat}</div>
-        <div class="selected-date-tut">${tutFormat}</div>
+        <div class="selected-date-container">
+            <div class="selected-date-common">${commonFormat}</div>
+            <div class="selected-date-tut">${tutFormat}</div>
+        </div>
+        <div class="holiday-info">
+            ${hiliadaHtml}
+        </div>
     `;
 }
 
@@ -291,6 +367,33 @@ function handleSelectorChange() {
     scrollToCurrentDecada();
 }
 
+// Handle selector control button click
+function handleSelectorControlClick(event) {
+    const button = event.currentTarget;
+    const direction = button.dataset.direction;
+    const selectorId = button.dataset.for;
+    const selector = document.getElementById(selectorId);
+
+    // Get current value and limits
+    const currentValue = parseInt(selector.value);
+    const options = selector.options;
+    const minValue = parseInt(options[0].value);
+    const maxValue = parseInt(options[options.length - 1].value);
+
+    // Calculate new value based on direction
+    let newValue;
+    if (direction === 'prev') {
+        newValue = currentValue > minValue ? currentValue - 1 : maxValue;
+    } else {
+        newValue = currentValue < maxValue ? currentValue + 1 : minValue;
+    }
+    selector.value = newValue;
+
+    // Trigger change event to update the calendar
+    const changeEvent = new Event('change');
+    selector.dispatchEvent(changeEvent);
+}
+
 function scrollToCurrentDecada() {
     setTimeout(() => {
         const selectedDecada = document.querySelector('.decada-item.selected');
@@ -309,28 +412,56 @@ function scrollToCurrentDecada() {
     }, 100); // Short delay to ensure DOM is rendered
 }
 
-// Add a title to the calendar
-function addCalendarTitle() {
-    const calendarContainer = document.querySelector('.calendar-container');
+function scrollToCurrentDay() {
+    // Calculate current hiliada, gekatontada, and decada
+    const startDate = new Date(TUT_FOUNDATION_DATE);
+    const today = new Date();
+    const daysSinceStart = Math.floor((today - startDate) / ONE_DAY);
 
-    // Create title element
-    const titleElement = document.createElement('div');
-    titleElement.className = 'calendar-title';
+    // Calculate hiliada, gekatontada, decada based on days since start
+    const currentHiliada = Math.floor(daysSinceStart / 1000) + 1;
+    const currentGekatontada = Math.floor((daysSinceStart % 1000) / 100) + 1;
 
-    // Create title text element
-    const titleTextElement = document.createElement('div');
-    titleTextElement.className = 'calendar-title-text';
-    titleTextElement.textContent = getTranslation('title');
-    titleElement.appendChild(titleTextElement);
+    // Update the selectors to the current values
+    const hiliadaSelector = document.getElementById('hiliada-selector');
+    const gekatontadaSelector = document.getElementById('gekatontada-selector');
 
-    // // Move header controls to calendar title
-    // const headerControls = document.querySelector('.header-controls');
-    // if (headerControls) {
-    //     titleElement.appendChild(headerControls);
-    // }
+    hiliadaSelector.value = currentHiliada;
+    gekatontadaSelector.value = currentGekatontada;
 
-    // Insert at the beginning of the container
-    calendarContainer.insertBefore(titleElement, calendarContainer.firstChild);
+    // Trigger change event to update the calendar
+    const changeEvent = new Event('change');
+    hiliadaSelector.dispatchEvent(changeEvent);
+
+    // After a short delay to ensure the calendar is updated
+    setTimeout(() => {
+        // Find the current gekatontada element
+        const currentGekatontadaElement = document.querySelector('.gekatontada');
+        if (currentGekatontadaElement) {
+            // Scroll to the current gekatontada
+            currentGekatontadaElement.scrollIntoView({behavior: 'instant', block: 'start'});
+
+            // After a short delay to ensure gekatontada is scrolled
+            setTimeout(() => {
+                // Find the current decada element
+                const currentDecadaElement = document.querySelector('.decada-item.selected');
+                if (currentDecadaElement) {
+                    // Scroll to the current decada
+                    currentDecadaElement.scrollIntoView({behavior: 'instant', block: 'center'});
+
+                    // After a short delay to ensure decada is scrolled
+                    setTimeout(() => {
+                        // Find today's day block
+                        const todayBlock = document.querySelector('.day-block.today');
+                        if (todayBlock) {
+                            // Scroll to today's day block
+                            todayBlock.scrollIntoView({behavior: 'instant', block: 'center'});
+                        }
+                    }, 300);
+                }
+            }, 300);
+        }
+    }, 100);
 }
 
 // Language selector functionality
@@ -385,27 +516,33 @@ function initThemeSwitch() {
     });
 }
 
-// Number format selector functionality
+// Number format switch functionality
 function initNumberFormatSelector() {
-    const numberFormatSelect = document.querySelector('#number-format-select');
-    // Set initial number format
-    numberFormatSelect.value = localStorage.getItem('numberFormat') || 'roman';
+    const numberFormatSwitch = document.querySelector('#number-format-checkbox');
+    const currentFormat = localStorage.getItem('numberFormat') || 'roman';
+
+    // Set the initial number format
+    numberFormatSwitch.checked = currentFormat === 'arabic';
 
     // Update the number format translations
     updateNumberFormatLabels();
 
     // Listen for number format changes
-    numberFormatSelect.addEventListener('change', function () {
-        setNumberFormat(this.value);
+    numberFormatSwitch.addEventListener('change', function () {
+        if (this.checked) {
+            setNumberFormat('arabic');
+        } else {
+            setNumberFormat('roman');
+        }
     });
 }
 
-// Function to get current number format from localStorage or default to roman
+// Function to get the current number format from localStorage or default to roman
 function getCurrentNumberFormat() {
     return localStorage.getItem('numberFormat') || 'roman';
 }
 
-// Function to set number format
+// Function to set the number format
 function setNumberFormat(format) {
     if (format === 'roman' || format === 'arabic') {
         localStorage.setItem('numberFormat', format);
@@ -417,25 +554,27 @@ function setNumberFormat(format) {
 
 // Function to update all number format labels on the page
 function updateNumberFormatLabels() {
-    const numberFormatSelect = document.querySelector('#number-format-select');
+    const numberFormatSwitch = document.querySelector('#number-format-checkbox');
 
-    // Update the select label and options with translated labels
-    if (numberFormatSelect) {
+    // Update the switch label with translated labels
+    if (numberFormatSwitch) {
         // Set the aria-label to the translated 'numberFormat'
-        numberFormatSelect.setAttribute('aria-label', getTranslation('numberFormat'));
+        numberFormatSwitch.setAttribute('aria-label', getTranslation('toggleNumberFormat'));
 
-        // Update option labels
-        const options = numberFormatSelect.querySelectorAll('option');
-        options.forEach(option => {
-            if (option.value === 'roman') {
-                option.textContent = getTranslation('roman');
-            } else if (option.value === 'arabic') {
-                option.textContent = getTranslation('arabic');
-            }
-        });
+        // Update aria-labels for the roman and arabic spans
+        const romanSpan = document.querySelector('.roman');
+        const arabicSpan = document.querySelector('.arabic');
+
+        if (romanSpan) {
+            romanSpan.setAttribute('aria-label', getTranslation('roman'));
+        }
+
+        if (arabicSpan) {
+            arabicSpan.setAttribute('aria-label', getTranslation('arabic'));
+        }
     }
 
-    // Regenerate calendar to update the number formats
+    // Regenerate calendar to update the formats of all the numbers
     const calendarRoot = document.getElementById('calendar-root');
     if (calendarRoot) {
         calendarRoot.innerHTML = '';
@@ -443,7 +582,26 @@ function updateNumberFormatLabels() {
     }
 }
 
-// Add window resize event listener to handle scrolling when switching between desktop and mobile view
+// Function to toggle header controls visibility
+function toggleHeaderControls() {
+    const headerControls = document.querySelector('.header-controls');
+    const toggleButton = document.querySelector('.header-toggle');
+
+    headerControls.classList.toggle('visible');
+
+    // Only add the active class temporarily for visual feedback
+    if (!headerControls.classList.contains('visible')) {
+        toggleButton.classList.remove('active');
+    } else {
+        toggleButton.classList.add('active');
+        // Remove the active class after a short delay
+        setTimeout(() => {
+            toggleButton.classList.remove('active');
+        }, 300);
+    }
+}
+
+// Add a window resize event listener to handle scrolling when switching between desktop and mobile view
 window.addEventListener('resize', () => {
     // Debounce the resize event to avoid excessive function calls
     clearTimeout(window.resizeTimer);
@@ -453,7 +611,7 @@ window.addEventListener('resize', () => {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Initialize language selector before generating the calendar
+    // Initialise language selector before generating the calendar
     initLanguageSelector();
 
     // Initialize number format selector
