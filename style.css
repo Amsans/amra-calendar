@@ -23,7 +23,7 @@
     --text-main: #2d3748;
     --text-heading: #1a202c;
     --text-toggle: #4a5568;
-    --text-toggle-hover: #3182ce;
+    --text-toggle-hover: #0f1f2b;
     --accent-color: #469ce2;
 
     --shadow-sm: rgba(0, 0, 0, 0.04);
@@ -67,7 +67,7 @@
     --text-main: #e2e8f0;
     --text-heading: #f7fafc;
     --text-toggle: #cbd5e0;
-    --text-toggle-hover: #63b3ed;
+    --text-toggle-hover: #0f1f2b;
     --accent-color: #4299e1;
 
     --shadow-sm: rgba(0, 0, 0, 0.3);
@@ -772,6 +772,7 @@ input:not(:checked) + .slider .sun {
 }
 
 .selected-date-tut {
+    user-select: all;
     margin-left: 10px;
     font-size: 18px;
     font-weight: 600;
