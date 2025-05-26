@@ -343,79 +343,9 @@ input:not(:checked) + .slider .sun {
     }
 }
 
-.decada {
-    border: none;
-    padding: 10px;
-    margin: 8px 0;
-    background: var(--bg-container);
-    box-sizing: border-box;
-    width: 100%;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px var(--shadow-sm);
-    transition: all var(--transition-speed) ease;
-}
 
-.decada-content {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(0, 1fr)); /* 10 equal columns */
-    gap: 8px;
-    width: 100%;
-    padding: 5px 0;
-}
 
-.day {
-    aspect-ratio: 1 / 1; /* keeps square shape */
-    background-color: var(--bg-day);
-    border-radius: var(--border-radius-md);
-    width: 100%;
-    box-shadow: 0 2px 4px var(--shadow-sm);
-    transition: all 0.2s ease-in-out;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid transparent;
 
-    &.today {
-        border: 2px solid var(--accent-color);
-        box-shadow: 0 0 0 2px rgba(66, 153, 225, 0.2);
-    }
-}
-
-.day:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px var(--shadow-md);
-    background-color: var(--bg-day-hover);
-    border-color: var(--accent-color);
-}
-
-.day-label {
-    font-size: 12px;
-    text-align: center;
-    color: var(--text-heading);
-    font-weight: 500;
-    letter-spacing: 0.02em;
-    transition: color var(--transition-speed) ease;
-}
-
-.gekatontada {
-    border: 1px solid var(--border-color);
-    padding: 18px;
-    margin: 16px 0;
-    background: var(--bg2-container);
-    border-radius: var(--border-radius-md);
-    box-shadow: 0 4px 12px var(--shadow-md);
-    transition: all var(--transition-speed) ease;
-}
-
-.hiliada {
-    border: 1px solid var(--border-color);
-    padding: 22px;
-    margin: 22px 0;
-    background: var(--bg-container);
-    border-radius: var(--border-radius-lg);
-    box-shadow: 0 6px 18px var(--shadow-sm);
-    transition: all var(--transition-speed) ease;
-}
 
 .toggle-container {
     margin-left: 10px;
@@ -835,20 +765,6 @@ input:not(:checked) + .slider .sun {
         display: none;
     }
 
-    .hiliada {
-        padding: 15px;
-        margin: 15px 0;
-    }
-
-    .gekatontada {
-        padding: 12px;
-        margin: 12px 0;
-    }
-
-    .decada {
-        padding: 8px;
-        margin: 6px 0;
-    }
 
     .calendar-container {
         max-width: 100%;
@@ -1086,4 +1002,3 @@ input:not(:checked) + .slider .sun {
     background: var(--scrollbar-thumb-hover);
     border-width: 1px;
 }
-
