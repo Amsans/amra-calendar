@@ -918,7 +918,7 @@ input:not(:checked) + .slider .sun {
     }
 
     .decadas-grid {
-        padding: 8px;
+        padding: 8px 8px 120px;
     }
 
     .decada-item {
