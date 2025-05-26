@@ -87,7 +87,7 @@ function createSelector(id, labelText) {
     // Create left control button
     const leftButton = document.createElement('button');
     leftButton.className = 'selector-control-button';
-    leftButton.textContent = '←';
+    leftButton.textContent = '⬅️';
     leftButton.setAttribute('aria-label', 'Previous');
     leftButton.dataset.direction = 'prev';
     leftButton.dataset.for = id;
@@ -101,7 +101,7 @@ function createSelector(id, labelText) {
     // Create right control button
     const rightButton = document.createElement('button');
     rightButton.className = 'selector-control-button';
-    rightButton.textContent = '→';
+    rightButton.textContent = '➡️';
     rightButton.setAttribute('aria-label', 'Next');
     rightButton.dataset.direction = 'next';
     rightButton.dataset.for = id;
@@ -614,15 +614,10 @@ function toggleHeaderControls() {
 
     headerControls.classList.toggle('visible');
 
-    // Only add the active class temporarily for visual feedback
     if (!headerControls.classList.contains('visible')) {
         toggleButton.classList.remove('active');
     } else {
         toggleButton.classList.add('active');
-        // Remove the active class after a short delay
-        setTimeout(() => {
-            toggleButton.classList.remove('active');
-        }, 300);
     }
 }
 

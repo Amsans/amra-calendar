@@ -23,7 +23,7 @@
     --text-main: #2d3748;
     --text-heading: #1a202c;
     --text-toggle: #4a5568;
-    --text-toggle-hover: #3182ce;
+    --text-toggle-hover: #0f1f2b;
     --accent-color: #469ce2;
 
     --shadow-sm: rgba(0, 0, 0, 0.04);
@@ -67,7 +67,7 @@
     --text-main: #e2e8f0;
     --text-heading: #f7fafc;
     --text-toggle: #cbd5e0;
-    --text-toggle-hover: #63b3ed;
+    --text-toggle-hover: #0f1f2b;
     --accent-color: #4299e1;
 
     --shadow-sm: rgba(0, 0, 0, 0.3);
@@ -349,16 +349,16 @@ input:not(:checked) + .slider .sun {
     align-items: center;
     justify-content: space-around;
     flex-shrink: 0;
-    width: 25%;
+    width: 20%;
 }
 
 .selectors-container {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: center;
+    justify-content: space-evenly;
     flex-shrink: 0;
-    width: 75%;
+    width: 80%;
 }
 
 .toggle-container {
@@ -487,7 +487,7 @@ input:not(:checked) + .slider .sun {
     text-align: start;
     width: 35%;
     padding-left: 10px;
-    padding-right: 10px;
+    padding-right: 30px;
     gap: 5px;
 }
 
@@ -542,7 +542,6 @@ input:not(:checked) + .slider .sun {
     display: flex;
     align-items: center;
     justify-content: center;
-    min-width: 30px;
     height: 36px;
 }
 
@@ -772,6 +771,7 @@ input:not(:checked) + .slider .sun {
 }
 
 .selected-date-tut {
+    user-select: all;
     margin-left: 10px;
     font-size: 18px;
     font-weight: 600;
@@ -828,8 +828,12 @@ input:not(:checked) + .slider .sun {
 
 /* Fix for overlapping controls in medium-small screens */
 @media (max-width: 620px) and (min-width: 481px) {
+    .selectors-container {
+        justify-content: end;
+    }
+
     .selector-container {
-        /*width: 45%;*/
+        padding-left: 5px;
     }
 
     .selector-container label {
@@ -877,8 +881,8 @@ input:not(:checked) + .slider .sun {
         margin: 5px 30px 5px 0;
     }
 
-    .selector-container label {
-        /*width: 50%;*/
+    .selector-container select {
+        font-size: 16px;
     }
 
     .calendar-navigation {
@@ -1001,7 +1005,7 @@ input:not(:checked) + .slider .sun {
     .selector-container select {
         width: 45%;
         text-align: center;
-        font-size: 16px; /* Slightly smaller font size for better fit */
+        font-size: 16px;
     }
 
     .selector-control-button:nth-of-type(1) {
