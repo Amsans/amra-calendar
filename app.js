@@ -316,10 +316,39 @@ function displaySelectedDate(date) {
         `;
     }
 
+    // Split the common format into weekday and the rest
+    let weekday;
+    let restOfDate;
+
+    // Check if the format contains a comma (which separates weekday from the rest)
+    if (commonFormat.includes(',')) {
+        const parts = commonFormat.split(',', 2);
+        weekday = parts[0];
+        restOfDate = parts[1].trim();
+    } else {
+        // For formats without a comma, try to extract the weekday (first word)
+        const parts = commonFormat.split(' ');
+        if (parts.length > 1) {
+            weekday = parts[0];
+            restOfDate = parts.slice(1).join(' ');
+        } else {
+            // Fallback if we can't split it
+            weekday = '';
+            restOfDate = commonFormat;
+        }
+    }
+    if (weekday.length > 0) {
+        weekday = weekday.charAt(0).toUpperCase() + weekday.slice(1);
+    }
+
+
     // Update the content
     selectedDateInfo.innerHTML = `
         <div class="selected-date-container">
-            <div class="selected-date-common">${commonFormat}</div>
+            <div class="selected-date-common">
+                <div class="weekday">${weekday}</div>
+                <div class="rest-of-date">${restOfDate}</div>
+            </div>
             <div class="selected-date-tut">${tutFormat}</div>
         </div>
         <div class="holiday-info">

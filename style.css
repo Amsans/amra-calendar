@@ -756,6 +756,17 @@ input:not(:checked) + .slider .sun {
     margin-bottom: 6px;
     color: var(--text-heading);
     letter-spacing: 0.01em;
+    display: flex;
+    flex-direction: column;
+}
+
+.selected-date-common .weekday {
+    font-weight: 500;
+    margin-bottom: 2px;
+}
+
+.selected-date-common .rest-of-date {
+    font-weight: 400;
 }
 
 .selected-date-tut {
