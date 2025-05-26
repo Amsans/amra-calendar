@@ -843,7 +843,7 @@ input:not(:checked) + .slider .sun {
     }
 
     .header-controls.visible {
-        top: 60px;
+        top: 90px;
     }
 
     .today-button {

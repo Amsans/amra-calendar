@@ -160,7 +160,8 @@ function updatePageTranslations() {
 
 function translateToCommonFormat(date) {
     let commonFormat;
-    if (getTranslation('locale') === 'be-BY') {
+    let locale = getTranslation('locale');
+    if (locale === 'be-BY') {
         const weekday = beLocale.weekdays[date.getDay()];
         const day = date.getDate();
         const month = beLocale.months[date.getMonth()];
@@ -168,7 +169,7 @@ function translateToCommonFormat(date) {
 
         commonFormat = `${weekday}, ${day} ${month} ${year}`;
     } else {
-        commonFormat = date.toLocaleDateString(getTranslation('locale'), {
+        commonFormat = date.toLocaleDateString(locale, {
             weekday: 'long',
             year: 'numeric',
             month: 'long',
