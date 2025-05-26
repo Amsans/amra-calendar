@@ -432,10 +432,10 @@ input:not(:checked) + .slider .sun {
 .header-toggle {
     font-size: 16px;
     padding: 8px 12px;
-    background-color: rgba(66, 153, 225, 0.08);
-    color: var(--text-heading);
+    background-color: var(--bg-day-hover);
+    color: var(--accent-color);
     border: 1px solid var(--border-color);
-    box-shadow: 0 1px 3px var(--shadow-sm);
+    box-shadow: 0 3px 8px var(--shadow-md);
     border-radius: var(--border-radius-md);
     display: flex;
     align-items: center;
@@ -445,12 +445,61 @@ input:not(:checked) + .slider .sun {
 
 .header-toggle.active {
     background-color: var(--bg-container);
-    border-color: rgba(66, 153, 225, 0.2);
+    border-color: var(--accent-color);
+    box-shadow: 0 4px 10px var(--shadow-md);
 }
 
 .toggle-button:hover {
+    background-color: var(--bg-container);
+    border-color: var(--accent-color);
     color: var(--accent-color);
+    box-shadow: 0 4px 10px var(--shadow-md);
+}
+
+.toggle-button:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 2px rgba(66, 153, 225, 0.3);
+}
+
+.toggle-button:active {
+    transform: translateY(1px);
+    box-shadow: 0 1px 2px var(--shadow-sm);
+}
+
+/* Today button styling */
+.today-button {
     background-color: var(--bg-day-hover);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+    color: var(--accent-color);
+    cursor: pointer;
+    font-size: 16px;
+    padding: 8px 12px;
+    margin: 0 10px;
+    transition: all var(--transition-speed) ease;
+    box-shadow: 0 3px 8px var(--shadow-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+}
+
+.today-button:hover {
+    background-color: var(--bg-container);
+    border-color: var(--accent-color);
+    box-shadow: 0 4px 10px var(--shadow-md);
+}
+
+.today-button:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 2px rgba(66, 153, 225, 0.3);
+}
+
+.today-button:active {
+    transform: translateY(1px);
+    box-shadow: 0 1px 2px var(--shadow-sm);
 }
 
 /* Calendar UI styles */
@@ -505,10 +554,9 @@ input:not(:checked) + .slider .sun {
     font-size: 20px;
     cursor: pointer;
     transition: all var(--transition-speed) ease;
-    flex: 1;
     min-width: 80px;
     max-width: 120px;
-    box-shadow: 0 1px 2px var(--shadow-sm);
+    box-shadow: 0 3px 8px var(--shadow-md);
     appearance: none;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%234a5568' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
     background-repeat: no-repeat;
@@ -528,16 +576,16 @@ input:not(:checked) + .slider .sun {
 }
 
 .selector-control-button {
-    background-color: var(--bg-container);
+    background-color: var(--bg-day-hover);
     border: 1px solid var(--border-color);
-    border-radius: var(--border-radius-sm);
-    color: var(--text-main);
+    border-radius: var(--border-radius-md);
+    color: var(--accent-color);
     cursor: pointer;
     font-size: 20px;
     padding: 6px 8px;
     margin: 0;
     transition: all var(--transition-speed) ease;
-    box-shadow: 0 1px 2px var(--shadow-sm);
+    box-shadow: 0 3px 8px var(--shadow-md);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -546,9 +594,9 @@ input:not(:checked) + .slider .sun {
 }
 
 .selector-control-button:hover {
+    background-color: var(--bg-container);
     border-color: var(--accent-color);
-    box-shadow: 0 2px 4px var(--shadow-md);
-    color: var(--accent-color);
+    box-shadow: 0 4px 10px var(--shadow-md);
 }
 
 .selector-control-button:focus {
@@ -737,6 +785,14 @@ input:not(:checked) + .slider .sun {
     right: 0;
     z-index: 10; /* Ensure it's above other elements */
     width: 100%;
+}
+
+.selected-date-container {
+    width: 50%;
+}
+
+.holiday-info {
+    width: 50%;
 }
 
 .selected-date-common {
@@ -1013,4 +1069,14 @@ input:not(:checked) + .slider .sun {
 ::-webkit-scrollbar-thumb:hover {
     background: var(--scrollbar-thumb-hover);
     border-width: 1px;
+}
+
+
+
+@media (max-width: 480px) {
+    .today-button {
+        font-size: 14px;
+        padding: 6px 10px;
+        margin: 5px 0;
+    }
 }

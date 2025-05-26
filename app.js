@@ -20,17 +20,22 @@ function generateCalendar(rootEl) {
     const settingsButton = document.createElement('button');
     settingsButton.className = 'toggle-button header-toggle';
     settingsButton.title = getTranslation('settings');
-    settingsButton.setAttribute('aria-label', 'Toggle header controls');
     settingsButton.textContent = '⚙️'; // Gear emoji as an icon
     settingsButton.setAttribute('aria-label', 'Toggle settings');
     settingsButton.addEventListener('click', toggleHeaderControls);
     const headerControls = document.querySelector('.header-controls');
-    if (headerControls.classList.contains('visible')) {
-        settingsButton.classList.add('active');
-    }
 
     toggleContainer.appendChild(settingsButton);
     navigationControls.appendChild(toggleContainer);
+
+    const todayButton = document.createElement('button');
+    todayButton.className = 'today-button';
+    todayButton.title = getTranslation('today');
+    todayButton.setAttribute('aria-label', 'Today');
+    todayButton.addEventListener('click', scrollToCurrentDay);
+    todayButton.textContent = getTranslation('today');
+
+    navigationControls.appendChild(todayButton);
 
     // Add hiliada selector
     const hiliadaSelector = createSelector('hiliada-selector', getTranslation('hiliada'));
@@ -97,7 +102,7 @@ function createSelector(id, labelText) {
 // Initialise the calendar with the TUT foundation date
 function initialiseCalendar() {
     // Start from TUT foundation date (March 1, 1996)
-    const startDate = new Date(TUT_FOUNDATION_DATE);
+    const startDate = TUT_FOUNDATION_DATE;
 
     // Calculate current hiliada, gekatontada, and decada
     const today = new Date();
@@ -287,9 +292,7 @@ function displaySelectedDate(date) {
 
     if (holidayData) {
         hiliadaHtml = `
-            <div class="holiday-info">
-                <div class="holiday-description">${holidayData.description}</div>
-            </div>
+            <div class="holiday-description">${holidayData.description}</div>
         `;
     }
 
@@ -299,7 +302,9 @@ function displaySelectedDate(date) {
             <div class="selected-date-common">${commonFormat}</div>
             <div class="selected-date-tut">${tutFormat}</div>
         </div>
-        ${hiliadaHtml}
+        <div class="holiday-info">
+            ${hiliadaHtml}
+        </div>
     `;
 }
 
@@ -385,6 +390,59 @@ function scrollToCurrentDecada() {
             }
         }
     }, 100); // Short delay to ensure DOM is rendered
+}
+
+function scrollToCurrentDay() {
+    // Calculate current hiliada, gekatontada, and decada
+    const startDate = new Date(TUT_FOUNDATION_DATE);
+    const today = new Date();
+    const daysSinceStart = Math.floor((today - startDate) / ONE_DAY);
+
+    // Calculate hiliada, gekatontada, decada based on days since start
+    const currentHiliada = Math.floor(daysSinceStart / 1000) + 1;
+    const currentGekatontada = Math.floor((daysSinceStart % 1000) / 100) + 1;
+    const currentDecada = Math.floor((daysSinceStart % 100) / 10) + 1;
+
+    // Update the selectors to the current values
+    const hiliadaSelector = document.getElementById('hiliada-selector');
+    const gekatontadaSelector = document.getElementById('gekatontada-selector');
+
+    hiliadaSelector.value = currentHiliada;
+    gekatontadaSelector.value = currentGekatontada;
+
+    // Trigger change event to update the calendar
+    const changeEvent = new Event('change');
+    hiliadaSelector.dispatchEvent(changeEvent);
+
+    // After a short delay to ensure the calendar is updated
+    setTimeout(() => {
+        // Find the current gekatontada element
+        const currentGekatontadaElement = document.querySelector('.gekatontada');
+        if (currentGekatontadaElement) {
+            // Scroll to the current gekatontada
+            currentGekatontadaElement.scrollIntoView({behavior: 'instant', block: 'start'});
+
+            // After a short delay to ensure gekatontada is scrolled
+            setTimeout(() => {
+                // Find the current decada element
+                const currentDecadaElement = document.querySelector('.decada-item.selected');
+                if (currentDecadaElement) {
+                    // Scroll to the current decada
+                    currentDecadaElement.scrollIntoView({behavior: 'instant', block: 'center'});
+
+                    // After a short delay to ensure decada is scrolled
+                    setTimeout(() => {
+                        // Find today's day block
+                        const todayBlock = document.querySelector('.day-block.today');
+                        if (todayBlock) {
+                            // Scroll to today's day block
+                            todayBlock.scrollIntoView({behavior: 'instant', block: 'center'});
+                        }
+                    }, 300);
+                }
+            }, 300);
+        }
+    }, 100);
 }
 
 // Language selector functionality
@@ -511,7 +569,17 @@ function toggleHeaderControls() {
     const toggleButton = document.querySelector('.header-toggle');
 
     headerControls.classList.toggle('visible');
-    toggleButton.classList.toggle('active');
+
+    // Only add the active class temporarily for visual feedback
+    if (!headerControls.classList.contains('visible')) {
+        toggleButton.classList.remove('active');
+    } else {
+        toggleButton.classList.add('active');
+        // Remove the active class after a short delay
+        setTimeout(() => {
+            toggleButton.classList.remove('active');
+        }, 300);
+    }
 }
 
 // Add a window resize event listener to handle scrolling when switching between desktop and mobile view
