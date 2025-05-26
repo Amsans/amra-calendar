@@ -943,6 +943,10 @@ input:not(:checked) + .slider .sun {
         gap: 1px;
     }
 
+    .decadas-grid {
+        padding-bottom: 120px;
+    }
+
     .decada-item {
         flex-direction: column;
         align-items: flex-start;
