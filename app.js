@@ -18,6 +18,14 @@ function generateCalendar(rootEl) {
     const buttonsContainer = document.createElement('div');
     buttonsContainer.className = 'buttons-container';
 
+    // Create the Search link
+    const searchLinkContainer = document.createElement('div');
+    searchLinkContainer.className = 'search-link-container';
+
+    const searchLink = createSearchLink();
+    searchLinkContainer.appendChild(searchLink);
+    buttonsContainer.appendChild(searchLinkContainer);
+
     const settingsButton = createSettingsButton();
     toggleContainer.appendChild(settingsButton);
     buttonsContainer.appendChild(toggleContainer);
@@ -74,6 +82,17 @@ function createTodayButton() {
     todayButton.addEventListener('click', scrollToCurrentDay);
     todayButton.textContent = getTranslation('today');
     return todayButton;
+}
+
+function createSearchLink() {
+    const searchLink = document.createElement('a');
+    const search = getTranslation('search');
+    searchLink.className = 'search-link';
+    searchLink.title = search;
+    searchLink.href = 'https://search.amra.live';
+    searchLink.setAttribute('aria-label', search);
+    searchLink.textContent = search;
+    return searchLink;
 }
 
 function createSelector(id, labelText) {
