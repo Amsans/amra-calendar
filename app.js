@@ -528,34 +528,57 @@ function initLanguageSelector() {
 
 // Theme switcher functionality
 function initThemeSwitch() {
-    const toggleSwitch = document.querySelector('#checkbox');
+    const themeToggle = document.querySelector('#theme-toggle');
     const currentTheme = localStorage.getItem('theme') || 'dark';
 
-    // Set the initial theme from localStorage or system preference
-    if (currentTheme === 'dark' || (currentTheme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-        document.documentElement.classList.add('dark-theme');
-        toggleSwitch.checked = true;
+    // Function to update the emoji based on the current theme
+    function updateThemeIcon(isDark) {
+        themeToggle.textContent = isDark ? '☀️' : '🌙';
+        themeToggle.setAttribute('aria-label', isDark ? 'Switch to light mode' : 'Switch to dark mode');
     }
 
-    // Listen for a toggle switch change
-    toggleSwitch.addEventListener('change', function () {
-        if (this.checked) {
-            document.documentElement.classList.add('dark-theme');
-            localStorage.setItem('theme', 'dark');
-        } else {
+    // Set the initial theme from localStorage or system preference
+    const isDarkTheme = currentTheme === 'dark' || 
+                        (currentTheme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+
+    if (isDarkTheme) {
+        document.documentElement.classList.add('dark-theme');
+    }
+
+    // Update the initial emoji
+    updateThemeIcon(isDarkTheme);
+
+    // Listen for a theme toggle click
+    themeToggle.addEventListener('click', function () {
+        const isDarkTheme = document.documentElement.classList.contains('dark-theme');
+
+        if (isDarkTheme) {
+            // Switch to light theme
             document.documentElement.classList.remove('dark-theme');
             localStorage.setItem('theme', 'light');
+        } else {
+            // Switch to dark theme
+            document.documentElement.classList.add('dark-theme');
+            localStorage.setItem('theme', 'dark');
         }
+
+        // Update the emoji after theme change
+        updateThemeIcon(!isDarkTheme);
     });
 
     // Listen for system theme changes if set to auto
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
         if (localStorage.getItem('theme') === 'auto') {
-            if (e.matches) {
+            const isDarkTheme = e.matches;
+
+            if (isDarkTheme) {
                 document.documentElement.classList.add('dark-theme');
             } else {
                 document.documentElement.classList.remove('dark-theme');
             }
+
+            // Update the emoji after system theme change
+            updateThemeIcon(isDarkTheme);
         }
     });
 }
