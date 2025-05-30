@@ -118,7 +118,7 @@ h1 {
 .header-controls {
     display: flex;
     position: absolute;
-    left: 13%;
+    left: 8%;
     top: -100px; /* Initially positioned off-screen */
     z-index: 1;
     transition: top 0.3s ease-in-out;
@@ -270,7 +270,7 @@ input:not(:checked) + .number-format-slider .roman {
     .header-controls {
         justify-content: end;
         position: absolute;
-        left: 27%;
+        left: 13%;
         padding: 10px;
     }
 
@@ -288,6 +288,11 @@ input:not(:checked) + .number-format-slider .roman {
     }
 }
 
+.navigation-container {
+    display: flex;
+    flex-direction: row;
+}
+
 .buttons-container {
     display: flex;
     flex-direction: row;
@@ -301,9 +306,9 @@ input:not(:checked) + .number-format-slider .roman {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: space-around;
     flex-shrink: 0;
-    width: 80%;
+    width: 70%;
 }
 
 .toggle-container {
@@ -402,7 +407,10 @@ input:not(:checked) + .number-format-slider .roman {
 
 /* Search link styling */
 .search-link-container {
-    padding-top: 6px;
+    width: 100%;
+    background-color: var(--bg2-container);
+    display: flex;
+    justify-content: start;
 }
 
 .search-link {
@@ -445,13 +453,20 @@ input:not(:checked) + .number-format-slider .roman {
     position: relative; /* Add position relative for absolute positioning of children */
 }
 
-.calendar-navigation {
+.top-menu {
     display: flex;
-    justify-content: space-between;
-    padding: 15px;
+    flex-direction: column;
+    padding: 0;
     background-color: var(--bg2-container);
     border-bottom: 1px solid var(--border-color);
     flex-shrink: 0; /* Prevent shrinking */
+}
+
+.top-menu .buttons-container,
+.top-menu .selectors-container {
+    display: flex;
+    padding-left: 5px;
+    padding-bottom: 15px;
 }
 
 .selector-container {
@@ -812,7 +827,7 @@ input:not(:checked) + .number-format-slider .roman {
 
     .selector-container label {
         font-size: 16px;
-        /*margin-right: 10px;*/
+        margin-left: 10px;
         /*min-width: 70px;*/
     }
 
@@ -831,11 +846,11 @@ input:not(:checked) + .number-format-slider .roman {
 
 @media (max-width: 480px) {
     .header-controls {
-        left: 13%;
+        left: 15%;
     }
 
     .header-controls.visible {
-        top: 90px;
+        top: 60px;
     }
 
     .today-button, .search-link {
@@ -859,11 +874,7 @@ input:not(:checked) + .number-format-slider .roman {
         font-size: 16px;
     }
 
-    .calendar-navigation {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        padding: 10px;
+    .top-menu {
         gap: 1px;
     }
 
@@ -924,14 +935,10 @@ input:not(:checked) + .number-format-slider .roman {
     }
 
     .header-controls.visible {
-        top: 65px;
+        top: 100px;
     }
 
-    .calendar-navigation {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        padding: 10px;
+    .top-menu {
         gap: 1px;
     }
 

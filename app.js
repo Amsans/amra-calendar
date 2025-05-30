@@ -9,7 +9,7 @@ function generateCalendar(rootEl) {
     calendarContainer.className = 'calendar-container';
 
     const calendarNavigation = document.createElement('div');
-    calendarNavigation.className = 'calendar-navigation';
+    calendarNavigation.className = 'top-menu';
 
     // Create the settings button
     const toggleContainer = document.createElement('div');
@@ -18,13 +18,12 @@ function generateCalendar(rootEl) {
     const buttonsContainer = document.createElement('div');
     buttonsContainer.className = 'buttons-container';
 
-    // Create the Search link
+    // Create the Search link in a separate div above other divs
     const searchLinkContainer = document.createElement('div');
     searchLinkContainer.className = 'search-link-container';
 
     const searchLink = createSearchLink();
     searchLinkContainer.appendChild(searchLink);
-    buttonsContainer.appendChild(searchLinkContainer);
 
     const settingsButton = createSettingsButton();
     toggleContainer.appendChild(settingsButton);
@@ -48,8 +47,12 @@ function generateCalendar(rootEl) {
     selectorsContainer.appendChild(hiliadaSelector);
     selectorsContainer.appendChild(gekatontadaSelector);
 
-    calendarNavigation.appendChild(buttonsContainer);
-    calendarNavigation.appendChild(selectorsContainer);
+    calendarNavigation.appendChild(searchLinkContainer);
+    const navigationContainer = document.createElement('div');
+    navigationContainer.className = 'navigation-container';
+    navigationContainer.appendChild(buttonsContainer);
+    navigationContainer.appendChild(selectorsContainer);
+    calendarNavigation.appendChild(navigationContainer);
 
     calendarContainer.appendChild(calendarNavigation);
 
@@ -354,6 +357,9 @@ function displaySelectedDate(date) {
     }
     if (weekday.length > 0) {
         weekday = weekday.charAt(0).toUpperCase() + weekday.slice(1);
+    }
+    if (restOfDate.endsWith(' г.')) {
+        restOfDate = restOfDate.slice(0, -2);
     }
 
 
