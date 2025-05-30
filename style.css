@@ -118,7 +118,7 @@ h1 {
 .header-controls {
     display: flex;
     position: absolute;
-    left: 13%;
+    left: 8%;
     top: -100px; /* Initially positioned off-screen */
     z-index: 1;
     transition: top 0.3s ease-in-out;
@@ -249,83 +249,28 @@ input:not(:checked) + .number-format-slider .roman {
     margin-left: 10px;
 }
 
-.theme-switch {
-    display: inline-block;
-    height: 28px;
-    position: relative;
-    width: 56px;
-}
-
-.theme-switch input {
-    display: none;
-}
-
-.slider {
-    background-color: var(--bg2-container);
-    bottom: 0;
+.theme-icon {
+    font-size: 20px;
     cursor: pointer;
-    left: 0;
-    position: absolute;
-    right: 0;
-    top: 0;
-    transition: .3s ease-in-out;
+    transition: transform 0.3s ease, opacity 0.3s ease;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 0 6px;
-    box-shadow: inset 0 1px 3px var(--shadow-md);
-    border: 1px solid var(--border-color);
-}
-
-.slider:before {
-    background-color: var(--bg-container);
-    bottom: 3px;
-    content: "";
-    height: 20px;
-    left: 3px;
-    position: absolute;
-    transition: .3s ease-in-out;
-    width: 20px;
-    z-index: 1;
-    box-shadow: 0 1px 3px var(--shadow-md);
-}
-
-input:checked + .slider {
-    background-color: var(--accent-color);
-}
-
-input:checked + .slider:before {
-    transform: translateX(28px);
-}
-
-.slider.round {
-    border-radius: 34px;
-}
-
-.slider.round:before {
+    justify-content: center;
+    padding: 5px;
     border-radius: 50%;
+    background-color: var(--bg2-container);
 }
 
-.sun, .moon {
-    font-size: 14px;
-    z-index: 0;
-    opacity: 0.7;
-    transition: opacity 0.3s ease;
-}
-
-input:checked + .slider .moon {
-    opacity: 1;
-}
-
-input:not(:checked) + .slider .sun {
-    opacity: 1;
+.theme-icon:hover {
+    transform: scale(1.1);
+    opacity: 0.9;
 }
 
 @media (max-width: 768px) {
     .header-controls {
         justify-content: end;
         position: absolute;
-        left: 27%;
+        left: 13%;
         padding: 10px;
     }
 
@@ -343,6 +288,11 @@ input:not(:checked) + .slider .sun {
     }
 }
 
+.navigation-container {
+    display: flex;
+    flex-direction: row;
+}
+
 .buttons-container {
     display: flex;
     flex-direction: row;
@@ -356,9 +306,9 @@ input:not(:checked) + .slider .sun {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: space-around;
     flex-shrink: 0;
-    width: 80%;
+    width: 70%;
 }
 
 .toggle-container {
@@ -457,7 +407,10 @@ input:not(:checked) + .slider .sun {
 
 /* Search link styling */
 .search-link-container {
-    padding-top: 6px;
+    width: 100%;
+    background-color: var(--bg2-container);
+    display: flex;
+    justify-content: start;
 }
 
 .search-link {
@@ -470,7 +423,6 @@ input:not(:checked) + .slider .sun {
     align-items: center;
     justify-content: center;
     font-weight: 500;
-    text-decoration: underline;
 }
 
 .search-link:hover {
@@ -479,7 +431,6 @@ input:not(:checked) + .slider .sun {
 
 .search-link:focus {
     outline: none;
-    text-decoration: underline;
 }
 
 .search-link:active {
@@ -502,13 +453,20 @@ input:not(:checked) + .slider .sun {
     position: relative; /* Add position relative for absolute positioning of children */
 }
 
-.calendar-navigation {
+.top-menu {
     display: flex;
-    justify-content: space-between;
-    padding: 15px;
+    flex-direction: column;
+    padding: 0;
     background-color: var(--bg2-container);
     border-bottom: 1px solid var(--border-color);
     flex-shrink: 0; /* Prevent shrinking */
+}
+
+.top-menu .buttons-container,
+.top-menu .selectors-container {
+    display: flex;
+    padding-left: 5px;
+    padding-bottom: 15px;
 }
 
 .selector-container {
@@ -869,7 +827,7 @@ input:not(:checked) + .slider .sun {
 
     .selector-container label {
         font-size: 16px;
-        /*margin-right: 10px;*/
+        margin-left: 10px;
         /*min-width: 70px;*/
     }
 
@@ -888,11 +846,11 @@ input:not(:checked) + .slider .sun {
 
 @media (max-width: 480px) {
     .header-controls {
-        left: 13%;
+        left: 15%;
     }
 
     .header-controls.visible {
-        top: 90px;
+        top: 60px;
     }
 
     .today-button, .search-link {
@@ -916,11 +874,7 @@ input:not(:checked) + .slider .sun {
         font-size: 16px;
     }
 
-    .calendar-navigation {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        padding: 10px;
+    .top-menu {
         gap: 1px;
     }
 
@@ -981,14 +935,10 @@ input:not(:checked) + .slider .sun {
     }
 
     .header-controls.visible {
-        top: 65px;
+        top: 100px;
     }
 
-    .calendar-navigation {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        padding: 10px;
+    .top-menu {
         gap: 1px;
     }
 
