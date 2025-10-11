@@ -19,11 +19,11 @@ function generateCalendar(rootEl) {
     buttonsContainer.className = 'buttons-container';
 
     // Create the Search link in a separate div above other divs
-    const searchLinkContainer = document.createElement('div');
-    searchLinkContainer.className = 'search-link-container';
+    const mainLinkContainer = document.createElement('div');
+    mainLinkContainer.className = 'main-link-container';
 
-    const searchLink = createSearchLink();
-    searchLinkContainer.appendChild(searchLink);
+    const mainLink = createMainLink();
+    mainLinkContainer.appendChild(mainLink);
 
     const settingsButton = createSettingsButton();
     toggleContainer.appendChild(settingsButton);
@@ -47,7 +47,7 @@ function generateCalendar(rootEl) {
     selectorsContainer.appendChild(hiliadaSelector);
     selectorsContainer.appendChild(gekatontadaSelector);
 
-    calendarNavigation.appendChild(searchLinkContainer);
+    calendarNavigation.appendChild(mainLinkContainer);
     const navigationContainer = document.createElement('div');
     navigationContainer.className = 'navigation-container';
     navigationContainer.appendChild(buttonsContainer);
@@ -87,15 +87,15 @@ function createTodayButton() {
     return todayButton;
 }
 
-function createSearchLink() {
-    const searchLink = document.createElement('a');
-    const search = getTranslation('search');
-    searchLink.className = 'search-link';
-    searchLink.title = search;
-    searchLink.href = 'https://search.amra.live';
-    searchLink.setAttribute('aria-label', search);
-    searchLink.textContent = search;
-    return searchLink;
+function createMainLink() {
+    const mainLink = document.createElement('a');
+    const main = getTranslation('main');
+    mainLink.className = 'main-link';
+    mainLink.title = main;
+    mainLink.href = 'https://eosfor.amra.live';
+    mainLink.setAttribute('aria-label', main);
+    mainLink.textContent = main;
+    return mainLink;
 }
 
 function createSelector(id, labelText) {

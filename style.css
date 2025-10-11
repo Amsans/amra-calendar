@@ -406,14 +406,14 @@ input:not(:checked) + .number-format-slider .roman {
 }
 
 /* Search link styling */
-.search-link-container {
+.main-link-container {
     width: 100%;
     background-color: var(--bg2-container);
     display: flex;
     justify-content: start;
 }
 
-.search-link {
+.main-link {
     color: var(--accent-color);
     cursor: pointer;
     font-size: 16px;
@@ -425,15 +425,15 @@ input:not(:checked) + .number-format-slider .roman {
     font-weight: 500;
 }
 
-.search-link:hover {
+.main-link:hover {
     color: var(--text-heading);
 }
 
-.search-link:focus {
+.main-link:focus {
     outline: none;
 }
 
-.search-link:active {
+.main-link:active {
     color: var(--text-main);
 }
 
@@ -853,7 +853,7 @@ input:not(:checked) + .number-format-slider .roman {
         top: 60px;
     }
 
-    .today-button, .search-link {
+    .today-button, .main-link {
         font-size: 14px;
     }
 
