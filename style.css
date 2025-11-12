@@ -740,6 +740,24 @@ input:not(:checked) + .number-format-slider .roman {
     margin-right: 10px;
 }
 
+/* Multiple holidays stacked */
+.holiday-list {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+}
+
+.holiday-description {
+    padding: 4px 8px;
+    border-left: 3px solid gold;
+    border-radius: 4px;
+    background: transparent;
+    color: var(--text-heading);
+    text-align: left;
+    line-height: 1.4;
+}
+
 .selected-date-common {
     font-size: 15px;
     margin-bottom: 6px;
