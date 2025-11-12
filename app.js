@@ -250,7 +250,8 @@ function displayDecadas(hiliada, gekatontada, selectedDecada) {
                 dayElement.classList.add('selected');
             }
 
-            if (isHoliday(dayDate)) {
+            const holidaysForDay = isHoliday(dayDate);
+            if (holidaysForDay && holidaysForDay.length > 0) {
                 dayElement.classList.add('holiday');
             }
 
@@ -325,12 +326,13 @@ function displaySelectedDate(date) {
     // Use the appropriate number format based on user preference
     let tutFormat = getCurrentNumberFormat() === 'roman' ? convertToTUT(date) : dateToArabic(convertToTUT(date));
 
-    const holidayData = isHoliday(date);
+    const holidays = isHoliday(date) || [];
     let hiliadaHtml = '';
 
-    if (holidayData) {
+    if (holidays.length > 0) {
+        const items = holidays.map(h => `<div class="holiday-description">${h.description}</div>`).join('');
         hiliadaHtml = `
-            <div class="holiday-description">${holidayData.description}</div>
+            <div class="holiday-list">${items}</div>
         `;
     }
 

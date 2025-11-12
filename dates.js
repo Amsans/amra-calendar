@@ -18,19 +18,21 @@ const MEMORABLE_DATES = [
 /**
  * Checks if a given date is a memorable date or the first/last day of a hiliada
  * @param {Date} date - The date to check
- * @returns {Object|null} - Object with holiday info, or null if not a holiday
+ * @returns {Array<Object>} - Array of holiday info objects (empty if none)
  */
 function isHoliday(date) {
     const lang = getCurrentLanguage();
-    // Check if it's a memorable date
+    const results = [];
+
+    // Check if it's a memorable date (could be multiple on the same day)
     for (const memorableDate of MEMORABLE_DATES) {
         if (date.getMonth() === memorableDate.date.getMonth()
             && date.getDate() === memorableDate.date.getDate()
             && date.getFullYear() >= memorableDate.date.getFullYear()) {
-            return {
+            results.push({
                 memorableDate: memorableDate.date,
                 description: getTranslation(memorableDate.descriptionKey, lang),
-            };
+            });
         }
     }
 
@@ -44,17 +46,18 @@ function isHoliday(date) {
 
     if (gekatontada === 1 && decada === 1 && day === 1) {
         // First day of hiliada: gekatontada=1, decada=1, day=1
-        return {
+        results.push({
             memorableDate: date,
             description: getTranslation('hiliada_first', lang),
-        };
-    } else if (gekatontada === 10 && decada === 10 && day === 10) {
+        });
+    }
+    if (gekatontada === 10 && decada === 10 && day === 10) {
         // Last day of hiliada: gekatontada=10, decada=10, day=10
-        return {
+        results.push({
             memorableDate: date,
             description: getTranslation('hiliada_last', lang),
-        };
+        });
     }
 
-    return null;
+    return results;
 }
