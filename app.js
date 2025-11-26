@@ -137,13 +137,12 @@ function createSelector(id, labelText) {
     return selectorContainer;
 }
 
-// Initialise the calendar with the TUT foundation date
-function initialiseCalendar() {
+function getCurrentDateParts() {
     // Start from TUT foundation date (March 1, 1996)
     const startDate = TUT_FOUNDATION_DATE;
 
     // Calculate current hiliada, gekatontada, and decada
-    const today = new Date();
+    const today = new Date(new Date().toDateString());
     const daysSinceStart = Math.floor((today - startDate) / ONE_DAY);
 
     // Calculate hiliada, gekatontada, decada based on days since start
@@ -153,6 +152,12 @@ function initialiseCalendar() {
     const currentHiliada = Math.floor(daysSinceStart / 1000) + 1;
     const currentGekatontada = Math.floor((daysSinceStart % 1000) / 100) + 1;
     const currentDecada = Math.floor((daysSinceStart % 100) / 10) + 1;
+    return {today, currentHiliada, currentGekatontada, currentDecada};
+}
+
+// Initialise the calendar with the TUT foundation date
+function initialiseCalendar() {
+    const {today, currentHiliada, currentGekatontada, currentDecada} = getCurrentDateParts();
 
     // Populate hiliada selector (show a reasonable range, e.g. 20 hiliadas)
     populateSelector('hiliada-selector', 1, 20, currentHiliada);
@@ -164,7 +169,7 @@ function initialiseCalendar() {
     displayDecadas(currentHiliada, currentGekatontada, currentDecada);
 
     // Scroll to current decada/day in mobile or zoomed view
-    scrollToCurrentDecada();
+    scrollToCurrentDecada(currentDecada);
 
     // Add event listeners to selectors
     document.getElementById('hiliada-selector').addEventListener('change', handleSelectorChange);
@@ -405,9 +410,14 @@ function calculateDayDate(hiliada, gekatontada, decada, day) {
 }
 
 // Handle selector change events
-function handleSelectorChange() {
+function handleSelectorChange(event) {
     const hiliada = parseInt(document.getElementById('hiliada-selector').value);
     const gekatontada = parseInt(document.getElementById('gekatontada-selector').value);
+
+    if (event.detail && event.detail.omitDecada) {
+        // CustomEvent dispatched - do not scroll to the first decada
+        return;
+    }
 
     // Default to decada 1 when changing hiliada or gekatontada
     displayDecadas(hiliada, gekatontada, 1);
@@ -416,7 +426,7 @@ function handleSelectorChange() {
     const decadaDate = calculateDecadaDate(hiliada, gekatontada, 1);
     displaySelectedDate(decadaDate);
 
-    scrollToCurrentDecada();
+    scrollToCurrentDecada(1);
 }
 
 // Handle selector control button click
@@ -446,33 +456,28 @@ function handleSelectorControlClick(event) {
     selector.dispatchEvent(changeEvent);
 }
 
-function scrollToCurrentDecada() {
+function scrollToCurrentDecada(decadaNum) {
     setTimeout(() => {
-        const selectedDecada = document.querySelector('.decada-item.selected');
-        if (selectedDecada) {
-            selectedDecada.scrollIntoView({alignToTop: true, behavior: 'smooth', block: 'center'});
-
-            // Find today's day block if it exists
-            const todayBlock = document.querySelector('.day-block.today');
-            if (todayBlock) {
-                // Scroll to today's day block after a short delay to ensure decada is scrolled first
-                setTimeout(() => {
-                    todayBlock.scrollIntoView({behavior: 'smooth', block: 'center'});
-                }, 300);
+        if (decadaNum) {
+            const decadasGrid = document.querySelector('.decadas-grid');
+            const selectedDecada = decadasGrid.children[decadaNum - 1]
+            if (selectedDecada) {
+                selectedDecada.scrollIntoView({alignToTop: true, behavior: 'smooth', block: 'center'});
             }
+        }
+        // Find today's day block if it exists
+        const todayBlock = document.querySelector('.day-block.today');
+        if (todayBlock) {
+            // Scroll to today's day block after a short delay to ensure decada is scrolled first
+            setTimeout(() => {
+                todayBlock.scrollIntoView({behavior: 'smooth', block: 'center'});
+            }, 300);
         }
     }, 100); // Short delay to ensure DOM is rendered
 }
 
 function scrollToCurrentDay() {
-    // Calculate current hiliada, gekatontada, and decada
-    const startDate = new Date(TUT_FOUNDATION_DATE);
-    const today = new Date();
-    const daysSinceStart = Math.floor((today - startDate) / ONE_DAY);
-
-    // Calculate hiliada, gekatontada, decada based on days since start
-    const currentHiliada = Math.floor(daysSinceStart / 1000) + 1;
-    const currentGekatontada = Math.floor((daysSinceStart % 1000) / 100) + 1;
+    const {today, currentHiliada, currentGekatontada, currentDecada} = getCurrentDateParts();
 
     // Update the selectors to the current values
     const hiliadaSelector = document.getElementById('hiliada-selector');
@@ -482,13 +487,13 @@ function scrollToCurrentDay() {
     gekatontadaSelector.value = currentGekatontada;
 
     // Trigger change event to update the calendar
-    const changeEvent = new Event('change');
+    const changeEvent = new CustomEvent('change', {detail: {omitDecada: true}});
     hiliadaSelector.dispatchEvent(changeEvent);
 
     // After a short delay to ensure the calendar is updated
     setTimeout(() => {
         // Find the current gekatontada element
-        const currentGekatontadaElement = document.querySelector('.gekatontada');
+        const currentGekatontadaElement = document.querySelector('#gekatontada-selector');
         if (currentGekatontadaElement) {
             // Scroll to the current gekatontada
             currentGekatontadaElement.scrollIntoView({behavior: 'instant', block: 'start'});
@@ -496,10 +501,13 @@ function scrollToCurrentDay() {
             // After a short delay to ensure gekatontada is scrolled
             setTimeout(() => {
                 // Find the current decada element
-                const currentDecadaElement = document.querySelector('.decada-item.selected');
+                const decadasGrid = document.querySelector('.decadas-grid');
+                const currentDecadaElement = decadasGrid.children[currentDecada - 1];
                 if (currentDecadaElement) {
                     // Scroll to the current decada
                     currentDecadaElement.scrollIntoView({behavior: 'instant', block: 'center'});
+
+                    displayDecadas(currentHiliada, currentGekatontada, currentDecada);
 
                     // After a short delay to ensure decada is scrolled
                     setTimeout(() => {
@@ -514,6 +522,8 @@ function scrollToCurrentDay() {
             }, 300);
         }
     }, 100);
+
+    displaySelectedDate(today);
 }
 
 // Language selector functionality
@@ -546,8 +556,8 @@ function initThemeSwitch() {
     }
 
     // Set the initial theme from localStorage or system preference
-    const isDarkTheme = currentTheme === 'dark' || 
-                        (currentTheme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    const isDarkTheme = currentTheme === 'dark' ||
+        (currentTheme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches);
 
     if (isDarkTheme) {
         document.documentElement.classList.add('dark-theme');
@@ -676,7 +686,7 @@ window.addEventListener('resize', () => {
     // Debounce the resize event to avoid excessive function calls
     clearTimeout(window.resizeTimer);
     window.resizeTimer = setTimeout(() => {
-        scrollToCurrentDecada();
+        scrollToCurrentDecada(null);
     }, 250);
 });
 
