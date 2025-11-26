@@ -92,7 +92,7 @@ function createMainLink() {
     const main = getTranslation('main');
     mainLink.className = 'main-link';
     mainLink.title = main;
-    mainLink.href = 'https://eosfor.amra.live';
+    mainLink.href = 'https://amra.live';
     mainLink.setAttribute('aria-label', main);
     mainLink.textContent = main;
     return mainLink;
