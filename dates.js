@@ -15,6 +15,20 @@ const MEMORABLE_DATES = [
     {date: new Date(2020, 5, 10), descriptionKey: "declaration"},
 ];
 
+// Each last day of gekatontada has its own holiday
+const GEKATONTADA_DATES = {
+    1 : "creator_day",
+    2 : "truth_day",
+    3 : "warrior_day",
+    4 : "lovers_day",
+    5 : "came_day",
+    6 : "gone_day",
+    7 : "source_day",
+    8 : "mankind_day",
+    9 : "eternal_people_day",
+    10 : "teaching_day",
+}
+
 /**
  * Checks if a given date is a memorable date or the first/last day of a hiliada
  * @param {Date} date - The date to check
@@ -44,6 +58,7 @@ function isHoliday(date) {
     const decada = parseInt(dateParts[2]);
     const day = parseInt(dateParts[3]);
 
+    // Hiliada first day
     if (gekatontada === 1 && decada === 1 && day === 1) {
         // First day of hiliada: gekatontada=1, decada=1, day=1
         results.push({
@@ -51,12 +66,20 @@ function isHoliday(date) {
             description: getTranslation('hiliada_first', lang),
         });
     }
+    // Hiliada last day
     if (gekatontada === 10 && decada === 10 && day === 10) {
         // Last day of hiliada: gekatontada=10, decada=10, day=10
         results.push({
             memorableDate: date,
             description: getTranslation('hiliada_last', lang),
         });
+    }
+    // Last gekatontada day
+    if (decada === 10 && day === 10) {
+        results.push({
+            memorableDate: date,
+            description: getTranslation(GEKATONTADA_DATES[gekatontada], lang),
+        })
     }
 
     return results;

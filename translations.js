@@ -20,6 +20,16 @@ const translations = {
         cosmonautics: "Cosmonautics Day. The day when the first human spaceflight was accomplished.",
         hiliada_first: "First day of the hiliada",
         hiliada_last: "Last day of the hiliada",
+        creator_day: "Creator’s Day",
+        truth_day: "Day of Truth",
+        warrior_day: "Warrior’s Day",
+        lovers_day: "Day of Lovers",
+        came_day: "Day of Those Who Came",
+        gone_day: "Day of Those Who Are Gone",
+        source_day: "Day of the Source",
+        mankind_day: "Day of Mankind",
+        eternal_people_day: "Day of the Eternal People",
+        teaching_day: "Day of the Teaching"
     },
     ru: {
         title: 'Календарь Учения Единого Храма',
@@ -41,6 +51,16 @@ const translations = {
         cosmonautics: "День космонавтики. День, когда был совершён первый полёт человека в космос.",
         hiliada_first: "Первый день хилиады",
         hiliada_last: "Последний день хилиады",
+        creator_day: "День Творца",
+        truth_day: "День Истины",
+        warrior_day: "День воина",
+        lovers_day: "День любящих",
+        came_day: "День пришедших",
+        gone_day: "День ушедших",
+        source_day: "День истока",
+        mankind_day: "День человечества",
+        eternal_people_day: "День Вечного Народа",
+        teaching_day: "День Учения"
     },
     de: {
         title: 'Kalender der Lehre des Vereinigten Tempels',
@@ -62,6 +82,16 @@ const translations = {
         cosmonautics: "Tag der Kosmonauten. Der tag, an dem der erste bemannte raumflug stattfand.",
         hiliada_first: "Erster Tag der hiliada",
         hiliada_last: "Letzter Tag der hiliada",
+        creator_day: "Tag des Schöpfers",
+        truth_day: "Tag der Wahrheit",
+        warrior_day: "Tag des Kriegers",
+        lovers_day: "Tag der Liebenden",
+        arrived_day: "Tag der Gekommenen",
+        gone_day: "Tag der Gegangenen",
+        source_day: "Tag des Ursprungs",
+        mankind_day: "Tag der Menschheit",
+        eternal_people_day: "Tag des Ewigen Volkes",
+        teaching_day: "Tag der Lehre"
     },
     be: {
         title: 'Каляндар Вучэння Адзінага Храма',
@@ -83,6 +113,16 @@ const translations = {
         cosmonautics: "Дзень касманаўтыкі. Дзень, калі быў выкананы першы палёт чалавека ў космас.",
         hiliada_first: "Першы дзень хіліяды",
         hiliada_last: "Апошні дзень хіліяды",
+        creator_day: "Дзень Творцы",
+        truth_day: "Дзень Ісціны",
+        warrior_day: "Дзень воіна",
+        lovers_day: "Дзень любячых",
+        came_day: "Дзень прыйшоўшых",
+        gone_day: "Дзень сыйшоўшых",
+        source_day: "Дзень вытока",
+        mankind_day: "Дзень чалавецтва",
+        eternal_people_day: "Дзень Вечнага Народа",
+        teaching_day: "Дзень Вучэння"
     }
 };
 
